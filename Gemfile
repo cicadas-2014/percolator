@@ -47,3 +47,5 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 2.38.0'
   gem 'database_cleaner', '~> 1.2.0'
 end
+gem 'rails_12factor', group: :production
+gem 'simplecov', :require => false, :group => :test
