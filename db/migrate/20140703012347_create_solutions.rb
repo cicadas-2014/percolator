@@ -4,7 +4,7 @@ class CreateSolutions < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.belongs_to :user
-      t.belongs_to :idea
+      t.belongs_to :problem
 
       t.timestamps
     end
