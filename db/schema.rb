@@ -13,17 +13,20 @@
 
 ActiveRecord::Schema.define(version: 20140703012351) do
 
-  create_table "challengers", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "improvements", force: true do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
-    t.integer  "idea_id"
+    t.integer  "problem_id"
     t.integer  "solution_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ideas", force: true do |t|
+  create_table "problems", force: true do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140703012351) do
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
-    t.integer  "idea_id"
+    t.integer  "problem_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

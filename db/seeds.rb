@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-types = %w(user idea solution challenger)
+types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners lee)
 count = 0
 5.times do
@@ -14,15 +14,15 @@ count = 0
 end
 
 10.times do
-  Idea.create(user_id: rand(5) + 1)
+  Problem.create(user_id: rand(5) + 1)
 end
 
 20.times do
-  Solution.create(idea_id: rand(10) + 1, user_id: rand(5) + 1)
+  Solution.create(problem_id: rand(10) + 1, user_id: rand(5) + 1)
 end
 
 50.times do
-  Challenger.create(solution_id: rand(20) + 1, idea_id: rand(10) + 1, user_id: rand(5) + 1)
+  Improvement.create(solution_id: rand(20) + 1, problem_id: rand(10) + 1, user_id: rand(5) + 1)
 end
 
 100.times do
@@ -31,18 +31,18 @@ end
   when "user"
     type = "user"
     count = 5
-  when "idea"
-    type = "idea"
+  when "problem"
+    type = "problem"
     count = 10
   when "solution"
     type = "solution"
     count = 20
-  when "challenger"
-    type = "challenger"
+  when "improvement"
+    type = "improvement"
     count = 50
   end
 
-  Vote.create(voteable_type: type, voteable_id: rand(count) + 1)
+  Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1)
 end
 
 # latest transcript

@@ -5052,3 +5052,645 @@ Migrating to CreateChallengers (20140703012351)
   [1m[36mVote Load (0.3ms)[0m  [1mSELECT  "votes".* FROM "votes"   ORDER BY "votes"."id" ASC LIMIT 1[0m
   [1m[35mVote Load (0.3ms)[0m  SELECT  "votes".* FROM "votes"   ORDER BY "votes"."id" ASC LIMIT 1
   [1m[36mIdea Load (0.3ms)[0m  [1mSELECT  "ideas".* FROM "ideas"  WHERE "ideas"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[36mSolution Load (17.1ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1[0m
+PG::UndefinedTable: ERROR:  relation "solutions" does not exist
+LINE 1: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions...
+                                   ^
+: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140703011710)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.8ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255), "password_digest" character varying(255), "email" character varying(255), "reputation" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011710"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateIdeas (20140703011723)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "ideas" ("id" serial primary key, "title" character varying(255), "description" character varying(255), "user_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011723"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateVotes (20140703011737)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "voteable_id" integer, "voteable_type" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011737"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateSolutions (20140703012347)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "solutions" ("id" serial primary key, "title" character varying(255), "description" character varying(255), "user_id" integer, "idea_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703012347"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateChallengers (20140703012351)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "challengers" ("id" serial primary key, "title" character varying(255), "description" character varying(255), "user_id" integer, "idea_id" integer, "solution_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703012351"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.463754"], ["updated_at", "2014-07-03 17:34:55.463754"], ["username", "indigo"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.470495"], ["updated_at", "2014-07-03 17:34:55.470495"], ["username", "mario"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.472782"], ["updated_at", "2014-07-03 17:34:55.472782"], ["username", "simon"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.474504"], ["updated_at", "2014-07-03 17:34:55.474504"], ["username", "tim"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.476235"], ["updated_at", "2014-07-03 17:34:55.476235"], ["username", "berners"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.489859"], ["updated_at", "2014-07-03 17:34:55.489859"], ["user_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.493183"], ["updated_at", "2014-07-03 17:34:55.493183"], ["user_id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.495690"], ["updated_at", "2014-07-03 17:34:55.495690"], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.497617"], ["updated_at", "2014-07-03 17:34:55.497617"], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.499244"], ["updated_at", "2014-07-03 17:34:55.499244"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.500791"], ["updated_at", "2014-07-03 17:34:55.500791"], ["user_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.502398"], ["updated_at", "2014-07-03 17:34:55.502398"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.503908"], ["updated_at", "2014-07-03 17:34:55.503908"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.505313"], ["updated_at", "2014-07-03 17:34:55.505313"], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "ideas" ("created_at", "updated_at", "user_id") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.506752"], ["updated_at", "2014-07-03 17:34:55.506752"], ["user_id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.549646"], ["idea_id", 5], ["updated_at", "2014-07-03 17:34:55.549646"], ["user_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.553300"], ["idea_id", 8], ["updated_at", "2014-07-03 17:34:55.553300"], ["user_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.555144"], ["idea_id", 3], ["updated_at", "2014-07-03 17:34:55.555144"], ["user_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.556828"], ["idea_id", 10], ["updated_at", "2014-07-03 17:34:55.556828"], ["user_id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.558438"], ["idea_id", 1], ["updated_at", "2014-07-03 17:34:55.558438"], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.560017"], ["idea_id", 1], ["updated_at", "2014-07-03 17:34:55.560017"], ["user_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.561706"], ["idea_id", 2], ["updated_at", "2014-07-03 17:34:55.561706"], ["user_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.563345"], ["idea_id", 10], ["updated_at", "2014-07-03 17:34:55.563345"], ["user_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.564978"], ["idea_id", 9], ["updated_at", "2014-07-03 17:34:55.564978"], ["user_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.566593"], ["idea_id", 1], ["updated_at", "2014-07-03 17:34:55.566593"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.568119"], ["idea_id", 7], ["updated_at", "2014-07-03 17:34:55.568119"], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.569621"], ["idea_id", 7], ["updated_at", "2014-07-03 17:34:55.569621"], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.571041"], ["idea_id", 4], ["updated_at", "2014-07-03 17:34:55.571041"], ["user_id", 4]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.572776"], ["idea_id", 1], ["updated_at", "2014-07-03 17:34:55.572776"], ["user_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.574348"], ["idea_id", 3], ["updated_at", "2014-07-03 17:34:55.574348"], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.575804"], ["idea_id", 5], ["updated_at", "2014-07-03 17:34:55.575804"], ["user_id", 5]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.577201"], ["idea_id", 3], ["updated_at", "2014-07-03 17:34:55.577201"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.578619"], ["idea_id", 3], ["updated_at", "2014-07-03 17:34:55.578619"], ["user_id", 5]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.580021"], ["idea_id", 7], ["updated_at", "2014-07-03 17:34:55.580021"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "solutions" ("created_at", "idea_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.581397"], ["idea_id", 1], ["updated_at", "2014-07-03 17:34:55.581397"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.592556"], ["idea_id", 1], ["solution_id", 17], ["updated_at", "2014-07-03 17:34:55.592556"], ["user_id", 2]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.595632"], ["idea_id", 2], ["solution_id", 10], ["updated_at", "2014-07-03 17:34:55.595632"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.597326"], ["idea_id", 3], ["solution_id", 20], ["updated_at", "2014-07-03 17:34:55.597326"], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.598935"], ["idea_id", 7], ["solution_id", 9], ["updated_at", "2014-07-03 17:34:55.598935"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.600462"], ["idea_id", 1], ["solution_id", 5], ["updated_at", "2014-07-03 17:34:55.600462"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.601950"], ["idea_id", 4], ["solution_id", 6], ["updated_at", "2014-07-03 17:34:55.601950"], ["user_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.603492"], ["idea_id", 3], ["solution_id", 4], ["updated_at", "2014-07-03 17:34:55.603492"], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.605091"], ["idea_id", 4], ["solution_id", 14], ["updated_at", "2014-07-03 17:34:55.605091"], ["user_id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.606778"], ["idea_id", 4], ["solution_id", 7], ["updated_at", "2014-07-03 17:34:55.606778"], ["user_id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.608418"], ["idea_id", 3], ["solution_id", 6], ["updated_at", "2014-07-03 17:34:55.608418"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.610057"], ["idea_id", 9], ["solution_id", 18], ["updated_at", "2014-07-03 17:34:55.610057"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.611678"], ["idea_id", 6], ["solution_id", 14], ["updated_at", "2014-07-03 17:34:55.611678"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.613301"], ["idea_id", 4], ["solution_id", 19], ["updated_at", "2014-07-03 17:34:55.613301"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.614838"], ["idea_id", 9], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.614838"], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.616329"], ["idea_id", 7], ["solution_id", 1], ["updated_at", "2014-07-03 17:34:55.616329"], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.617882"], ["idea_id", 5], ["solution_id", 5], ["updated_at", "2014-07-03 17:34:55.617882"], ["user_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.619693"], ["idea_id", 4], ["solution_id", 19], ["updated_at", "2014-07-03 17:34:55.619693"], ["user_id", 5]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.621369"], ["idea_id", 4], ["solution_id", 9], ["updated_at", "2014-07-03 17:34:55.621369"], ["user_id", 5]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.622900"], ["idea_id", 4], ["solution_id", 17], ["updated_at", "2014-07-03 17:34:55.622900"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.624384"], ["idea_id", 7], ["solution_id", 15], ["updated_at", "2014-07-03 17:34:55.624384"], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.625844"], ["idea_id", 4], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.625844"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.627317"], ["idea_id", 4], ["solution_id", 15], ["updated_at", "2014-07-03 17:34:55.627317"], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.628736"], ["idea_id", 8], ["solution_id", 4], ["updated_at", "2014-07-03 17:34:55.628736"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.630154"], ["idea_id", 7], ["solution_id", 20], ["updated_at", "2014-07-03 17:34:55.630154"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.631626"], ["idea_id", 8], ["solution_id", 10], ["updated_at", "2014-07-03 17:34:55.631626"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.633117"], ["idea_id", 1], ["solution_id", 8], ["updated_at", "2014-07-03 17:34:55.633117"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.634556"], ["idea_id", 9], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.634556"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.636068"], ["idea_id", 8], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.636068"], ["user_id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.637950"], ["idea_id", 7], ["solution_id", 18], ["updated_at", "2014-07-03 17:34:55.637950"], ["user_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.639677"], ["idea_id", 2], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.639677"], ["user_id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.641334"], ["idea_id", 4], ["solution_id", 2], ["updated_at", "2014-07-03 17:34:55.641334"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.642900"], ["idea_id", 3], ["solution_id", 10], ["updated_at", "2014-07-03 17:34:55.642900"], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.644378"], ["idea_id", 5], ["solution_id", 4], ["updated_at", "2014-07-03 17:34:55.644378"], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.645837"], ["idea_id", 4], ["solution_id", 2], ["updated_at", "2014-07-03 17:34:55.645837"], ["user_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.647366"], ["idea_id", 3], ["solution_id", 15], ["updated_at", "2014-07-03 17:34:55.647366"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.648838"], ["idea_id", 8], ["solution_id", 6], ["updated_at", "2014-07-03 17:34:55.648838"], ["user_id", 4]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.650319"], ["idea_id", 7], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.650319"], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.651741"], ["idea_id", 6], ["solution_id", 14], ["updated_at", "2014-07-03 17:34:55.651741"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.653226"], ["idea_id", 7], ["solution_id", 8], ["updated_at", "2014-07-03 17:34:55.653226"], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.654662"], ["idea_id", 1], ["solution_id", 9], ["updated_at", "2014-07-03 17:34:55.654662"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.656090"], ["idea_id", 8], ["solution_id", 6], ["updated_at", "2014-07-03 17:34:55.656090"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.657530"], ["idea_id", 4], ["solution_id", 3], ["updated_at", "2014-07-03 17:34:55.657530"], ["user_id", 5]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.658978"], ["idea_id", 4], ["solution_id", 5], ["updated_at", "2014-07-03 17:34:55.658978"], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.660394"], ["idea_id", 1], ["solution_id", 20], ["updated_at", "2014-07-03 17:34:55.660394"], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.661801"], ["idea_id", 10], ["solution_id", 14], ["updated_at", "2014-07-03 17:34:55.661801"], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.663269"], ["idea_id", 8], ["solution_id", 15], ["updated_at", "2014-07-03 17:34:55.663269"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.664689"], ["idea_id", 5], ["solution_id", 14], ["updated_at", "2014-07-03 17:34:55.664689"], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.666102"], ["idea_id", 5], ["solution_id", 20], ["updated_at", "2014-07-03 17:34:55.666102"], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.667615"], ["idea_id", 2], ["solution_id", 16], ["updated_at", "2014-07-03 17:34:55.667615"], ["user_id", 5]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "challengers" ("created_at", "idea_id", "solution_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.669138"], ["idea_id", 3], ["solution_id", 18], ["updated_at", "2014-07-03 17:34:55.669138"], ["user_id", 5]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.677762"], ["updated_at", "2014-07-03 17:34:55.677762"], ["voteable_id", 29], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.681079"], ["updated_at", "2014-07-03 17:34:55.681079"], ["voteable_id", 20], ["voteable_type", "solution"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.683186"], ["updated_at", "2014-07-03 17:34:55.683186"], ["voteable_id", 43], ["voteable_type", "challenger"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.685346"], ["updated_at", "2014-07-03 17:34:55.685346"], ["voteable_id", 26], ["voteable_type", "challenger"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.687058"], ["updated_at", "2014-07-03 17:34:55.687058"], ["voteable_id", 3], ["voteable_type", "user"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.688782"], ["updated_at", "2014-07-03 17:34:55.688782"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.690344"], ["updated_at", "2014-07-03 17:34:55.690344"], ["voteable_id", 5], ["voteable_type", "solution"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.691915"], ["updated_at", "2014-07-03 17:34:55.691915"], ["voteable_id", 2], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.693514"], ["updated_at", "2014-07-03 17:34:55.693514"], ["voteable_id", 3], ["voteable_type", "user"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.695010"], ["updated_at", "2014-07-03 17:34:55.695010"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.696447"], ["updated_at", "2014-07-03 17:34:55.696447"], ["voteable_id", 20], ["voteable_type", "solution"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.697917"], ["updated_at", "2014-07-03 17:34:55.697917"], ["voteable_id", 4], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.699355"], ["updated_at", "2014-07-03 17:34:55.699355"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.700776"], ["updated_at", "2014-07-03 17:34:55.700776"], ["voteable_id", 5], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.702142"], ["updated_at", "2014-07-03 17:34:55.702142"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.703512"], ["updated_at", "2014-07-03 17:34:55.703512"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.705089"], ["updated_at", "2014-07-03 17:34:55.705089"], ["voteable_id", 5], ["voteable_type", "idea"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.706733"], ["updated_at", "2014-07-03 17:34:55.706733"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.708206"], ["updated_at", "2014-07-03 17:34:55.708206"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.709653"], ["updated_at", "2014-07-03 17:34:55.709653"], ["voteable_id", 7], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.711123"], ["updated_at", "2014-07-03 17:34:55.711123"], ["voteable_id", 5], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.712683"], ["updated_at", "2014-07-03 17:34:55.712683"], ["voteable_id", 12], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.714165"], ["updated_at", "2014-07-03 17:34:55.714165"], ["voteable_id", 9], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.715562"], ["updated_at", "2014-07-03 17:34:55.715562"], ["voteable_id", 20], ["voteable_type", "challenger"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.717013"], ["updated_at", "2014-07-03 17:34:55.717013"], ["voteable_id", 26], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.718588"], ["updated_at", "2014-07-03 17:34:55.718588"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.720560"], ["updated_at", "2014-07-03 17:34:55.720560"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.721972"], ["updated_at", "2014-07-03 17:34:55.721972"], ["voteable_id", 8], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.723873"], ["updated_at", "2014-07-03 17:34:55.723873"], ["voteable_id", 43], ["voteable_type", "challenger"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.726590"], ["updated_at", "2014-07-03 17:34:55.726590"], ["voteable_id", 7], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.728219"], ["updated_at", "2014-07-03 17:34:55.728219"], ["voteable_id", 9], ["voteable_type", "solution"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.729858"], ["updated_at", "2014-07-03 17:34:55.729858"], ["voteable_id", 15], ["voteable_type", "solution"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.731430"], ["updated_at", "2014-07-03 17:34:55.731430"], ["voteable_id", 6], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.732870"], ["updated_at", "2014-07-03 17:34:55.732870"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.734277"], ["updated_at", "2014-07-03 17:34:55.734277"], ["voteable_id", 15], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.735648"], ["updated_at", "2014-07-03 17:34:55.735648"], ["voteable_id", 9], ["voteable_type", "idea"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.737477"], ["updated_at", "2014-07-03 17:34:55.737477"], ["voteable_id", 22], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.739262"], ["updated_at", "2014-07-03 17:34:55.739262"], ["voteable_id", 9], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.740707"], ["updated_at", "2014-07-03 17:34:55.740707"], ["voteable_id", 33], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.742122"], ["updated_at", "2014-07-03 17:34:55.742122"], ["voteable_id", 5], ["voteable_type", "idea"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.743593"], ["updated_at", "2014-07-03 17:34:55.743593"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.745044"], ["updated_at", "2014-07-03 17:34:55.745044"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.746500"], ["updated_at", "2014-07-03 17:34:55.746500"], ["voteable_id", 7], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.747934"], ["updated_at", "2014-07-03 17:34:55.747934"], ["voteable_id", 17], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.749283"], ["updated_at", "2014-07-03 17:34:55.749283"], ["voteable_id", 13], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.750703"], ["updated_at", "2014-07-03 17:34:55.750703"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.752204"], ["updated_at", "2014-07-03 17:34:55.752204"], ["voteable_id", 37], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.753613"], ["updated_at", "2014-07-03 17:34:55.753613"], ["voteable_id", 5], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.754976"], ["updated_at", "2014-07-03 17:34:55.754976"], ["voteable_id", 12], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.756406"], ["updated_at", "2014-07-03 17:34:55.756406"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.757861"], ["updated_at", "2014-07-03 17:34:55.757861"], ["voteable_id", 6], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.759328"], ["updated_at", "2014-07-03 17:34:55.759328"], ["voteable_id", 7], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.760752"], ["updated_at", "2014-07-03 17:34:55.760752"], ["voteable_id", 20], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.762084"], ["updated_at", "2014-07-03 17:34:55.762084"], ["voteable_id", 45], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.763398"], ["updated_at", "2014-07-03 17:34:55.763398"], ["voteable_id", 12], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.764685"], ["updated_at", "2014-07-03 17:34:55.764685"], ["voteable_id", 2], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.765990"], ["updated_at", "2014-07-03 17:34:55.765990"], ["voteable_id", 4], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.767361"], ["updated_at", "2014-07-03 17:34:55.767361"], ["voteable_id", 4], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.768889"], ["updated_at", "2014-07-03 17:34:55.768889"], ["voteable_id", 39], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.770496"], ["updated_at", "2014-07-03 17:34:55.770496"], ["voteable_id", 2], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.771937"], ["updated_at", "2014-07-03 17:34:55.771937"], ["voteable_id", 37], ["voteable_type", "challenger"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.773403"], ["updated_at", "2014-07-03 17:34:55.773403"], ["voteable_id", 4], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.774796"], ["updated_at", "2014-07-03 17:34:55.774796"], ["voteable_id", 13], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.776178"], ["updated_at", "2014-07-03 17:34:55.776178"], ["voteable_id", 8], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.777503"], ["updated_at", "2014-07-03 17:34:55.777503"], ["voteable_id", 4], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.778789"], ["updated_at", "2014-07-03 17:34:55.778789"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.780040"], ["updated_at", "2014-07-03 17:34:55.780040"], ["voteable_id", 19], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.781298"], ["updated_at", "2014-07-03 17:34:55.781298"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.782565"], ["updated_at", "2014-07-03 17:34:55.782565"], ["voteable_id", 18], ["voteable_type", "solution"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.784010"], ["updated_at", "2014-07-03 17:34:55.784010"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.785262"], ["updated_at", "2014-07-03 17:34:55.785262"], ["voteable_id", 24], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.786522"], ["updated_at", "2014-07-03 17:34:55.786522"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.787763"], ["updated_at", "2014-07-03 17:34:55.787763"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.789098"], ["updated_at", "2014-07-03 17:34:55.789098"], ["voteable_id", 13], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.790564"], ["updated_at", "2014-07-03 17:34:55.790564"], ["voteable_id", 3], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.791903"], ["updated_at", "2014-07-03 17:34:55.791903"], ["voteable_id", 34], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.793188"], ["updated_at", "2014-07-03 17:34:55.793188"], ["voteable_id", 11], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.794443"], ["updated_at", "2014-07-03 17:34:55.794443"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.795686"], ["updated_at", "2014-07-03 17:34:55.795686"], ["voteable_id", 3], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.796948"], ["updated_at", "2014-07-03 17:34:55.796948"], ["voteable_id", 3], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.798268"], ["updated_at", "2014-07-03 17:34:55.798268"], ["voteable_id", 1], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.799547"], ["updated_at", "2014-07-03 17:34:55.799547"], ["voteable_id", 4], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.800805"], ["updated_at", "2014-07-03 17:34:55.800805"], ["voteable_id", 4], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.802140"], ["updated_at", "2014-07-03 17:34:55.802140"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.804138"], ["updated_at", "2014-07-03 17:34:55.804138"], ["voteable_id", 13], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.805515"], ["updated_at", "2014-07-03 17:34:55.805515"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.806818"], ["updated_at", "2014-07-03 17:34:55.806818"], ["voteable_id", 5], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.808069"], ["updated_at", "2014-07-03 17:34:55.808069"], ["voteable_id", 9], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.809333"], ["updated_at", "2014-07-03 17:34:55.809333"], ["voteable_id", 3], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.810579"], ["updated_at", "2014-07-03 17:34:55.810579"], ["voteable_id", 4], ["voteable_type", "user"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.811833"], ["updated_at", "2014-07-03 17:34:55.811833"], ["voteable_id", 39], ["voteable_type", "challenger"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.813094"], ["updated_at", "2014-07-03 17:34:55.813094"], ["voteable_id", 1], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.814343"], ["updated_at", "2014-07-03 17:34:55.814343"], ["voteable_id", 7], ["voteable_type", "idea"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.815596"], ["updated_at", "2014-07-03 17:34:55.815596"], ["voteable_id", 28], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.816833"], ["updated_at", "2014-07-03 17:34:55.816833"], ["voteable_id", 2], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.818039"], ["updated_at", "2014-07-03 17:34:55.818039"], ["voteable_id", 8], ["voteable_type", "solution"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.819275"], ["updated_at", "2014-07-03 17:34:55.819275"], ["voteable_id", 5], ["voteable_type", "solution"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.820609"], ["updated_at", "2014-07-03 17:34:55.820609"], ["voteable_id", 2], ["voteable_type", "idea"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2014-07-03 17:34:55.821871"], ["updated_at", "2014-07-03 17:34:55.821871"], ["voteable_id", 5], ["voteable_type", "user"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "votes" ("created_at", "updated_at", "voteable_id", "voteable_type") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2014-07-03 17:34:55.823109"], ["updated_at", "2014-07-03 17:34:55.823109"], ["voteable_id", 32], ["voteable_type", "challenger"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mIdea Load (0.7ms)[0m  [1mSELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" ASC LIMIT 1[0m
+  [1m[35mIdea Load (0.8ms)[0m  SELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" DESC LIMIT 1
+  [1m[36mIdea Load (0.9ms)[0m  [1mSELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" DESC LIMIT 1[0m
+  [1m[35mVote Load (0.5ms)[0m  SELECT  "votes".* FROM "votes"   ORDER BY "votes"."id" ASC LIMIT 1
+  [1m[36mIdea Load (0.7ms)[0m  [1mSELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" ASC LIMIT 1[0m
+  [1m[35mIdea Load (0.7ms)[0m  SELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" ASC LIMIT 1
+  [1m[36mVote Load (1.1ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'idea' AND "votes"."voteable_id" = 1[0m
+  [1m[35mIdea Load (0.8ms)[0m  SELECT  "ideas".* FROM "ideas"   ORDER BY "ideas"."id" DESC LIMIT 1
+  [1m[36mVote Load (0.4ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'idea' AND "votes"."voteable_id" = 10[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "votes"  WHERE "votes"."voteable_type" = 'idea'
+  [1m[36mVote Load (1.1ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'idea'[0m
+  [1m[35mIdea Load (0.5ms)[0m  SELECT  "ideas".* FROM "ideas"  WHERE "ideas"."id" = $1 LIMIT 1  [["id", 5]]
+  [1m[36mVote Load (0.3ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'idea' AND "votes"."voteable_id" = 5[0m
+  [1m[35mSolution Load (0.6ms)[0m  SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1
+  [1m[36mSolution Load (0.7ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1[0m
+  [1m[35mSolution Load (0.7ms)[0m  SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[36mSolution Load (0.6ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1[0m
+  [1m[35mSolution Load (1.1ms)[0m  SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1
+  [1m[36mVote Load (0.6ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'solution' AND "votes"."voteable_id" = 1[0m
+  [1m[36mVote Load (1.2ms)[0m  [1mSELECT  "votes".* FROM "votes"   ORDER BY "votes"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mVote Load (0.8ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'user' AND "votes"."voteable_id" = 4
+  [1m[36mSolution Load (0.6ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1[0m
+  [1m[35mSolution Load (0.7ms)[0m  SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" ASC LIMIT 1
+  [1m[36mVote Load (0.6ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'solution' AND "votes"."voteable_id" = 1[0m
+  [1m[35mSolution Load (0.9ms)[0m  SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1
+  [1m[36mVote Load (0.4ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."voteable_type" = 'solution' AND "votes"."voteable_id" = 20[0m
+  [1m[36m (72.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (81.7ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140703011710)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255), "password_digest" character varying(255), "email" character varying(255), "reputation" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011710"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateIdeas (20140703011723)
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140703011710)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255), "password_digest" character varying(255), "email" character varying(255), "reputation" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011710"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateIdeas (20140703011723)
+  [1m[36mSolution Load (0.5ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1[0m
+PG::UndefinedTable: ERROR:  relation "solutions" does not exist
+LINE 1: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions...
+                                   ^
+: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1
