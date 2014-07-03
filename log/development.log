@@ -5694,3 +5694,17 @@ PG::UndefinedTable: ERROR:  relation "solutions" does not exist
 LINE 1: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions...
                                    ^
 : SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1
+  [1m[36mSolution Load (0.4ms)[0m  [1mSELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1[0m
+PG::UndefinedTable: ERROR:  relation "solutions" does not exist
+LINE 1: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions...
+                                   ^
+: SELECT  "solutions".* FROM "solutions"   ORDER BY "solutions"."id" DESC LIMIT 1
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.8ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20140703011710)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255), "password_digest" character varying(255), "email" character varying(255), "reputation" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140703011710"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateIdeas (20140703011723)

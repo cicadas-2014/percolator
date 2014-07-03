@@ -3,4 +3,8 @@ class Improvement < ActiveRecord::Base
   belongs_to :user
   belongs_to :problem
   belongs_to :solution
+
+  def voteables
+    Vote.where(voteable_type: "improvement", voteable_id: self.id)
+  end
 end
