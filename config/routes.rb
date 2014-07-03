@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :problems, only: [:show, :create]
+  post '/solutions/create', to: 'solutions#create'
+  post '/improvements/create', to: 'improvements#create'
+
+  root to: 'problems#index'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
