@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 types = %w(user problem solution improvement)
-usernames = %w(indigo mario simon tim berners lee)
+usernames = %w(indigo mario simon tim berners)
 count = 0
 5.times do
   User.create(username: usernames[count])

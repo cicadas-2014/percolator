@@ -6,6 +6,6 @@ class User < ActiveRecord::Base
   has_many :votes, as: :voteable
 
   def voteables
-    Vote.where(voteable_type: "user", voteable_id: self.id)
+    Vote.where(user_id: self.id)
   end
 end
