@@ -18,13 +18,19 @@ body {
     font-size: 36px;
     padding: 10px;
     width: 100%;
-    background-image: url('../../../../../percolator-chart/img/escheresque_ste.png');
-    height: 75px;
-    box-shadow: 10px 10px 5px #BBB;
+    height: 60px;
+    box-shadow: 0px 10px 5px #BBB;
+}
+
+.header image {
+    float: left;
+    padding-top: 16px;
 }
 
 .header .brand {
-    padding-top: 16px;
+    float: left;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
 .problem {
