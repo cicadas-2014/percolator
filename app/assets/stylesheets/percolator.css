@@ -75,5 +75,16 @@ body {
     font-size: 14pt;
     text-align: center;
     padding: 5px;
+}
+
+.solution {
+    width: 100%;
+    background-color: #FFF;
+    font-family: arial;
+    color: #37517F;
+    font-size: 12pt;
+    text-align: center;
+    padding: 5px;
     z-index: 1;
 }
+

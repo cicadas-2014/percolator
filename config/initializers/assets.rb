@@ -10,4 +10,5 @@ Rails.application.config.assets.precompile += %w( normalize.css percolator.css )
 Rails.application.config.assets.precompile += %w( raphael.js raphael-animated-viewbox.js )
 Rails.application.config.assets.precompile += %w( percolator.js percolator-constants.js percolator-model.js percolator-factories.js )
 Rails.application.config.assets.precompile += %w( jquery.js )
+Rails.application.config.assets.precompile += %w( jquery.avgrund.min.js avgrund.css percolator-avgrund.js)
 
