@@ -1,5 +1,11 @@
-<% @problems.each do |problem| %>
-<%= link_to problem.title, problem_path(problem) %><br>
-<% end %>
-<br>
+<div class="container">
+    <div id="problem-menu">
+        <% @problems.each do |problem| %>
+            <div class="problem">
+                <%= link_to problem.title, problem_path(problem) %><br>
+            </div>
+        <% end %>
+    </div>
+</div>
 <%= link_to('Posit Problem', new_problem_path) %>
+
