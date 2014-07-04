@@ -9,7 +9,7 @@ types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
 5.times do
-  User.create(username: usernames[count])
+  User.create!(username: usernames[count], email: 'fadsfhl@gajl.coij', password: 'fehasiojdf')
   count += 1
 end
 
