@@ -24,7 +24,6 @@ function createSolutions() {
         if (radians > maxRadians) {
             radians -= maxRadians;
         }
-
     }
 }
 
@@ -89,12 +88,16 @@ function handleSolutionClick(target) {
     isZoomed = !isZoomed;
 }
 
+function showProblemElements(visible) {
+
+}
+
 function handleProblemClick() {
     if (isZoomed) {
-        paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>')
+        paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>', showProblemElements(false))
     }
     else {
-        paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>')
+        paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
     }
     isZoomed = !isZoomed;
 }
@@ -116,6 +119,6 @@ $(document).ready(function () {
 $(window).resize(function () {
     WIDTH = $(window).width();
     HEIGHT = $(window).height() - 100;
-    paper.clear();
+    paper.remove();
     init();
 });
