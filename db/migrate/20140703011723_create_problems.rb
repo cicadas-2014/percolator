@@ -9,5 +9,3 @@ class CreateProblems < ActiveRecord::Migration
     end
   end
 end
-
-#stephenroth.sr@gmail.com
