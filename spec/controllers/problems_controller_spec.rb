@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProblemsController do
-  let!(:problem) { create :problem }
+  let!(:fg_problem) { create :problem }
   # let!(:problems) { [problem, create :problem]}
   # describe "GET#index" do
   #   it "is successful" do
@@ -16,20 +16,20 @@ describe ProblemsController do
 
   describe "GET#show" do
     it "is successful" do
-      get :show, id: problem.id
+      get :show, id: fg_problem.id
       expect(response).to be_success
     end
 
     it "assigns @problem to problem" do
-      get :show, id: problem.id
-      expect(assigns(:problem)).to eq problem
+      get :show, id: fg_problem.id
+      expect(assigns(:problem)).to eq fg_problem
     end
   end
 
   describe "GET#new" do
     it "is successful" do
       get :new
-      expect(page).to be_success
+      expect(response).to be_success
     end
 
     it "assigns @problem to Problem.new" do
