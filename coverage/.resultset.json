@@ -1,14 +1,14 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/mario10king/Desktop/percolator/config/environment.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "/Users/mario10king/Desktop/percolator/config/application.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/application.rb": [
         1,
         null,
         1,
@@ -33,13 +33,13 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/boot.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/boot.rb": [
         null,
         1,
         null,
         1
       ],
-      "/Users/mario10king/Desktop/percolator/config/environments/test.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/environments/test.rb": [
         1,
         null,
         null,
@@ -80,7 +80,7 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/assets.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/assets.rb": [
         null,
         null,
         null,
@@ -90,7 +90,7 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/backtrace_silencers.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -99,12 +99,12 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/cookies_serializer.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/cookies_serializer.rb": [
         null,
         null,
         1
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/devise.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/devise.rb": [
         null,
         null,
         1,
@@ -362,13 +362,13 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/filter_parameter_logging.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/filter_parameter_logging.rb": [
         null,
         null,
         null,
         1
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/inflections.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -386,18 +386,18 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/mime_types.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/session_store.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/session_store.rb": [
         null,
         null,
         1
       ],
-      "/Users/mario10king/Desktop/percolator/config/initializers/wrap_parameters.rb": [
+      "/Users/apprentice/Desktop/simon_perc/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -413,11 +413,47 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/config/routes.rb": [
+      "/Users/apprentice/Desktop/simon_perc/spec/factories.rb": [
+        1,
+        1,
+        5,
+        5,
+        5,
+        5,
+        null,
+        null,
+        1,
+        5,
+        5,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
         1,
         1,
         null,
+        null,
         1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/apprentice/Desktop/simon_perc/config/routes.rb": [
+        1,
+        1,
+        1,
+        null,
         1,
         1,
         1,
@@ -478,7 +514,7 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/app/models/user.rb": [
+      "/Users/apprentice/Desktop/simon_perc/app/models/user.rb": [
         1,
         null,
         null,
@@ -495,88 +531,35 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/app/helpers/application_helper.rb": [
+      "/Users/apprentice/Desktop/simon_perc/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/db/schema.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
+      "/Users/apprentice/Desktop/simon_perc/app/controllers/problems_controller.rb": [
         1,
         1,
         1,
         null,
-        null,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        0,
         null,
         null,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        2,
         null,
         null,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        2,
         null,
         null,
         1,
-        1,
         null,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
+        0,
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/app/controllers/application_controller.rb": [
+      "/Users/apprentice/Desktop/simon_perc/app/controllers/application_controller.rb": [
         1,
         null,
         null,
@@ -591,14 +574,23 @@
         null,
         null
       ],
-      "/Users/mario10king/Desktop/percolator/app/controllers/user_controller.rb": [
+      "/Users/apprentice/Desktop/simon_perc/app/models/problem.rb": [
         1,
         1,
         1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        0,
         null,
         null
       ]
     },
-    "timestamp": 1404425697
+    "timestamp": 1404488783
   }
 }

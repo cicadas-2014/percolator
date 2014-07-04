@@ -1,3 +1,3 @@
-class SolutionsController < ApplicationController::Base
+class SolutionsController < ApplicationController
   protect_from_forgery
 end

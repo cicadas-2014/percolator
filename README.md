@@ -1,4 +1,4 @@
 percolator
 ==========
 
-Corowsourcing problem solving, coffeeshop style
+Crowdsourcing problem solving, coffeeshop style

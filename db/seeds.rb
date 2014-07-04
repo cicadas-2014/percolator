@@ -9,12 +9,12 @@ types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
 5.times do
-  User.create(username: usernames[count])
+  User.create(username: usernames[count], email: "drknockers@pinkpanther.com", password: "deebeecee123")
   count += 1
 end
 
 10.times do
-  Problem.create(user_id: rand(5) + 1)
+  Problem.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph, user_id: rand(5) + 1)
 end
 
 20.times do
