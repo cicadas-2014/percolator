@@ -1,0 +1,5 @@
+<%= @problems.each do |problem| %>
+<%= link_to problem.title, problem_path(problem) %><br>
+<% end %>
+<br>
+<%= link_to('Posit Problem', new_problem_path) %>

@@ -1,14 +1,5 @@
-<div class="new-problem">
-  <h3 class="new-problem-header"></h3>
-  <h3 class="new-problem-header"></h3>
-  <h3 class="new-problem-header"></h3>
-  <%= form_for @problem do |problem| %>
-    <p>What's your problem?</p><br>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-
-    <%= f.label :description %>
-    <%= f.text_body :description %>
-    <%= f.submit "Posit" %>
-  <% end %>
+<div class="new-problem-container">
+  <div class="new-problem-form">
+    <%= render '/problems/form', problem: @problem %>
+  </div>
 </div>
