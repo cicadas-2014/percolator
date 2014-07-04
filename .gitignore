@@ -14,4 +14,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore the test coverage results
+/coverage/*
 /coverage
+coverage.last_run.json
+coverage/.resultset.json
+coverage/assets/0.8.0/*
+coverage/index.html
