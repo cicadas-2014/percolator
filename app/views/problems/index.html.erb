@@ -1,0 +1,3 @@
+<%= @problems.each do |problem| %>
+    <p><%= link_to problem.title, problem_path(problem) %></p>
+<% end %>

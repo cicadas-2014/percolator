@@ -12,7 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+**/*.log
 /tmp
 
 # Ignore the test coverage results
@@ -22,3 +22,7 @@ coverage.last_run.json
 coverage/.resultset.json
 coverage/assets/0.8.0/*
 coverage/index.html
+
+#ignore IntelliJ project files
+.idea/*
+*.iml
