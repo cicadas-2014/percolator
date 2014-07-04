@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :problems, only: [:show, :create]
+  resources :problems, only: [:show, :new, :create]
   post '/solutions/create', to: 'solutions#create'
   post '/improvements/create', to: 'improvements#create'
 
