@@ -1,23 +1,11 @@
+var paper;
+var isZoomed = false;
+
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), WIDTH, HEIGHT);
     createSolutions();
     createProblem();
 }
-$(document).ready(function () {
-    init();
-});
-
-$(window).resize(function () {
-    WIDTH = $(window).width();
-    HEIGHT = $(window).height() - 100;
-    paper.clear();
-    init();
-});
-
-
-var paper;
-var isZoomed = false;
-
 
 function createSolutions() {
     var radians = 0;
@@ -25,8 +13,8 @@ function createSolutions() {
     var step = (2 * Math.PI) / data.problem.solutions.length;
 
     for (var i = 0; i < data.problem.solutions.length; i++) {
-
         var radius = 125 + (50 * (i % 2))
+
         var posX = WIDTH / 2 + (Math.cos(radians) * radius);
         var posY = HEIGHT / 2 + (Math.sin(radians) * radius);
         Factories.createLine(posX, posY);
@@ -119,3 +107,15 @@ function handleSolutionMouseLeave(target) {
     $('.solution').html("");
 }
 
+$(document).ready(function () {
+    console.log("(document).ready")
+    init();
+});
+
+
+$(window).resize(function () {
+    WIDTH = $(window).width();
+    HEIGHT = $(window).height() - 100;
+    paper.clear();
+    init();
+});
