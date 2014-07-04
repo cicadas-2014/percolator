@@ -89,7 +89,10 @@ function handleSolutionClick(target) {
 }
 
 function showProblemElements(visible) {
-
+    if (visible)
+        $('#problem_detail_left').show();
+    else
+        $('#problem_detail_left').hide();
 }
 
 function handleProblemClick() {
@@ -111,7 +114,8 @@ function handleSolutionMouseLeave(target) {
 }
 
 $(document).ready(function () {
-    console.log("(document).ready")
+    console.log("(document).ready");
+    $('#problem_detail_left').hide();
     init();
 });
 

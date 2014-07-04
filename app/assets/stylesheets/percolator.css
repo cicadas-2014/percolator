@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: Opificio;
-    src: url(../fonts/Opificio.ttf);
+    src: asset-url('Opificio.ttf');
 }
 
 @font-face {
     font-family: OpificioBold;
-    src: url(../fonts/Opificio_Bold.ttf);
+    src: asset-url('Opificio_Bold.ttf');
 }
 
 body {
