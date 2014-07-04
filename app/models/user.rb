@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  # has_many :interests
+  has_secure_password
   has_many :problems
   has_many :solutions
   has_many :improvements
