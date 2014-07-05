@@ -9,6 +9,7 @@ class ProblemsController < ApplicationController
 
   def show
     problem = Problem.find params[:id]
+    @solution = Solution.new
     solutions = []
     problem.solutions.each do |solution|
       solutions << {id: solution.id,
