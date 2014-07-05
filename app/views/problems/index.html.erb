@@ -1,15 +1,17 @@
 <% if !current_user %>
-<div id="sign_up_form">
-	<h2>Sign up</h2>
-	<%= render '/user/new', user: resource %>
-</div>
+<div id="sign_up">
+	<div id="sign_up_button"><h2><button type="button" id="u_button">Register</button></h2></div>
+		<div id="sign_up_form">
+			<%= render '/user/new', user: resource %>
 	<br>
-
-<div id="sign_in_form">
-	<h2>Sign in</h2>
-	<%= render '/user/login', user: resource %>
 </div>
+<div id="sign_in">
+	<div id="sign_in_button"><h2><button type="button" id="i_button">Login</button></h2></div>
+		<div id="sign_in_form">
+			<%= render '/user/login', user: resource %>
+		</div>
 	<br>
+</div>		
 <% end %>
 <br>
 
@@ -25,6 +27,8 @@
             </div>
         <% end %>
     </div>
-    <%= link_to('Posit Problem', new_problem_path) %>
+		<% if current_user %>
+    	<%= link_to('Posit Problem', new_problem_path) %>
+    <% end %>
 </div>
 

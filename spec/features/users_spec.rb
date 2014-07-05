@@ -6,6 +6,7 @@ require 'spec_helper'
 feature 'Users', type: :feature, js: true do
 	scenario 'User can create a new account' do
 		visit root_path
+		click_button 'u_button'
 		fill_in 'sign_up_user_email', with: 'user@dbc.gov'
 		fill_in 'sign_up_user_password', with: 'password'
 		fill_in 'sign_up_user_password_confirmation', with: 'password'
@@ -15,6 +16,7 @@ feature 'Users', type: :feature, js: true do
 
 	scenario 'Password must be 8 characters or more' do
 		visit root_path
+		click_button 'u_button'
 		fill_in 'sign_up_user_email', with: 'user2@dbc.gov'
 		fill_in 'sign_up_user_password', with: 'pass'
 		fill_in 'sign_up_user_password_confirmation', with: 'pass'
@@ -24,6 +26,7 @@ feature 'Users', type: :feature, js: true do
 
 	scenario 'Password and password_confirmation must match' do
 		visit root_path
+		click_button 'u_button'
 		fill_in 'sign_up_user_email', with: 'user3@dbc.gov'
 		fill_in 'sign_up_user_password', with: 'password'
 		fill_in 'sign_up_user_password_confirmation', with: 'password1'
@@ -34,6 +37,7 @@ feature 'Users', type: :feature, js: true do
 	scenario 'User cannot create duplicate email' do
 		User.create( email: 'user@dbc.gov', password: 'password')
 		visit root_path
+		click_button 'u_button'
 		fill_in 'sign_up_user_email', with: 'user@dbc.gov'
 		fill_in 'sign_up_user_password', with: 'password'
 		fill_in 'sign_up_user_password_confirmation', with: 'password'
@@ -45,6 +49,7 @@ feature 'Users', type: :feature, js: true do
 	let (:user) { User.create( email: 'user@dbc.gov', password: 'password')}
 	scenario 'User can login with valid information' do
 		visit root_path
+		click_button 'i_button'
 		fill_in 'sign_in_user_email', with: user.email
 		fill_in 'sign_in_user_password', with: user.password
 		click_button 'Sign in'
@@ -53,6 +58,7 @@ feature 'Users', type: :feature, js: true do
 
 	scenario 'User cannot login with invalid information' do
 		visit root_path
+		click_button 'i_button'
 		fill_in 'sign_in_user_email', with: 'test@test.gov'
 		fill_in 'sign_in_user_password', with: 'incorrect'
 		click_button 'Sign in'
