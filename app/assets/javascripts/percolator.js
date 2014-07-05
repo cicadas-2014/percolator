@@ -2,9 +2,12 @@ var paper;
 var isZoomed = false;
 
 function addEventListeners() {
-    $('.chart-popup button').click(function () {
+    $('.chart-popup button#back').click(function () {
         hideChartPopupElements();
     });
+    $('.chart-popup button#render-solution-form').click(function () {
+        hideChartPopupElementsWithoutZoomOut();
+    })
 }
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
@@ -56,7 +59,7 @@ function addProblemListeners() {
     $('#problem').bind({
         click: function () {
             zoomIn();
-            hideSolutions(target)
+            hideSolutions()
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -109,6 +112,9 @@ function hideChartPopupElements() {
 //     }
 //     else {
 //         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
+function hideChartPopupElementsWithoutZoomOut() {
+    $('.chart-popup #problem-container').show().slideUp(500);
+}
 
 function zoomIn(target) {
     var posX;
@@ -141,12 +147,15 @@ function handleSolutionMouseLeave() {
 }
 
 $(document).ready(function () {
-    if ($("#canvas_container").length){
+
+    if ($("#canvas_container").length) {
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
         init();
+        $('#page-title')[0].innerHTML = data.problem.title.toString();
+        $('#synopsis')[0].innerHTML = data.problem.description.toString();
     }
 });
 
