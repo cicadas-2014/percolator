@@ -8,7 +8,7 @@
 
 
 <%= javascript_tag do %>
-    window.problem = "<%= @problem %>";
+    window.data = <%=j @problem %>
 <% end %>
 
 <div id="canvas_container"></div>
@@ -16,9 +16,7 @@
 <div class="chart-popup">
     <div id="problem-container">
         <h2>synopsis:</h2>
-        <p>
-            <%= @problem %>
-        </p>
+        <div id="synopsis"></div>
         <button type="button">BACK</button>
 
     </div>

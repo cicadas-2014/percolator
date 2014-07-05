@@ -148,11 +148,8 @@ $(document).ready(function () {
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
         init();
-
-        var foo = problem
-        var problemData = $.parseJSON(foo);
-
-        $('#page-title')[0].innerHTML = problemData.title;
+        $('#page-title')[0].innerHTML = data.problem.title.toString();
+        $('#synopsis')[0].innerHTML = data.problem.description.toString();
     }
 });
 

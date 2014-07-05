@@ -23,9 +23,8 @@ class ProblemsController < ApplicationController
         title: problem.title,
         description: problem.description,
         solutions: solutions
-    }
-    data = @problem
-    data
+    }.to_json.html_safe
+    @problem
   end
 
   def create
