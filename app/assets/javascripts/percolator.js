@@ -113,11 +113,11 @@ function handleSolutionMouseLeave(target) {
     $('.solution').html("");
 }
 
-$(document).ready(function () {
-    console.log("(document).ready");
-    $('#problem_detail_left').hide();
-    init();
-});
+// $(document).ready(function () {
+//     console.log("(document).ready");
+//     $('#problem_detail_left').hide();
+//     init();
+// });
 
 
 $(window).resize(function () {
