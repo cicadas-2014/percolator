@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+// $(document).ready( function(){
+// 	$( '#sign_up_form form' ).submit(function(event) {
+// 		var email = $('form :input#user_email');
+// 		event.preventDefault();
+// 		console.log(email.val());
+// 		// $( 'ul' ).append(data);
+// 	});
+});

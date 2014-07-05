@@ -23,8 +23,8 @@ feature 'User creates a new problem', type: :feature, js: true do
   # end
 
   def create_problem_with(title, description)
-    visit root_path
-    click_link 'Posit Problem'
+    visit new_problem_path
+    # click_link 'Posit Problem'
 
     within("#new_problem") do
       fill_in 'problem_title', with: title

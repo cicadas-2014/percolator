@@ -1,16 +1,16 @@
-/*@font-face {
+@font-face {
     font-family: Opificio;
     src: url(../../../../../percolator-chart/fonts/Opificio.ttf);
-}*/
+}
 
 @font-face {
     font-family: OpificioBold;
     src: url(../../../../../percolator-chart/fonts/Opificio_Bold.ttf);
 }
 
-/*body {
+body {
     background-image: url('../../../../../percolator-chart/img/zwartevilt.png');
-}*/
+}
 
 .header {
     font-family: Opificio;
