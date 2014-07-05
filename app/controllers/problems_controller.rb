@@ -1,5 +1,6 @@
 class ProblemsController < ApplicationController
   protect_from_forgery
+  require 'json'
   # before_action :load_user, only: :create
 
   def index
@@ -24,7 +25,7 @@ class ProblemsController < ApplicationController
       solutions: solutions
       }
     }
-    # render json: @problem
+    @problem.to_json
 
   end
 

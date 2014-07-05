@@ -56,7 +56,7 @@ function addProblemListeners() {
     $('#problem').bind({
         click: function () {
             zoomIn();
-            hideSolutions(target)
+            hideSolutions()
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -131,6 +131,7 @@ $(document).ready(function () {
     Constants.HEIGHT = $(window).height() - 90;
     $('.chart-popup #problem-container').hide();
     $('.chart-popup #bubble-container').hide();
+    //console.log(problem);
     init();
 });
 
