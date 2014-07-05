@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140703193514) do
 
   create_table "improvements", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "user_id"
     t.integer  "problem_id"
     t.integer  "solution_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140703193514) do
 
   create_table "problems", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20140703193514) do
 
   create_table "solutions", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "user_id"
     t.integer  "problem_id"
     t.datetime "created_at"

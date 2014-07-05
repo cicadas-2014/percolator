@@ -1,7 +1,7 @@
 Factories = {
 
     createProblem: function () {
-        var problem = paper.circle(WIDTH / 2, HEIGHT / 2, PROBLEM_RADIUS).attr({fill: PROBLEM_COLOR, stroke: "none"});
+        var problem = paper.circle(Constants.WIDTH / 2, Constants.HEIGHT / 2, PROBLEM_RADIUS).attr({fill: PROBLEM_COLOR, stroke: "none"});
         problem.node.id = 'problem';
     },
 
@@ -14,7 +14,7 @@ Factories = {
     },
 
     createLine: function (posX, posY) {
-        var line = paper.path("M" + posX + "," + posY + "L" + WIDTH / 2 + "," + HEIGHT / 2).attr({stroke: CONNECTION_COLOR});
+        var line = paper.path("M" + posX + "," + posY + "L" + Constants.WIDTH / 2 + "," + Constants.HEIGHT / 2).attr({stroke: CONNECTION_COLOR});
         lines.push(line);
         return line;
     }

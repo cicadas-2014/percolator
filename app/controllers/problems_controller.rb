@@ -7,7 +7,25 @@ class ProblemsController < ApplicationController
   end
 
   def show
-    @problem = Problem.find params[:id]
+    problem = Problem.find params[:id]
+    solutions = []
+    problem.solutions.each do |solution|
+      solutions << {id: solution.id,
+                  title: solution.title,
+                  description: solution.description,
+                  email: solution.user.username
+                  }
+    end
+
+     @problem = {problem: {
+      id: problem.id,
+      title: problem.title,
+      description: problem.description,
+      solutions: solutions
+      }
+    }
+    # render json: @problem
+
   end
 
   def create

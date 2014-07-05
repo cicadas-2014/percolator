@@ -1,6 +1,9 @@
-var ZOOM_MAX = 0.1;
-var WIDTH = $(window).width();
-var HEIGHT = $(window).height() - 100;
+Constants = {
+    ZOOM_MAX: 0.1,
+    WIDTH: $(window).width(),
+    WIDTH: $(window).height()
+};
+
 var PROBLEM_RADIUS = 75;
 var SOLUTION_RADIUS = 8;
 var PROBLEM_COLOR = '#37517F';
