@@ -2,9 +2,12 @@ var paper;
 var isZoomed = false;
 
 function addEventListeners() {
-    $('.chart-popup button').click(function () {
+    $('.chart-popup button#back').click(function () {
         hideChartPopupElements();
     });
+    $('.chart-popup button#render-solution-form').click(function () {
+        hideChartPopupElementsWithoutZoomOut();
+    })
 }
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
@@ -109,6 +112,9 @@ function hideChartPopupElements() {
 //     }
 //     else {
 //         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
+function hideChartPopupElementsWithoutZoomOut() {
+    $('.chart-popup #problem-container').show().slideUp(500);
+}
 
 function zoomIn(target) {
     var posX;
