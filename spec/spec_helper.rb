@@ -18,9 +18,6 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  config.use_transactional_fixtures = false
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
