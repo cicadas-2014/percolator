@@ -19,4 +19,3 @@
 //= require percolator-factories
 //= require percolator
 //= require_tree .
-

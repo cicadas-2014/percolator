@@ -22,7 +22,6 @@ feature 'User creates a new problem', type: :feature, js: true do
 
   def create_problem_with(title, description)
     visit new_problem_path
-
     within("#new_problem") do
       fill_in 'problem_title', with: title
       fill_in 'problem_description', with: description

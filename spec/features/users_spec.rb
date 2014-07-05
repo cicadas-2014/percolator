@@ -1,49 +1,61 @@
 require 'spec_helper'
 
-feature 'Users' do
+
+## some tests don't pass unless run through silenium (min 8 chars*)
+## brings to old devise route
+feature 'Users', type: :feature, js: true do
 	scenario 'User can create a new account' do
-		visit new_user_registration_path
-		fill_in 'user_email', with: 'user@dbc.gov'
-		fill_in 'user_password', with: 'password'
-		fill_in 'user_password_confirmation', with: 'password'
+		visit root_path
+		fill_in 'sign_up_user_email', with: 'user@dbc.gov'
+		fill_in 'sign_up_user_password', with: 'password'
+		fill_in 'sign_up_user_password_confirmation', with: 'password'
 		click_button 'Sign up'
-		expect(current_path).to eq(root_path)
+		expect(page.body).to have_content("Posit Problem")
 	end
 
 	scenario 'Password must be 8 characters or more' do
-		visit new_user_registration_path
-		fill_in 'user_email', with: 'user2@dbc.gov'
-		fill_in 'user_password', with: 'pass'
-		fill_in 'user_password_confirmation', with: 'pass'
+		visit root_path
+		fill_in 'sign_up_user_email', with: 'user2@dbc.gov'
+		fill_in 'sign_up_user_password', with: 'pass'
+		fill_in 'sign_up_user_password_confirmation', with: 'pass'
 		click_button 'Sign up'
 		expect(page.body).to have_content("Password is too short (minimum is 8 characters)")
 	end
 
+	scenario 'Password and password_confirmation must match' do
+		visit root_path
+		fill_in 'sign_up_user_email', with: 'user3@dbc.gov'
+		fill_in 'sign_up_user_password', with: 'password'
+		fill_in 'sign_up_user_password_confirmation', with: 'password1'
+		click_button 'Sign up'
+		expect(page.body).to have_content("Password confirmation does not match")
+	end
+
 	scenario 'User cannot create duplicate email' do
 		User.create( email: 'user@dbc.gov', password: 'password')
-		visit new_user_registration_path
-		fill_in 'user_email', with: 'user@dbc.gov'
-		fill_in 'user_password', with: 'password'
-		fill_in 'user_password_confirmation', with: 'password'
+		visit root_path
+		fill_in 'sign_up_user_email', with: 'user@dbc.gov'
+		fill_in 'sign_up_user_password', with: 'password'
+		fill_in 'sign_up_user_password_confirmation', with: 'password'
 		click_button 'Sign up'
-		expect(page).to have_content("Email has already been taken")
+		expect(page).to have_content("Email has already been taken.")
 	end
 
 
 	let (:user) { User.create( email: 'user@dbc.gov', password: 'password')}
 	scenario 'User can login with valid information' do
-		visit new_user_session_path
-		fill_in 'user_email', with: user.email
-		fill_in 'user_password', with: user.password
+		visit root_path
+		fill_in 'sign_in_user_email', with: user.email
+		fill_in 'sign_in_user_password', with: user.password
 		click_button 'Sign in'
-		expect(current_path).to eq(root_path)
+		expect(page.body).to have_content("Posit Problem")
 	end
 
 	scenario 'User cannot login with invalid information' do
-		visit new_user_session_path
-		fill_in 'user_email', with: 'test@test.gov'
-		fill_in 'user_password', with: 'incorrect'
+		visit root_path
+		fill_in 'sign_in_user_email', with: 'test@test.gov'
+		fill_in 'sign_in_user_password', with: 'incorrect'
 		click_button 'Sign in'
-		expect(current_path).to eq(new_user_session_path)
+		expect(page.body).to have_content("Invalid email or password.")
 	end
 end
