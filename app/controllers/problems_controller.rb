@@ -1,5 +1,6 @@
 class ProblemsController < ApplicationController
   protect_from_forgery
+  require 'json'
   # before_action :load_user, only: :create
 
   def index
@@ -18,21 +19,19 @@ class ProblemsController < ApplicationController
                   }
     end
 
-     @problem = {problem: {
-      id: problem.id,
-      title: problem.title,
-      description: problem.description,
-      solutions: solutions
-      }
-    }
-    # render json: @problem
-
+    @problem = {
+        id: problem.id,
+        title: problem.title,
+        description: problem.description,
+        solutions: solutions
+    }.to_json.html_safe
+    @problem
   end
 
   def create
     @problem = Problem.new(problem_params)
     @problem.user_id = current_user.id
-    if problem.save
+    if @problem.save
       redirect_to problem_path(@problem)
     else
       flash.now[:notice] = "All fields must be populated!"

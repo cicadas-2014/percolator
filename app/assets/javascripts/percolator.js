@@ -76,7 +76,7 @@ function addProblemListeners() {
     $('#problem').bind({
         click: function () {
             zoomIn();
-            hideSolutions(target)
+            hideSolutions()
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -168,13 +168,16 @@ function handleSolutionMouseLeave() {
 }
 
 $(document).ready(function () {
-    if ($("#canvas_container").length){
+
+    if ($("#canvas_container").length) {
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         init();
+        $('#page-title')[0].innerHTML = data.problem.title.toString();
+        $('#synopsis')[0].innerHTML = data.problem.description.toString();
     }
 });
 

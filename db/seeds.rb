@@ -14,7 +14,7 @@ count = 0
 end
 
 10.times do
-  Problem.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph, user_id: rand(5) + 1)
+  Problem.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(10), user_id: rand(5) + 1)
 end
 
 20.times do
