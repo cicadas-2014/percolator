@@ -1,10 +1,16 @@
 var paper;
 var isZoomed = false;
 
+function addEventListeners() {
+    $('.chart-popup button').click(function () {
+        hideChartPopupElements();
+    });
+}
 function init() {
-    paper = new Raphael(document.getElementById('canvas_container'), WIDTH, HEIGHT);
+    paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
+    addEventListeners();
 }
 
 function createSolutions() {
@@ -15,8 +21,8 @@ function createSolutions() {
     for (var i = 0; i < data.problem.solutions.length; i++) {
         var radius = 125 + (50 * (i % 2))
 
-        var posX = WIDTH / 2 + (Math.cos(radians) * radius);
-        var posY = HEIGHT / 2 + (Math.sin(radians) * radius);
+        var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
+        var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
         Factories.createLine(posX, posY);
         Factories.createSolution(posX, posY, i, data.problem.solutions[i].votes);
         addSolutionListeners('solution_' + i);
@@ -35,7 +41,7 @@ function createProblem() {
 function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
-            handleSolutionClick(this);
+            zoomIn(this);
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -49,7 +55,8 @@ function addSolutionListeners(id) {
 function addProblemListeners() {
     $('#problem').bind({
         click: function () {
-            handleProblemClick(this);
+            zoomIn();
+            hideSolutions(target)
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -62,7 +69,10 @@ function addProblemListeners() {
 
 function hideSolutions(target) {
     for (var i = 0; i < solutions.length; i++) {
-        if (solutions[i][0] != target) {
+        if (solutions[i][0] == target) {
+            lines[i].animate({ opacity: 0 }, 2000);
+        }
+        else {
             solutions[i].animate({ opacity: 0 }, 1000);
             lines[i].animate({ opacity: 0 }, 500);
         }
@@ -76,53 +86,74 @@ function showSolutions() {
     }
 }
 
-function handleSolutionClick(target) {
-    if (isZoomed) {
-        paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>')
-        showSolutions(target)
+function showChartPopupElements() {
+    $('.chart-popup #problem-container').hide().slideDown(500);
+    $('.chart-popup #bubble-container').hide().slideDown(500);
+}
+
+function hideChartPopupElements() {
+    $('.chart-popup #problem-container').show().slideUp(500);
+    $('.chart-popup #bubble-container').show().slideUp(500, zoomOut);
+}
+
+// function showProblemElements(visible) {
+//     if (visible)
+//         $('#problem_detail_left').show();
+//     else
+//         $('#problem_detail_left').hide();
+// }
+
+// function handleProblemClick() {
+//     if (isZoomed) {
+//         paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>', showProblemElements(false))
+//     }
+//     else {
+//         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
+
+function zoomIn(target) {
+    var posX;
+    var posY;
+    var modWidth = Constants.WIDTH * Constants.ZOOM_MAX;
+    var modHeight = Constants.HEIGHT * Constants.ZOOM_MAX;
+    if (target) {
+        posX = target.attributes[0].value - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
+        posY = target.attributes[1].value - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
     else {
-        paper.animateViewBox(target.attributes[0].value - ((WIDTH / 2) * ZOOM_MAX), target.attributes[1].value - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>')
-        hideSolutions(target)
+        posX = (Constants.WIDTH / 2) - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
+        posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
-    isZoomed = !isZoomed;
+    paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', showChartPopupElements);
+    isZoomed = true;
 }
 
-function showProblemElements(visible) {
-    if (visible)
-        $('#problem_detail_left').show();
-    else
-        $('#problem_detail_left').hide();
+function zoomOut() {
+    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
+    isZoomed = false;
 }
 
-function handleProblemClick() {
-    if (isZoomed) {
-        paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>', showProblemElements(false))
-    }
-    else {
-        paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
-    }
-    isZoomed = !isZoomed;
-}
-
-function handleSolutionMouseEnter(target) {
+function handleSolutionMouseEnter() {
     $('.solution').html("DIE");
 }
 
-function handleSolutionMouseLeave(target) {
+function handleSolutionMouseLeave() {
     $('.solution').html("");
 }
 
-// $(document).ready(function () {
-//     console.log("(document).ready");
-//     $('#problem_detail_left').hide();
-//     init();
-// });
+$(document).ready(function () {
+    if ($("#canvas_container").length){
+        Constants.WIDTH = $(window).width();
+        Constants.HEIGHT = $(window).height() - 90;
+        $('.chart-popup #problem-container').hide();
+        $('.chart-popup #bubble-container').hide();
+        init();
+    }
+});
 
 
 $(window).resize(function () {
-    WIDTH = $(window).width();
-    HEIGHT = $(window).height() - 100;
+    Constants.WIDTH = $(window).width();
+    Constants.HEIGHT = $(window).height() - 90;
     paper.remove();
     init();
 });

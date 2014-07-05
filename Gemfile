@@ -39,9 +39,12 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development do
+  gem 'rspec-rails', '~> 2.14.1'
+end
+
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 2.14.1'
   gem 'faker'
   gem 'capybara', '~> 2.2.1'
   gem 'selenium-webdriver', '~> 2.38.0'

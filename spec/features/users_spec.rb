@@ -22,6 +22,15 @@ feature 'Users', type: :feature, js: true do
 		expect(page.body).to have_content("Password is too short (minimum is 8 characters)")
 	end
 
+	scenario 'Password and password_confirmation must match' do
+		visit root_path
+		fill_in 'sign_up_user_email', with: 'user3@dbc.gov'
+		fill_in 'sign_up_user_password', with: 'password'
+		fill_in 'sign_up_user_password_confirmation', with: 'password1'
+		click_button 'Sign up'
+		expect(page.body).to have_content("Password confirmation does not match")
+	end
+
 	scenario 'User cannot create duplicate email' do
 		User.create( email: 'user@dbc.gov', password: 'password')
 		visit root_path
@@ -29,7 +38,7 @@ feature 'Users', type: :feature, js: true do
 		fill_in 'sign_up_user_password', with: 'password'
 		fill_in 'sign_up_user_password_confirmation', with: 'password'
 		click_button 'Sign up'
-		expect(page).to have_content("Email has already been taken")
+		expect(page).to have_content("Email has already been taken.")
 	end
 
 
@@ -47,6 +56,6 @@ feature 'Users', type: :feature, js: true do
 		fill_in 'sign_in_user_email', with: 'test@test.gov'
 		fill_in 'sign_in_user_password', with: 'incorrect'
 		click_button 'Sign in'
-		expect(page.body).to have_content("Invalid User/Password")
+		expect(page.body).to have_content("Invalid email or password.")
 	end
 end

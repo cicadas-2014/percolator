@@ -19,21 +19,3 @@
 //= require percolator-factories
 //= require percolator
 //= require_tree .
-
-
-$(document).ready( function(){
-	$( '#sign_up_form form' ).submit(function(event) {
-		var email = $( 'form :input#sign_up_user_email' ).val();
-		var pw_length = $( 'form :input#sign_up_user_password' ).val().length;
-
-		if (pw_length < 8){
-			$( 'ul' ).empty();
-			event.preventDefault();
-			$( 'ul' ).append("Password is too short (minimum is 8 characters)")
-		}
-		$.ajax({
-			
-		})
-		// $( 'ul' ).append(data);
-	});
-});
