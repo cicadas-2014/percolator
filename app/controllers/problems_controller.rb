@@ -29,12 +29,13 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    problem = Problem.new(problem_params)
-    problem.user_id = 1
-    if problem.save
-      redirect_to problem_path(problem)
+    @problem = Problem.new(problem_params)
+    @problem.user_id = 1
+    if @result = @problem.save
+      redirect_to problem_path(@problem)
     else
-      render :new, object: problem
+      flash.now[:notice] = "All fields must be populated!"
+      render :new, :error => @problem
     end
   end
 
