@@ -1,3 +1,22 @@
+<% if !current_user %>
+<div id="sign_up_form">
+	<h2>Sign up</h2>
+	<%= render '/user/new', user: resource %>
+</div>
+	<br>
+
+<div id="sign_in_form">
+	<h2>Sign in</h2>
+	<%= render '/user/login', user: resource %>
+</div>
+	<br>
+<% end %>
+<br>
+
+<% if current_user %>
+	<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<% end %>
+
 <div class="container">
     <div id="problem-menu">
         <% @problems.each do |problem| %>

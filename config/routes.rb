@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :problems, only: [:show, :new, :create]
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'user'}
 
   root to: 'problems#index'
   post '/solutions/create', to: 'solutions#create'
