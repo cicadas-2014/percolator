@@ -24,7 +24,7 @@ describe ProblemsController do
   #     get :show, id: fg_problem.id
   #     expect(assigns(:problem)).to eq fg_problem
   #   end
-  # end
+  end
 
   describe "GET#new" do
     it "is successful" do
