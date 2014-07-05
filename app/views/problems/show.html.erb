@@ -6,20 +6,17 @@
 <%= javascript_include_tag 'percolator-factories', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'percolator', 'data-turbolinks-track' => true %>
 
+
+<%= javascript_tag do %>
+    window.data = <%=j @problem %>
+<% end %>
+
 <div id="canvas_container"></div>
 
 <div class="chart-popup">
     <div id="problem-container">
         <h2>synopsis:</h2>
-        <p>
-            Messenger bag Schlitz bespoke, semiotics flexitarian DIY keytar Thundercats food truck freegan twee. Carles
-            quinoa farm-to-table craft beer, slow-carb Helvetica skateboard meh umami occupy bitters next level keytar
-            bicycle rights viral. Tousled forage cliche raw denim tattooed, chia chambray pork belly literally mixtape
-            actually. Sartorial church-key ennui fap Echo Park wolf. Truffaut Helvetica Wes Anderson, sartorial vinyl
-            wolf tousled gentrify dreamcatcher paleo PBR Vice keffiyeh 3 wolf moon. Scenester fap PBR&B, flexitarian
-            stumptown next level XOXO. Ugh Pinterest bitters, distillery fap Cosby sweater pug normcore bespoke
-            Intelligentsia farm-to-table 3 wolf moon polaroid stumptown banjo.
-        </p>
+        <div id="synopsis"></div>
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">PERCOLATE</button>
     </div>
