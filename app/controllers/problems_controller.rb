@@ -8,6 +8,7 @@ class ProblemsController < ApplicationController
 
   def show
     problem = Problem.find params[:id]
+    @solution = Solution.new
     solutions = []
     problem.solutions.each do |solution|
       solutions << {id: solution.id,
@@ -30,7 +31,7 @@ class ProblemsController < ApplicationController
 
   def create
     @problem = Problem.new(problem_params)
-    @problem.user_id = 1
+    @problem.user_id = current_user.id
     if problem.save
       redirect_to problem_path(@problem)
     else
