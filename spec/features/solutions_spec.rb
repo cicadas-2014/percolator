@@ -1,15 +1,29 @@
 require 'spec_helper'
 
 feature 'User creates a new solution', type: :feature, js: true do
-  scenario 'with valid title and description' do
+  # let!(:problem) { create :problem }
+  # let!(:solution) { create :solution }
 
-  end
+  # scenario 'with valid title and description' do
+  #   create_solution_with("Isn't my group great?", "Hell yea homie!")
+  #   expect(page).to have_
+  # end
 
-  scenario 'with invalid title' do
+  # scenario 'with invalid title' do
+  #   create_solution_with(nil, "Hell yea homie!")
+  # end
 
-  end
+  # scenario 'with invalid description' do
+  #   create_solution_with("Isn't my group great?", nil)
+  # end
 
-  scenario 'with invalid description' do
+  # def create_solution_with(title, description)
+  #   visit problem_path(problem)
 
-  end
+  #   within("#new_solution") do
+  #     fill_in 'solution_title', with: title
+  #     fill_in 'solution_description', with: description
+  #   end
+  #   click_button 'Percolate'
+  # end
 end
