@@ -154,8 +154,6 @@ $(document).ready(function () {
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    if ($("#canvas_container").length){
-        paper.remove();
-    }
+    paper.remove();
     init();
 });
