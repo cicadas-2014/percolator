@@ -136,3 +136,7 @@ body {
     padding: 5px;
     z-index: 1;
 }
+
+.solution-form {
+    position: absolute;
+}

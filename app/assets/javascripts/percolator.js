@@ -6,9 +6,26 @@ function addEventListeners() {
         hideChartPopupElements();
     });
     $('.chart-popup button#render-solution-form').click(function () {
-        hideChartPopupElementsWithoutZoomOut();
+        renderSolutionForm();
+    })
+    $('form').on("submit", ".Percolate", function(e) {
+        e.preventDefault();
+        ajaxPostSolution();
+        $("#solution-form").hide();
     })
 }
+
+// Tell ajax before it sends that we want js request
+
+jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+function ajaxPostSolution() {
+    console.log("in the ajaxpost method")
+    $.post($(this).attr("action"), $(this).serialize(), null, "script" )
+}
+
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
@@ -112,8 +129,12 @@ function hideChartPopupElements() {
 //     }
 //     else {
 //         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
-function hideChartPopupElementsWithoutZoomOut() {
-    $('.chart-popup #problem-container').show().slideUp(500);
+function renderSolutionForm() {
+    var solutionForm = $('#solution-form').detach();
+    console.log("hello");
+    console.log(solutionForm)
+    $(solutionForm).appendTo("#problem-container");
+    $("#solution-form").show();
 }
 
 function zoomIn(target) {
@@ -152,6 +173,7 @@ $(document).ready(function () {
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
+        $('#solution-form').hide();
         init();
     }
 });
