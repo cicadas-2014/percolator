@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature 'User creates a new problem', type: :feature, js: true do
+<<<<<<< HEAD
   let!(:user) { create :user }
   let!(:problem) { create :problem }
   scenario 'with valid title and description' do

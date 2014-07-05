@@ -48,3 +48,16 @@
 	<%= link_to('Posit Problem', new_problem_path) %>
 	<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
 <% end %>
+
+
+<div class="container">
+    <div id="problem-menu">
+        <% @problems.each do |problem| %>
+            <div class="problem">
+                <%= link_to problem.title, problem_path(problem) %><br>
+            </div>
+        <% end %>
+    </div>
+    <%= link_to('Posit Problem', new_problem_path) %>
+</div>
+

@@ -13,7 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require raphael
+//= require raphael-animated-viewbox
+//= require percolator-model
+//= require percolator-factories
+//= require percolator
 //= require_tree .
+
+
 // $(document).ready( function(){
 // 	$( '#sign_up_form form' ).submit(function(event) {
 // 		var email = $('form :input#user_email');
