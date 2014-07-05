@@ -3,16 +3,16 @@ require 'spec_helper'
 describe ProblemsController do
   let!(:fg_problem) { create :problem }
   # let!(:problems) { [problem, create :problem]}
-  # describe "GET#index" do
-  #   it "is successful" do
-  #     get :index
-  #     expect(response).to be_success
-  #   end
-  #   it "assigns @problems to Problem.all" do
-  #     get :index
-  #     expect(assigns(:problem)).to eq [problem]
-  #   end
-  # end
+  describe "GET#index" do
+    it "is successful" do
+      get :index
+      expect(response).to be_success
+    end
+    it "assigns @problems to Problem.all" do
+      get :index
+      expect(assigns(:problems)).to eq [fg_problem]
+    end
+  end
 
   describe "GET#show" do
     it "is successful" do
@@ -30,11 +30,6 @@ describe ProblemsController do
     it "is successful" do
       get :new
       expect(response).to be_success
-    end
-
-    it "assigns @problem to Problem.new" do
-      get :new
-      expect(assigns(:problem)).to eq problem
     end
   end
 
