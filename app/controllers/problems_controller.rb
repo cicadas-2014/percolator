@@ -24,7 +24,7 @@ class ProblemsController < ApplicationController
       solutions: solutions
       }
     }
-    render json: @problem
+    # render json: @problem
 
   end
 
