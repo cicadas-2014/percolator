@@ -4,6 +4,7 @@ class UserController < Devise::RegistrationsController
 		@user = User.new(user_params)
 		@problems = Problem.all
 		if @user.save
+			sign_in(@user)
 			redirect_to root_path
 		else
 			flash.now[:notice] = "Email has already been taken."
@@ -16,6 +17,6 @@ class UserController < Devise::RegistrationsController
 	end
 
 	def user_params
-		params.require(:user).permit(:email, :password)
+		params.require(:user).permit(:email, :password, :password_confirmation)
 	end
 end

@@ -137,3 +137,10 @@ body {
     z-index: 1;
 }
 
+#sign_up_form {
+    display: none;
+}
+
+#sign_in_form {
+    display: none;
+}
