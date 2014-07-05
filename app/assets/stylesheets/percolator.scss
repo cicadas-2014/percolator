@@ -85,7 +85,7 @@ body {
 #canvas_container {
     position: absolute;
     left: 0px;
-    top: 98px;
+    top: 99px;
     z-index:0;
 }
 
@@ -96,13 +96,13 @@ body {
 
 .chart-popup h2 {
     font-family: Opificio;
-    color: #6DA2FF;
+    color: #BAD3FF;
     font-size: 24px;
 }
 
 .chart-popup h4 {
     font-family: Opificio;
-    color: #6DA2FF;
+    color: #BAD3FF;
     font-size: 24px;
 }
 
@@ -111,20 +111,28 @@ body {
     padding:20px;
     height:70%;
     color: #888888;
-    background-color: #FFFFFF;
+    background-image: url(image-path('congruent_outline.png'));
     border-bottom: 1px solid #3A424F;
     z-index:1;
 }
 
+.chart-popup #problem-container h3 {
+    color: #CCCCCC;
+}
+
+.chart-popup #problem-container p {
+    color: #888888;
+}
+
 .chart-popup #problem-container button{
     color: #FFF;
-    background-color: #5D6980;
+    background-color: #3A424F;
     bottom: 200;
 }
 
 .chart-popup #bubble-container {
     position:absolute;
-    background-color: #3A424F;
+    background-color: #FFFFFF;
     bottom:0;
     left:0;
     width:100%;
