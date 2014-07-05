@@ -20,11 +20,11 @@ describe ProblemsController do
       expect(response).to be_success
     end
 
-    it "assigns @problem to problem" do
-      get :show, id: fg_problem.id
-      expect(assigns(:problem)).to eq fg_problem
-    end
-  end
+  #   it "assigns @problem to problem" do
+  #     get :show, id: fg_problem.id
+  #     expect(assigns(:problem)).to eq fg_problem
+  #   end
+  # end
 
   describe "GET#new" do
     it "is successful" do
