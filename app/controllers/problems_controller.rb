@@ -18,15 +18,14 @@ class ProblemsController < ApplicationController
                   }
     end
 
-     @problem = {problem: {
-      id: problem.id,
-      title: problem.title,
-      description: problem.description,
-      solutions: solutions
-      }
+    @problem = {
+        id: problem.id,
+        title: problem.title,
+        description: problem.description,
+        solutions: solutions
     }
-    @problem.to_json
-
+    data = @problem
+    data
   end
 
   def create

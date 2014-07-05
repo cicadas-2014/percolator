@@ -131,7 +131,11 @@ $(document).ready(function () {
     Constants.HEIGHT = $(window).height() - 90;
     $('.chart-popup #problem-container').hide();
     $('.chart-popup #bubble-container').hide();
-    //console.log(problem);
+    var foo = problem
+    var problemData = $.parseJSON(foo);
+
+    $('#page-title')[0].innerHTML = problemData.title;
+    console.log(problemData);
     init();
 });
 
