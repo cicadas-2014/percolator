@@ -2,12 +2,11 @@
 <%= javascript_include_tag 'raphael', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'raphael-animated-viewbox', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'percolator-constants', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'percolator-model', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'percolator-factories', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'percolator', 'data-turbolinks-track' => true %>
 
-
-<%= content_tag :div, class: "data", data: {problem: @problem} do %>
+<%= javascript_tag do %>
+    window.data = '<%=j @problem %>'
 <% end %>
 
 <div id="canvas_container"></div>

@@ -6,9 +6,13 @@ class SolutionsController < ApplicationController
     @solution = Solution.new(solution_params)
     respond_to do |format|
       if @solution.save
+        p "=" * 40
+        p "=" * 40
+        p "I was saved!"
+        p "=" * 40
         # format.html { redirect_to @solution, notice: "Solution was successfully created." }
         # format.js {}
-        format.json { render json: @solution.id}
+        format.json { render json: @solution, status: :created}
       else
         # format.html {}
         format.json { render json: @solution.errors, status: :unprocessable_entity }
