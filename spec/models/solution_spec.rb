@@ -30,6 +30,10 @@ describe Solution do
     it "is invalid without a user association" do
       expect(Solution.create(title: title, description: description, user_id: nil, problem: problem)).to have(1).errors_on(:user_id)
     end
+
+    it "is invalid without a problem association" do
+    	expect(Solution.create(title: title, description: description, user: user, problem_id: nil)).to have(1).errors_on(:problem_id)
+    end
   end
 
   def create_solution_with(title, description, user, problem)
