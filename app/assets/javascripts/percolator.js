@@ -163,6 +163,8 @@ $(document).ready(function () {
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    paper.remove();
+    if (paper) {
+        paper.remove();
+    };
     init();
 });
