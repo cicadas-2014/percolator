@@ -5,10 +5,31 @@ function addEventListeners() {
     $('.chart-popup button#back').click(function () {
         hideChartPopupElements();
     });
-    $('.chart-popup button#render-solution-form').click(function () {
-        hideChartPopupElementsWithoutZoomOut();
+    $('.chart-popup button#render-solution-form').unbind('click').click(function () {
+        renderSolutionForm();
+    })
+    $('form #new-solution').on("submit", ".Percolate", function(e) {
+        e.preventDefault();
+        console.log("holla")
+        ajaxPostSolution();
+        $("#solution-form").hide();
     })
 }
+
+// Tell ajax before it sends that we want js request
+
+jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+function ajaxPostSolution() {
+    var ajaxRequest = $.post($(this).attr("action"), $(this).serialize())
+    ajaxRequest.done(function(response){
+        console.log(response)
+        $("#solution-form").find("input[type=text], textarea").val("")
+    })
+}
+
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
@@ -112,8 +133,12 @@ function hideChartPopupElements() {
 //     }
 //     else {
 //         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
-function hideChartPopupElementsWithoutZoomOut() {
-    $('.chart-popup #problem-container').show().slideUp(500);
+function renderSolutionForm() {
+    var solutionForm = $('#solution-form').detach();
+    console.log("hello");
+    console.log(solutionForm)
+    $(solutionForm).appendTo("#problem-container");
+    $("#solution-form").show();
 }
 
 function zoomIn(target) {
@@ -146,6 +171,36 @@ function handleSolutionMouseLeave() {
     $('.solution').html("");
 }
 
+function upvote() {
+    $("#upvote").on("click",function(){
+        $.ajax({
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: "/upvote",
+            type: "POST"
+        }).done(function(r){
+            var response = $.parseJSON(r);
+            $("#upvote").html("upvote"+response[0]+"");
+            $("#downvote").html("downvote"+response[1]+"");
+        });
+    });
+}
+
+function downvote() {
+    $("#downvote").on("click",function(){
+        $.ajax({
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: "/downvote",
+            type: "POST"
+        }).done(function(r){
+            console.log(r)
+            var response1 = $.parseJSON(r);
+            $("#upvote").html("upvote"+response1[0]+"");
+            $("#downvote").html("downvote"+response1[1]+"");
+        });
+    });
+}
+
+
 $(document).ready(function () {
 
     if ($("#canvas_container").length) {
@@ -153,10 +208,14 @@ $(document).ready(function () {
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
+        $('#solution-form').hide();
         init();
         $('#page-title')[0].innerHTML = data.problem.title.toString();
         $('#synopsis')[0].innerHTML = data.problem.description.toString();
+        upvote();
+        downvote();
     }
+
 });
 
 

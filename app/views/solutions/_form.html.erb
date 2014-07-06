@@ -1,0 +1,9 @@
+<%= form_for @solution, :url => problem_solutions_create_path(@form_problem), remote: true do |f| %>
+  <p>What's your solution?</p><br>
+  <%= f.label :title, "Gist: " %><br>
+  <%= f.text_field :title %><br>
+
+  <%= f.label :description, "Description: " %> <br>
+  <%= f.text_area :description %><br>
+  <%= f.submit "Percolate", :class => "Percolate" %>
+<% end %>
