@@ -5,11 +5,12 @@ function addEventListeners() {
     $('.chart-popup button#back').click(function () {
         hideChartPopupElements();
     });
-    $('.chart-popup button#render-solution-form').click(function () {
+    $('.chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     })
-    $('form').on("submit", ".Percolate", function(e) {
+    $('form #new-solution').on("submit", ".Percolate", function(e) {
         e.preventDefault();
+        console.log("holla")
         ajaxPostSolution();
         $("#solution-form").hide();
     })
@@ -22,8 +23,11 @@ jQuery.ajaxSetup({
 })
 
 function ajaxPostSolution() {
-    console.log("in the ajaxpost method")
-    $.post($(this).attr("action"), $(this).serialize(), null, "script" )
+    var ajaxRequest = $.post($(this).attr("action"), $(this).serialize())
+    ajaxRequest.done(function(response){
+        console.log(response)
+        $("#solution-form").find("input[type=text], textarea").val("")
+    })
 }
 
 function init() {
