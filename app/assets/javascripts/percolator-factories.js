@@ -5,12 +5,11 @@ Factories = {
         problem.node.id = 'problem';
     },
 
-    createSolution: function (posX, posY, id, votes) {
-        var solution = paper.circle(posX, posY, SOLUTION_RADIUS+(votes/10)).attr({fill: SOLUTION_COLOR, stroke: "none"});
-        console.log(solution)
+    createSolution: function (posX, posY, id) {
+        var solution = paper.circle(posX, posY, SOLUTION_RADIUS).attr({fill: SOLUTION_COLOR, stroke: "none"});
         solution.id = id;
         solution.node.id = 'solution_' + id;
-        solutions.push(solution);
+        solutionSprites.push(solution);
         return solution;
     },
 
