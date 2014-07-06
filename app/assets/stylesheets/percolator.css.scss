@@ -21,7 +21,8 @@ body {
 }
 
 .container {
-    width:100%;
+  clear: both;
+  width:100%;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -30,7 +31,6 @@ body {
 }
 
 #problem-menu {
-    padding-top: 20px;
 }
 
 #problem-menu .problem{
@@ -90,8 +90,8 @@ body {
 }
 
 .chart-popup {
-   width:100%;
-   height:100%;
+  width: 100%;
+  height: 100%;
 }
 
 .chart-popup h2 {
@@ -111,8 +111,8 @@ body {
     padding:20px;
     height:70%;
     color: #888888;
-    background-image: url(image-path('burried.png'));
-    border-bottom: 1px solid #3A424F;
+  background-color: #333333;
+  border-bottom: 1px solid #3A424F;
     z-index:1;
 }
 
@@ -138,4 +138,67 @@ body {
     width:100%;
     height:30%;
     z-index:3;
+}
+
+.solution {
+  width: 100%;
+  background-color: #FFF;
+  font-family: arial;
+  color: #37517F;
+  font-size: 12pt;
+  text-align: center;
+  padding: 5px;
+  z-index: 1;
+}
+
+.solution-form {
+  position: absolute;
+}
+
+#sign_up_form {
+  font-size: 10px;
+  display: none;
+}
+
+#sign_in_form {
+  font-size: 10px;
+  display: none;
+}
+
+#sign_up_button {
+  -ms-transform: scale(.5, .5); /* IE 9 */
+  -webkit-transform: scale(.5, .5); /* Chrome, Safari, Opera */
+  transform: scale(.5, .5);
+}
+
+#sign_up {
+  min-width: 199px;
+  min-height: 193px;
+  float: right;
+}
+
+#sign_in_button {
+  -ms-transform: scale(.5, .5); /* IE 9 */
+  -webkit-transform: scale(.5, .5); /* Chrome, Safari, Opera */
+  transform: scale(.5, .5);
+}
+
+#sign_in {
+  min-width: 199px;
+  min-height: 165px;
+  float: right;
+}
+
+.brand a {
+  text-decoration: none;
+  font-style: normal;
+  color: inherit;
+}
+
+.upvote {
+  margin-top: 30px;
+}
+
+.downvote {
+  margin-top: 30px;
 }
