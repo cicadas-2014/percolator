@@ -17,4 +17,5 @@
 //= require raphael-animated-viewbox
 //= require percolator-factories
 //= require percolator
+//= require disqus_rails
 //= require_tree .

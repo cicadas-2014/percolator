@@ -13,4 +13,3 @@ Rails.application.config.assets.precompile += %w( percolator.js percolator-const
 Rails.application.config.assets.precompile += %w( jquery.js )
 Rails.application.config.assets.precompile += %w( jquery.avgrund.min.js avgrund.css percolator-avgrund.js)
 Rails.application.config.assets.precompile += %w( authentication.js )
-
