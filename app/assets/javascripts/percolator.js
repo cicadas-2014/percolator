@@ -27,13 +27,17 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
-})
+});
 
 function init() {
+    if (paper) {
+        paper.remove();
+    };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
     addEventListeners();
+    console.log("DRAWING")
 }
 
 function createSolutions() {
@@ -233,26 +237,22 @@ $(document).ready(function () {
         var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
-        $('.chart-popup #problem-container').hide();
-        $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         $('.chart-popup #problem-container').removeClass('hidden');
         $('.chart-popup #bubble-container').removeClass('hidden');
-        init();
+        $('.chart-popup #problem-container').hide();
+        $('.chart-popup #bubble-container').hide();
         $('#page-title')[0].innerHTML = problem.title
         $('#synopsis')[0].innerHTML = problem.description
         upvote();
         downvote();
+        init();
     }
-
 });
 
 
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    if (paper) {
-        paper.remove();
-    };
     init();
 });
