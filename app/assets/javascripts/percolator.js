@@ -84,10 +84,10 @@ var isZoomed = false;
 var solutionNumber;
 
 function addEventListeners() {
-    $('.chart-popup button#back').unbind('click').click(function () {
+    $('#chart-popup button#back').unbind('click').click(function () {
         hideChartPopupElements();
     });
-    $('.chart-popup button#render-solution-form').unbind('click').click(function () {
+    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     })
     $('#new_solution').on("submit", function(e) {
@@ -112,12 +112,16 @@ $(document).on("ajax:success", "#solution-form", function(){
     init();
 })
 
+
 function clearPaper(paper){
     var paperDom = paper.canvas;
     paperDom.parentNode.removeChild(paperDom);
 }
 
 function init() {
+    if (paper) {
+        paper.remove();
+    };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
@@ -211,21 +215,17 @@ function showSolutions() {
 }
 
 function showChartPopupElements(obj) {
-    $('.chart-popup #problem-container').hide().slideDown(500);
-    $('.chart-popup #bubble-container').hide().slideDown(500);
+    $('#chart-popup').hide().slideDown(500);
     $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
     // SAVE COMMENT***********
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
-    // $('.chart-popup #bubble-container').remove
     isZooming = false;
 }
 
 function hideChartPopupElements() {
-    $('.chart-popup #problem-container').show().slideUp(500);
-    $('.chart-popup #bubble-container').show().slideUp(500, zoomOut);
-    console.log("I'm hiding")
+    $('#chart-popup').show().slideUp(500);
     isZooming = false;
 }
 
@@ -250,9 +250,6 @@ function renderSolutionForm() {
 }
 
 function zoomIn(target) {
-    console.log("I'm in the zoomIn function!!")
-    console.log(target)
-    console.log("I'm in the zoomIn function!!")
     isZooming = true;
     var posX;
     var posY;
@@ -267,7 +264,6 @@ function zoomIn(target) {
         posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
     solutionNumber = $(target).attr("id")
-    console.log(solutionNumber)
     paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', showChartPopupElements);
     isZoomed = true;
 }
@@ -294,8 +290,8 @@ function upvote() {
             type: "POST"
         }).done(function(r){
             var response = $.parseJSON(r);
-            $("#upvote").html("upvote"+response[0]+"");
-            $("#downvote").html("downvote"+response[1]+"");
+            count = response[0] - response[1];
+            $("#count").html(""+count+"");
         });
     });
 }
@@ -307,10 +303,10 @@ function downvote() {
             url: "/downvote",
             type: "POST"
         }).done(function(r){
-            console.log(r)
             var response1 = $.parseJSON(r);
-            $("#upvote").html("upvote"+response1[0]+"");
-            $("#downvote").html("downvote"+response1[1]+"");
+             count = response1[0] - response1[1];
+            $("#count").html(""+count+"");
+
         });
     });
 }
@@ -321,26 +317,21 @@ $(document).ready(function () {
         var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
-        $('.chart-popup #problem-container').hide();
-        $('.chart-popup #bubble-container').hide();
+        $('#chart-popup #problem-container').removeClass('hidden');
+        $('#chart-popup #bubble-container').removeClass('hidden');
         $('#solution-form').hide();
-        $('.chart-popup #problem-container').removeClass('hidden');
-        $('.chart-popup #bubble-container').removeClass('hidden');
-        init();
-        $('#page-title')[0].innerHTML = problem.title
-        $('#synopsis')[0].innerHTML = problem.description
+        $('#chart-popup').hide();
+        $('#page-title')[0].innerHTML = problem.title;
+        $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
+        init();
     }
-
 });
 
 
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    if (paper) {
-        paper.remove();
-    };
     init();
 });

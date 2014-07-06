@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Percolator</title>
-    <%= stylesheet_link_tag 'normalize', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag 'percolator', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag 'avgrund', media: 'all', 'data-turbolinks-track' => true %>
+    <head>
+      <title>Percolator</title>
+        <%= stylesheet_link_tag 'normalize', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag 'percolator', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag 'avgrund', media: 'all', 'data-turbolinks-track' => true %>
 
-    <%= javascript_include_tag 'jquery', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'jquery.avgrund.min', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'raphael', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'jquery', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'jquery.avgrund.min', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'raphael', 'data-turbolinks-track' => true %>
 
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<div class="header" >
-    <image  src="<%= image_path "logo.png" %>"/>
-    <div class="brand"><%= link_to 'percolate', root_path %></div>
-</div>
-<div class="title-bar" id="page-title">
-    View a discussion, or start one of your own:
-</div>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+      <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <div class="header" >
+            <image  src="<%= image_path "logo.png" %>"/>
+            <div class="brand"><%= link_to 'percolate', root_path %></div>
+        </div>
+        <div class="title-bar" id="page-title">
+            View a discussion, or start one of your own:
+        </div>
 
-<%= render 'shared/notice_div' %>
+        <%= render 'shared/notice_div' %>
 
-<%= yield %>
+        <%= yield %>
 
-</body>
+    </body>
 </html>
