@@ -30,6 +30,9 @@ $(document).on("ajax:success", "#solution-form", function(){
 });
 
 function init() {
+    if (paper) {
+        paper.remove();
+    };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
@@ -243,6 +246,7 @@ $(document).ready(function () {
         $('#synopsis')[0].innerHTML = problem.description
         upvote();
         downvote();
+        init();
     }
 });
 
@@ -250,8 +254,5 @@ $(document).ready(function () {
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    if (paper) {
-        paper.remove();
-    };
     init();
 });
