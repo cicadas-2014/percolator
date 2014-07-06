@@ -1,3 +1,83 @@
+// function Canvas () {
+//     this.windowWidth = $(window).width();
+//     this.windowHeight = $(window).height() - 90;
+//     this.paper = new Raphael($("#canvas_container").get(0), this.windowWidth, this.windowHeight)
+//     this.data = $.parseJSON(window.data).solutions
+// }
+
+// Canvas.prototype.
+
+// var PROBLEM_RADIUS = 75;
+// var SOLUTION_RADIUS = 8;
+// var PROBLEM_COLOR = '#37517F';
+// var SOLUTION_COLOR = '#6DA2FF';
+// var CONNECTION_COLOR = '#666';
+// var solutionSprites = [];
+// var lines = [];
+
+// Canvas.prototype.createSolutions = function() {
+//     var radians = 0;
+//     var maxRadians = 2 * Math.PI;
+//     var step = (2 * Math.PI) / this.data.length;
+
+//     for (var i = 0; i < this.data.length; i++) {
+//         var radius = 125 + (50 * (i % 2))
+
+//         var posX = this.windowWidth / 2 + (Math.cos(radians) * radius);
+//         var posY = this.windowHeight / 2 + (Math.sin(radians) * radius);
+//         Factories.createLine(posX, posY)
+//         Factories.createSolution(posX, posY, i, this.data[i])
+//         addSolutionListeners(i);
+//         radians += step;
+//         if (radians > maxRadians) {
+//             radians -= maxRadians;
+//         }
+//     }
+// }
+
+// Canvas.prototype.createLine = function (posX, posY, id) {
+//     var solution = this.paper.circle(posX, posY, SOLUTION_RADIUS).attr({fill: SOLUTION_COLOR, stroke: "none"});
+//     solution.id = id;
+//     solution.node.id = id;
+//     solutionSprites.push(solution);
+//     return solution;
+// }
+
+// Canvas.prototype.createProblem = function() {
+
+// }
+
+// Canvas.prototype.addEventListeners = function() {
+//     $('.chart-popup button#back').unbind('click').click(function () {
+//         hideChartPopupElements();
+//     });
+//     $('.chart-popup button#render-solution-form').unbind('click').click(function () {
+//         renderSolutionForm();
+//     })
+//     $('#new_solution').on("submit", function(e) {
+//         e.preventDefault();
+//         $(this.solution_title).val("");
+//         $(this.solution_description).val("");
+//         $(this).hide();
+//     })
+// }
+
+// function View () {
+
+// }
+
+// View.prototype.initializeViews = function () {
+
+// }
+
+// function Disqus() {
+
+// }
+
+// Disqus.prototype.configure () {
+
+// }
+
 var isZooming = false;
 var paper;
 var isZoomed = false;
@@ -27,7 +107,15 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
+    // console.log(paper)
+    // clearPaper()
+    init();
 })
+
+function clearPaper(paper){
+    var paperDom = paper.canvas;
+    paperDom.parentNode.removeChild(paperDom);
+}
 
 function init() {
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
