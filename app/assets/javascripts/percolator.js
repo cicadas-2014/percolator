@@ -200,8 +200,8 @@ function downvote() {
 
 
 $(document).ready(function () {
-    var problem = $.parseJSON(window.data)
     if ($("#canvas_container").length) {
+        var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
