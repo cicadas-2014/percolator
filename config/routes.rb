@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   root to: 'problems#index'
   post '/solutions/create', to: 'solutions#create'
   post '/improvements/create', to: 'improvements#create'
-  post '/upvote', to: "vote#upvote"
-  post '/downvote', to: "vote#downvote"
+  post '/upvote', to: "votes#upvote"
+  post '/downvote', to: "votes#downvote"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

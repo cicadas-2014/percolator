@@ -42,7 +42,7 @@ end
     count = 50
   end
 
-  Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1)
+  Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1, vote_type: true)
 end
 
 # latest transcript
