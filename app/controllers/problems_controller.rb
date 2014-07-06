@@ -19,14 +19,7 @@ class ProblemsController < ApplicationController
                   username: solution.user.username
                   }
     end
-
-    @problem = {
-        id: problem.id,
-        title: problem.title,
-        description: problem.description,
-        solutions: solutions
-    }.to_json.html_safe
-    @problem
+    @problem = problem
   end
 
   def create

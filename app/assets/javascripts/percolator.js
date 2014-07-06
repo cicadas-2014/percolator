@@ -40,15 +40,15 @@ function init() {
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
-    var step = (2 * Math.PI) / data.problem.solutions.length;
+    var step = (2 * Math.PI) / Model.data.problem.solutions.length;
 
-    for (var i = 0; i < data.problem.solutions.length; i++) {
+    for (var i = 0; i < Model.data.problem.solutions.length; i++) {
         var radius = 125 + (50 * (i % 2))
 
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
         Factories.createLine(posX, posY);
-        Factories.createSolution(posX, posY, i, data.problem.solutions[i].votes);
+        Factories.createSolution(posX, posY, i, Model.data.problem.solutions[i].votes);
         addSolutionListeners('solution_' + i);
         radians += step;
         if (radians > maxRadians) {
@@ -180,8 +180,9 @@ $(document).ready(function () {
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         init();
-        $('#page-title')[0].innerHTML = data.problem.title.toString();
-        $('#synopsis')[0].innerHTML = data.problem.description.toString();
+        var problem = $('.data').data('problem');
+        $('#page-title')[0].innerHTML = problem.title;
+        $('#synopsis')[0].innerHTML = problem.description;
     }
 });
 

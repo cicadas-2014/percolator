@@ -7,12 +7,10 @@
 <%= javascript_include_tag 'percolator', 'data-turbolinks-track' => true %>
 
 
-<%= javascript_tag do %>
-    window.data = <%=j @problem %>
+<%= content_tag :div, class: "data", data: {problem: @problem} do %>
 <% end %>
 
 <div id="canvas_container"></div>
-
 <div class="chart-popup">
     <div id="problem-container">
         <h2>synopsis:</h2>
