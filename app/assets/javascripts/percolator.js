@@ -23,13 +23,14 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
-})
+});
 
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
     addEventListeners();
+    console.log("DRAWING")
 }
 
 function createSolutions() {
@@ -204,10 +205,9 @@ $(document).ready(function () {
     if ($("#canvas_container").length) {
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
-        $('.chart-popup #problem-container').hide();
-        $('.chart-popup #bubble-container').hide();
+        //$('.chart-popup #problem-container').hide();
+        //$('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
-        init();
         $('#page-title')[0].innerHTML = problem.title
         $('#synopsis')[0].innerHTML = problem.description
         upvote();

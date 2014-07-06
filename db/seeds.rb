@@ -8,6 +8,24 @@
 types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
+
+data = [
+    {
+        problem:
+            {
+                user_id: 0,
+                title: "",
+                description: "",
+                solutions: {
+                    title: "",
+                    description: "",
+                    user_id: 0,
+                }
+            }
+    }
+]
+
+
 5.times do
   User.create(username: usernames[count], email: "drknockers#{count}@pinkpanther.com", password: "deebeecee123")
   count += 1
