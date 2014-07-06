@@ -18,4 +18,4 @@
 
 - when looking at a problem/solution, extra scroll space contains duplicate of the nodespace
 
-- percolate button malfunctions, doesn't leave space for submit button
+- percolate doesn't leave space for submit button
