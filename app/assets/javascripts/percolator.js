@@ -1,3 +1,4 @@
+var isZooming = false;
 var paper;
 var isZoomed = false;
 
@@ -60,7 +61,9 @@ function createProblem() {
 function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
+            if (!isZooming) {
             zoomIn(this);
+            }
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -74,8 +77,10 @@ function addSolutionListeners(id) {
 function addProblemListeners() {
     $('#problem').bind({
         click: function () {
+            if (!isZooming) {
             zoomIn();
             hideSolutions()
+            }
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -103,11 +108,13 @@ function showSolutions() {
         solutionSprites[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
+    isZooming = false;
 }
 
 function showChartPopupElements() {
     $('.chart-popup #problem-container').hide().slideDown(500);
     $('.chart-popup #bubble-container').hide().slideDown(500);
+
 }
 
 function hideChartPopupElements() {
@@ -137,6 +144,7 @@ function renderSolutionForm() {
 }
 
 function zoomIn(target) {
+    isZooming = true;
     var posX;
     var posY;
     var modWidth = Constants.WIDTH * Constants.ZOOM_MAX;
@@ -154,6 +162,7 @@ function zoomIn(target) {
 }
 
 function zoomOut() {
+    zoomOutComplete = false;
     paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>', showSolutions);
     isZoomed = false;
 }
@@ -196,8 +205,8 @@ function downvote() {
 
 
 $(document).ready(function () {
-    var problem = $.parseJSON(window.data);
     if ($("#canvas_container").length) {
+        var problem = $.parseJSON(window.data);
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
