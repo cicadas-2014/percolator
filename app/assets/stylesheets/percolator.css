@@ -151,6 +151,10 @@ body {
     z-index: 1;
 }
 
+.solution-form {
+    position: absolute;
+}
+
 #sign_up_form {
     display: none;
 }
