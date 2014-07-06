@@ -7,6 +7,7 @@ Factories = {
 
     createSolution: function (posX, posY, id, votes) {
         var solution = paper.circle(posX, posY, SOLUTION_RADIUS+(votes/10)).attr({fill: SOLUTION_COLOR, stroke: "none"});
+        console.log(solution)
         solution.id = id;
         solution.node.id = 'solution_' + id;
         solutions.push(solution);

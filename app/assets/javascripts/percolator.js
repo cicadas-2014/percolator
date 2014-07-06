@@ -2,33 +2,28 @@ var paper;
 var isZoomed = false;
 
 function addEventListeners() {
-    $('.chart-popup button#back').click(function () {
+    $('.chart-popup button#back').unbind('click').click(function () {
         hideChartPopupElements();
     });
     $('.chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     })
-    $('form #new-solution').on("submit", ".Percolate", function(e) {
+    $('#solution-form').on("submit", function(e) {
         e.preventDefault();
         console.log("holla")
-        ajaxPostSolution();
-        $("#solution-form").hide();
     })
 }
 
 // Tell ajax before it sends that we want js request
-
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
-function ajaxPostSolution() {
-    var ajaxRequest = $.post($(this).attr("action"), $(this).serialize())
-    ajaxRequest.done(function(response){
-        console.log(response)
-        $("#solution-form").find("input[type=text], textarea").val("")
-    })
-}
+// ajax events can't be bound to the original DOM element
+$(document).on("ajax:success", "#solution-form", function(){
+    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").hide();
+})
 
 function init() {
     paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
@@ -40,15 +35,18 @@ function init() {
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
-    var step = (2 * Math.PI) / data.problem.solutions.length;
+    var problem = $.parseJSON(window.data).solutions
+    var step = (2 * Math.PI) / problem.length;
 
-    for (var i = 0; i < data.problem.solutions.length; i++) {
+    for (var i = 0; i < problem.length; i++) {
         var radius = 125 + (50 * (i % 2))
 
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
+        console.log(posX)
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
+        console.log(posY)
         Factories.createLine(posX, posY);
-        Factories.createSolution(posX, posY, i, data.problem.solutions[i].votes);
+        Factories.createSolution(posX, posY, i, problem[i]);
         addSolutionListeners('solution_' + i);
         radians += step;
         if (radians > maxRadians) {
@@ -202,7 +200,7 @@ function downvote() {
 
 
 $(document).ready(function () {
-
+    var problem = $.parseJSON(window.data)
     if ($("#canvas_container").length) {
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
@@ -210,8 +208,8 @@ $(document).ready(function () {
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         init();
-        $('#page-title')[0].innerHTML = data.problem.title.toString();
-        $('#synopsis')[0].innerHTML = data.problem.description.toString();
+        $('#page-title')[0].innerHTML = problem.title
+        $('#synopsis')[0].innerHTML = problem.description
         upvote();
         downvote();
     }
