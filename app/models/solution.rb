@@ -4,6 +4,12 @@ class Solution < ActiveRecord::Base
   belongs_to :user
   belongs_to :problem
 
+  validates :title, presence: true, uniqueness: true
+  validates :description, presence: true
+  
+  validates_presence_of :user_id
+  validates_presence_of :problem_id
+
   def voteables
     Vote.where(voteable_type: "solution", voteable_id: self.id)
   end
