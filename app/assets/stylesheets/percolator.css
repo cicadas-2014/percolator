@@ -157,12 +157,10 @@ body {
 
 #sign_up_form {
     font-size: 10px;
-    display: none;
 }
 
 #sign_in_form {
     font-size: 10px;
-    display: none;
 }
 
 #sign_up_button {
@@ -193,4 +191,8 @@ body {
     text-decoration: none;
     font-style: normal;
     color: inherit;
+}
+
+.hidden {
+  display:none;
 }
