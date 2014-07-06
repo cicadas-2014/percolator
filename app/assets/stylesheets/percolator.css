@@ -53,6 +53,7 @@ body {
 }
 
 .header {
+    min-height: 74px;
     font-family: Opificio;
     color: #6DA2FF;
     font-size: 36px;
