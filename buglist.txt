@@ -1,0 +1,21 @@
+---------
+ buglist
+---------
+
+- after clicking main percolate link, drop down menues don't function
+
+- navigating between index and graph view causes navbar to jump a little bit
+
+- problem title text on index fades across the entire screen horizontally
+
+- sometimes it takes a refresh after loading the graphic view
+
+- sometimes clicking upvote/downvote doesn't do anything
+
+- when upvote/downvote works, the icons are replaced by text
+
+- extra scroll space (on my computer) below nodes
+
+- when looking at a problem/solution, extra scroll space contains duplicate of the nodespace
+
+- percolate button malfunctions, doesn't leave space for submit button
