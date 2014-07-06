@@ -107,6 +107,7 @@ body {
 }
 
 .chart-popup #problem-container {
+
     position:relative;
     padding:20px;
     height:70%;

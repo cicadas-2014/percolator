@@ -1,3 +1,4 @@
+var isZooming = false;
 var paper;
 var isZoomed = false;
 
@@ -63,7 +64,9 @@ function createProblem() {
 function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
+            if (!isZooming) {
             zoomIn(this);
+            }
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -77,8 +80,10 @@ function addSolutionListeners(id) {
 function addProblemListeners() {
     $('#problem').bind({
         click: function () {
+            if (!isZooming) {
             zoomIn();
             hideSolutions()
+            }
         },
         mouseenter: function () {
             handleSolutionMouseEnter(this);
@@ -106,11 +111,13 @@ function showSolutions() {
         solutions[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
+    isZooming = false;
 }
 
 function showChartPopupElements() {
     $('.chart-popup #problem-container').hide().slideDown(500);
     $('.chart-popup #bubble-container').hide().slideDown(500);
+
 }
 
 function hideChartPopupElements() {
@@ -140,6 +147,7 @@ function renderSolutionForm() {
 }
 
 function zoomIn(target) {
+    isZooming = true;
     var posX;
     var posY;
     var modWidth = Constants.WIDTH * Constants.ZOOM_MAX;
@@ -157,6 +165,7 @@ function zoomIn(target) {
 }
 
 function zoomOut() {
+    zoomOutComplete = false;
     paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
     isZoomed = false;
 }
@@ -207,6 +216,8 @@ $(document).ready(function () {
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
+        $('.chart-popup #problem-container').removeClass('hidden');
+        $('.chart-popup #bubble-container').removeClass('hidden');
         init();
         $('#page-title')[0].innerHTML = problem.title
         $('#synopsis')[0].innerHTML = problem.description
