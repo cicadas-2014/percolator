@@ -21,7 +21,7 @@ jQuery.ajaxSetup({
 
 // ajax events can't be bound to the original DOM element
 $(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
 })
 
@@ -35,19 +35,15 @@ function init() {
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
-    var problem = $.parseJSON(window.data).solutions
-    var step = (2 * Math.PI) / problem.length;
+    var solutions = $.parseJSON(window.data).solutions
+    var step = (2 * Math.PI) / solutions.length;
 
-    for (var i = 0; i < problem.length; i++) {
+    for (var i = 0; i < solutions.length; i++) {
         var radius = 125 + (50 * (i % 2))
-
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
-        console.log(posX)
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
-        console.log(posY)
         Factories.createLine(posX, posY);
-
-        Factories.createSolution(posX, posY, i, problem[i]);
+        Factories.createSolution(posX, posY, i);
         addSolutionListeners('solution_' + i);
         radians += step;
         if (radians > maxRadians) {
@@ -91,20 +87,20 @@ function addProblemListeners() {
 }
 
 function hideSolutions(target) {
-    for (var i = 0; i < solutions.length; i++) {
-        if (solutions[i][0] == target) {
+    for (var i = 0; i < solutionSprites.length; i++) {
+        if (solutionSprites[i][0] == target) {
             lines[i].animate({ opacity: 0 }, 2000);
         }
         else {
-            solutions[i].animate({ opacity: 0 }, 1000);
+            solutionSprites[i].animate({ opacity: 0 }, 1000);
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
 }
 
 function showSolutions() {
-    for (var i = 0; i < solutions.length; i++) {
-        solutions[i].animate({ opacity: 1 }, 1000);
+    for (var i = 0; i < solutionSprites.length; i++) {
+        solutionSprites[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
 }
@@ -158,7 +154,7 @@ function zoomIn(target) {
 }
 
 function zoomOut() {
-    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
+    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>', showSolutions);
     isZoomed = false;
 }
 
@@ -200,7 +196,7 @@ function downvote() {
 
 
 $(document).ready(function () {
-    var problem = $.parseJSON(window.data)
+    var problem = $.parseJSON(window.data);
     if ($("#canvas_container").length) {
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
@@ -208,8 +204,8 @@ $(document).ready(function () {
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         init();
-        $('#page-title')[0].innerHTML = problem.title
-        $('#synopsis')[0].innerHTML = problem.description
+        $('#page-title')[0].innerHTML = problem.title;
+        $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
     }
@@ -221,6 +217,6 @@ $(window).resize(function () {
     Constants.HEIGHT = $(window).height() - 90;
     if (paper) {
         paper.remove();
-    };
+    }
     init();
 });

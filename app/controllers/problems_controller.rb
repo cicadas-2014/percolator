@@ -14,12 +14,19 @@ class ProblemsController < ApplicationController
     solutions = []
     problem.solutions.each do |solution|
       solutions << {id: solution.id,
-                  title: solution.title,
-                  description: solution.description,
-                  username: solution.user.username
-                  }
+                    title: solution.title,
+                    description: solution.description,
+                    username: solution.user.username
+      }
     end
-    @problem = problem
+
+    @problem = {
+        id: problem.id,
+        title: problem.title,
+        description: problem.description,
+        solutions: solutions
+    }.to_json.html_safe
+    @problem
   end
 
   def create
