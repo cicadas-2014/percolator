@@ -18,7 +18,7 @@ end
 end
 
 20.times do
-  Solution.create(problem_id: rand(10) + 1, user_id: rand(5) + 1)
+  Solution.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(10), problem_id: rand(10) + 1, user_id: rand(5) + 1)
 end
 
 50.times do
