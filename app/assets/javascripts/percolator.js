@@ -9,9 +9,11 @@ function addEventListeners() {
     $('.chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     })
-    $('#solution-form').on("submit", function(e) {
+    $('#new_solution').on("submit", function(e) {
         e.preventDefault();
-        console.log("holla")
+        $(this.solution_title).val("");
+        $(this.solution_description).val("");
+        $(this).hide();
     })
 }
 
@@ -43,9 +45,9 @@ function createSolutions() {
         var radius = 125 + (50 * (i % 2))
 
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
-        console.log(posX)
+        // console.log(posX)
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
-        console.log(posY)
+        // console.log(posY)
         Factories.createLine(posX, posY);
         Factories.createSolution(posX, posY, i, problem[i]);
         addSolutionListeners('solution_' + i);
@@ -104,6 +106,7 @@ function hideSolutions(target) {
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
+    // isZooming = false;
 }
 
 function showSolutions() {
@@ -111,12 +114,13 @@ function showSolutions() {
         solutions[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
-    isZooming = false;
+    // isZooming = false;
 }
 
 function showChartPopupElements() {
     $('.chart-popup #problem-container').hide().slideDown(500);
     $('.chart-popup #bubble-container').hide().slideDown(500);
+    isZooming = false;
 
 }
 
@@ -144,6 +148,7 @@ function renderSolutionForm() {
     console.log(solutionForm)
     $(solutionForm).appendTo("#problem-container");
     $("#solution-form").show();
+    $("#new_solution").show();
 }
 
 function zoomIn(target) {
