@@ -12,18 +12,17 @@ FactoryGirl.define do
     association :user
   end
 
-  factory :solutions do
+  factory :solution do
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     association :user
     association :problem
   end
 
-  factory :improvements do
+  factory :improvement do
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     association :user
-    association :problem
     association :solution
   end
 
