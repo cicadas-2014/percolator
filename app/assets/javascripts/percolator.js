@@ -171,6 +171,35 @@ function handleSolutionMouseLeave() {
     $('.solution').html("");
 }
 
+function upvote() {
+    $("#upvote").on("click",function(){
+        $.ajax({
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: "/upvote",
+            type: "POST"
+        }).done(function(r){
+            var response = $.parseJSON(r);
+            $("#upvote").html("upvote"+response[0]+"");
+            $("#downvote").html("downvote"+response[1]+"");
+        });
+    });
+}
+
+function downvote() {
+    $("#downvote").on("click",function(){
+        $.ajax({
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: "/downvote",
+            type: "POST"
+        }).done(function(r){
+            var response1 = $.parseJSON(r);
+            $("#upvote").html("upvote"+response1[0]+"");
+            $("#downvote").html("downvote"+response1[1]+"");
+        });
+    });
+}
+
+
 $(document).ready(function () {
 
     if ($("#canvas_container").length) {
@@ -183,6 +212,8 @@ $(document).ready(function () {
         var problem = $('.data').data('problem');
         $('#page-title')[0].innerHTML = problem.title;
         $('#synopsis')[0].innerHTML = problem.description;
+        upvote();
+        downvote();
     }
 });
 
