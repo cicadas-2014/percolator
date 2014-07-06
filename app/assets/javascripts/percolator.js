@@ -1,6 +1,7 @@
 var isZooming = false;
 var paper;
 var isZoomed = false;
+var solutionNumber;
 
 function addEventListeners() {
     $('.chart-popup button#back').unbind('click').click(function () {
@@ -26,13 +27,17 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
-})
+});
 
 function init() {
-    paper = new Raphael(document.getElementById('canvas_container'), Constants.WIDTH, Constants.HEIGHT);
+    if (paper) {
+        paper.remove();
+    };
+    paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
     createProblem();
     addEventListeners();
+    console.log("DRAWING")
 }
 
 function createSolutions() {
@@ -45,12 +50,10 @@ function createSolutions() {
         var radius = 125 + (50 * (i % 2))
 
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
-        // console.log(posX)
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
-        // console.log(posY)
-        Factories.createLine(posX, posY);
-        Factories.createSolution(posX, posY, i, problem[i]);
-        addSolutionListeners('solution_' + i);
+        Factories.createLine(posX, posY)
+        Factories.createSolution(posX, posY, i, problem[i])
+        addSolutionListeners(i);
         radians += step;
         if (radians > maxRadians) {
             radians -= maxRadians;
@@ -67,7 +70,10 @@ function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
             if (!isZooming) {
+                console.log("in addSolutionListeners function")
+                console.log(this)
             zoomIn(this);
+                console.log("in addSolutionListeners function")
             }
         },
         mouseenter: function () {
@@ -83,7 +89,10 @@ function addProblemListeners() {
     $('#problem').bind({
         click: function () {
             if (!isZooming) {
+                console.log("in addProblemListeners function")
+                console.log(this)
             zoomIn();
+                console.log("in addProblemListeners function")
             hideSolutions()
             }
         },
@@ -117,16 +126,23 @@ function showSolutions() {
     // isZooming = false;
 }
 
-function showChartPopupElements() {
+function showChartPopupElements(obj) {
     $('.chart-popup #problem-container').hide().slideDown(500);
     $('.chart-popup #bubble-container').hide().slideDown(500);
+    $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
+    // SAVE COMMENT***********
+    // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
+    // these queries can access the correct solution number without making another query
+    $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
+    // $('.chart-popup #bubble-container').remove
     isZooming = false;
-
 }
 
 function hideChartPopupElements() {
     $('.chart-popup #problem-container').show().slideUp(500);
     $('.chart-popup #bubble-container').show().slideUp(500, zoomOut);
+    console.log("I'm hiding")
+    isZooming = false;
 }
 
 // function showProblemElements(visible) {
@@ -144,14 +160,15 @@ function hideChartPopupElements() {
 //         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
 function renderSolutionForm() {
     var solutionForm = $('#solution-form').detach();
-    console.log("hello");
-    console.log(solutionForm)
     $(solutionForm).appendTo("#problem-container");
     $("#solution-form").show();
     $("#new_solution").show();
 }
 
 function zoomIn(target) {
+    console.log("I'm in the zoomIn function!!")
+    console.log(target)
+    console.log("I'm in the zoomIn function!!")
     isZooming = true;
     var posX;
     var posY;
@@ -165,6 +182,8 @@ function zoomIn(target) {
         posX = (Constants.WIDTH / 2) - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
         posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
+    solutionNumber = $(target).attr("id")
+    console.log(solutionNumber)
     paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', showChartPopupElements);
     isZoomed = true;
 }
@@ -191,8 +210,8 @@ function upvote() {
             type: "POST"
         }).done(function(r){
             var response = $.parseJSON(r);
-            $("#upvote").html("upvote"+response[0]+"");
-            $("#downvote").html("downvote"+response[1]+"");
+            count = response[0] - response[1];
+            $("#count").html(""+count+"");
         });
     });
 }
@@ -206,8 +225,9 @@ function downvote() {
         }).done(function(r){
             console.log(r)
             var response1 = $.parseJSON(r);
-            $("#upvote").html("upvote"+response1[0]+"");
-            $("#downvote").html("downvote"+response1[1]+"");
+             count = response1[0] - response1[1];
+            $("#count").html(""+count+"");
+
         });
     });
 }
@@ -218,26 +238,22 @@ $(document).ready(function () {
         var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
-        $('.chart-popup #problem-container').hide();
-        $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
         $('.chart-popup #problem-container').removeClass('hidden');
         $('.chart-popup #bubble-container').removeClass('hidden');
-        init();
+        $('.chart-popup #problem-container').hide();
+        $('.chart-popup #bubble-container').hide();
         $('#page-title')[0].innerHTML = problem.title
         $('#synopsis')[0].innerHTML = problem.description
         upvote();
         downvote();
+        init();
     }
-
 });
 
 
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    if (paper) {
-        paper.remove();
-    };
     init();
 });

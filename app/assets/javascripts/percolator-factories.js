@@ -8,7 +8,7 @@ Factories = {
     createSolution: function (posX, posY, id) {
         var solution = paper.circle(posX, posY, SOLUTION_RADIUS).attr({fill: SOLUTION_COLOR, stroke: "none"});
         solution.id = id;
-        solution.node.id = 'solution_' + id;
+        solution.node.id = id;
         solutionSprites.push(solution);
         return solution;
     },
