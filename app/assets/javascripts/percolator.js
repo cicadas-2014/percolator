@@ -10,9 +10,11 @@ function addEventListeners() {
     $('.chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     })
-    $('#solution-form').on("submit", function(e) {
+    $('#new_solution').on("submit", function(e) {
         e.preventDefault();
-        console.log("holla")
+        $(this.solution_title).val("");
+        $(this.solution_description).val("");
+        $(this).hide();
     })
 }
 
@@ -109,6 +111,7 @@ function hideSolutions(target) {
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
+    // isZooming = false;
 }
 
 function showSolutions() {
@@ -116,7 +119,7 @@ function showSolutions() {
         solutions[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
-    isZooming = false;
+    // isZooming = false;
 }
 
 function showChartPopupElements(obj) {
@@ -128,6 +131,7 @@ function showChartPopupElements(obj) {
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
     // $('.chart-popup #bubble-container').remove
+    isZooming = false;
 }
 
 function hideChartPopupElements() {
@@ -154,6 +158,7 @@ function renderSolutionForm() {
     var solutionForm = $('#solution-form').detach();
     $(solutionForm).appendTo("#problem-container");
     $("#solution-form").show();
+    $("#new_solution").show();
 }
 
 function zoomIn(target) {
