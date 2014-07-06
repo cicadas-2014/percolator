@@ -201,8 +201,8 @@ function upvote() {
             type: "POST"
         }).done(function(r){
             var response = $.parseJSON(r);
-            $("#upvote").html("upvote"+response[0]+"");
-            $("#downvote").html("downvote"+response[1]+"");
+            count = response[0] - response[1];
+            $("#count").html(""+count+"");
         });
     });
 }
@@ -215,8 +215,9 @@ function downvote() {
             type: "POST"
         }).done(function(r){
             var response1 = $.parseJSON(r);
-            $("#upvote").html("upvote"+response1[0]+"");
-            $("#downvote").html("downvote"+response1[1]+"");
+             count = response1[0] - response1[1];
+            $("#count").html(""+count+"");
+
         });
     });
 }

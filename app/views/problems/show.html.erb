@@ -16,12 +16,13 @@
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">PERCOLATE</button>
         <div>
-            <div class="upvote" id="upvote">
+            <span class="upvote" id="upvote">
                 <image src="<%= image_path "thumbs-up.png" %>"/>
-            </div>
-            <div class="downvote" id="downvote">
+            </span>
+            <span id="count"></span>
+            <span class="downvote" id="downvote">
                 <image src="<%= image_path "thumbs-down.png" %>"/>
-            </div>
+            </span>
         </div>
         <div id="bubble-container"></div>
         <div id="disqus_thread"></div>

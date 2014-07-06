@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Solution do
-  title = "Pass out bagels every day"
+  title = "Pass out MORE bagels every day"
   description = "Bagels have the highest density of nutrition out of any breakfast wheat product."
   let!(:user) { create :user }
   let!(:problem) { create :problem }
