@@ -5,21 +5,26 @@
 <%= javascript_include_tag 'percolator-factories', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'percolator', 'data-turbolinks-track' => true %>
 
-
 <%= javascript_tag do %>
     window.data = '<%=j @problem %>'
 <% end %>
 
 <div id="canvas_container"></div>
-
 <div class="chart-popup">
     <div id="problem-container">
         <h2>synopsis:</h2>
         <div id="synopsis"></div>
+        </br>
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">PERCOLATE</button>
-        <button type="button" id="upvote">Upvote</button>
-        <button type="button" id="downvote">Downvote</button>
+        <div>
+            <div class="upvote" id="upvote">
+                <image src="<%= image_path "thumbs-up.png" %>"/>
+            </div>
+            <div class="downvote" id="downvote">
+                <image src="<%= image_path "thumbs-down.png" %>"/>
+            </div>
+        </div>
     </div>
     <div id="bubble-container">
         <div class="title-bar">

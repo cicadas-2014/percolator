@@ -14,10 +14,10 @@ class ProblemsController < ApplicationController
     solutions = []
     problem.solutions.each do |solution|
       solutions << {id: solution.id,
-                  title: solution.title,
-                  description: solution.description,
-                  username: solution.user.username
-                  }
+                    title: solution.title,
+                    description: solution.description,
+                    username: solution.user.username
+      }
     end
 
     @problem = {

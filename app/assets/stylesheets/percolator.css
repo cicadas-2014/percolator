@@ -193,6 +193,18 @@ body {
     color: inherit;
 }
 
+.upvote {
+    padding-top: 10px;
+    position: relative;
+    float: left;
+}
+
+.downvote {
+    padding-top: 10px;
+    position: relative;
+    float: left;
+}
+
 .hidden {
-  display:none;
+    display: none;
 }

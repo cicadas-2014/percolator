@@ -9,7 +9,7 @@ var SOLUTION_RADIUS = 8;
 var PROBLEM_COLOR = '#37517F';
 var SOLUTION_COLOR = '#6DA2FF';
 var CONNECTION_COLOR = '#666';
-var solutions = [];
+var solutionSprites = [];
 var lines = [];
 
 //<li title="#37517F" style="background: #37517F">
