@@ -4,7 +4,7 @@
 
 - after clicking main percolate link, drop down menues don't function
 
--	clicking on a problem causes the screen to flash black momentarily
+- navigating between index and graph view causes navbar to jump a little bit
 
 - problem title text on index fades across the entire screen horizontally
 

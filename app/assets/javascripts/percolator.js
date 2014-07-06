@@ -22,7 +22,7 @@ jQuery.ajaxSetup({
 
 // ajax events can't be bound to the original DOM element
 $(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("");
+    $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
 })
 
@@ -36,15 +36,18 @@ function init() {
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
-    var solutions = $.parseJSON(window.data).solutions
-    var step = (2 * Math.PI) / solutions.length;
+    var problem = $.parseJSON(window.data).solutions
+    var step = (2 * Math.PI) / problem.length;
 
-    for (var i = 0; i < solutions.length; i++) {
+    for (var i = 0; i < problem.length; i++) {
         var radius = 125 + (50 * (i % 2))
+
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
+        console.log(posX)
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
+        console.log(posY)
         Factories.createLine(posX, posY);
-        Factories.createSolution(posX, posY, i);
+        Factories.createSolution(posX, posY, i, problem[i]);
         addSolutionListeners('solution_' + i);
         radians += step;
         if (radians > maxRadians) {
@@ -92,20 +95,20 @@ function addProblemListeners() {
 }
 
 function hideSolutions(target) {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        if (solutionSprites[i][0] == target) {
+    for (var i = 0; i < solutions.length; i++) {
+        if (solutions[i][0] == target) {
             lines[i].animate({ opacity: 0 }, 2000);
         }
         else {
-            solutionSprites[i].animate({ opacity: 0 }, 1000);
+            solutions[i].animate({ opacity: 0 }, 1000);
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
 }
 
 function showSolutions() {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        solutionSprites[i].animate({ opacity: 1 }, 1000);
+    for (var i = 0; i < solutions.length; i++) {
+        solutions[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
     isZooming = false;
@@ -163,7 +166,7 @@ function zoomIn(target) {
 
 function zoomOut() {
     zoomOutComplete = false;
-    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>', showSolutions);
+    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
     isZoomed = false;
 }
 
@@ -196,6 +199,7 @@ function downvote() {
             url: "/downvote",
             type: "POST"
         }).done(function(r){
+            console.log(r)
             var response1 = $.parseJSON(r);
             $("#upvote").html("upvote"+response1[0]+"");
             $("#downvote").html("downvote"+response1[1]+"");
@@ -206,18 +210,21 @@ function downvote() {
 
 $(document).ready(function () {
     if ($("#canvas_container").length) {
-        var problem = $.parseJSON(window.data);
+        var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
         Constants.HEIGHT = $(window).height() - 90;
         $('.chart-popup #problem-container').hide();
         $('.chart-popup #bubble-container').hide();
         $('#solution-form').hide();
+        $('.chart-popup #problem-container').removeClass('hidden');
+        $('.chart-popup #bubble-container').removeClass('hidden');
         init();
-        $('#page-title')[0].innerHTML = problem.title;
-        $('#synopsis')[0].innerHTML = problem.description;
+        $('#page-title')[0].innerHTML = problem.title
+        $('#synopsis')[0].innerHTML = problem.description
         upvote();
         downvote();
     }
+
 });
 
 
@@ -226,6 +233,6 @@ $(window).resize(function () {
     Constants.HEIGHT = $(window).height() - 90;
     if (paper) {
         paper.remove();
-    }
+    };
     init();
 });

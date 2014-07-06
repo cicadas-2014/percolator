@@ -53,6 +53,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    disqus_rails (0.0.6)
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.2.1)
@@ -181,6 +182,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
   devise
+  disqus_rails
   factory_girl_rails
   faker
   jbuilder (~> 2.0)
