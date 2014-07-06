@@ -8,7 +8,7 @@ class SolutionsController < ApplicationController
       if @solution.save
         # format.html { redirect_to @solution, notice: "Solution was successfully created." }
         # format.js {}
-        format.json { render json: @solution, status: :created, location: problem_path(@problem)}
+        format.json { render json: @solution.id}
       else
         # format.html {}
         format.json { render json: @solution.errors, status: :unprocessable_entity }

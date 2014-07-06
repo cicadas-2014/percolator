@@ -1,4 +1,4 @@
-<%= form_for @solution, :url => solutions_create_path, remote: true do |f| %>
+<%= form_for @solution, :url => problem_solutions_create_path(@form_problem), remote: true do |f| %>
   <p>What's your solution?</p><br>
   <%= f.label :title, "Gist: " %><br>
   <%= f.text_field :title %><br>
