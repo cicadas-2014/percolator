@@ -31,6 +31,8 @@ body {
 }
 
 #problem-menu {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #problem-menu .problem{
@@ -39,15 +41,15 @@ body {
     text-align:center;
     vertical-align:middle;
     background-color: #fff;
-    opacity: .5;
-    transition: opacity .5s ease-out;
 }
 
-#problem-menu .problem:hover {
+#problem-menu .problem a:hover {
     opacity: 1;
 }
 
 #problem-menu .problem a{
+    opacity: .5;
+    transition: opacity .5s ease-out;
     color: #666666;
     text-decoration: none;
 }
