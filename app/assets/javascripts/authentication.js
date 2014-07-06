@@ -1,6 +1,6 @@
-var sign_up_clicked = false;
-var sign_in_clicked = false;
 $(document).ready( function(){
+	var sign_up_clicked = false;
+	var sign_in_clicked = false;
 	if ($ ('#sign_up_form').length ) {
 		$( '#sign_up_form form' ).submit(function(event) {
 			//IMPORTANT!!!

@@ -126,6 +126,7 @@ function showSolutions() {
     // isZooming = false;
 }
 
+
 function showChartPopupElements(obj) {
     $('.chart-popup #problem-container').hide().slideDown(500);
     $('.chart-popup #bubble-container').hide().slideDown(500);
