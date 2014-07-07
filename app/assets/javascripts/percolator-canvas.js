@@ -7,8 +7,9 @@ Canvas = {
     WIDTH: undefined,
     HEIGHT: undefined,
     RAPHAEL: undefined,
-    PROBLEM_RADIUS: 75,
-    SOLUTION_RADIUS: 8,
+    RADIUS: 200,
+    PROBLEM_RADIUS: 125,
+    SOLUTION_RADIUS: 20,
     PROBLEM_COLOR: '#37517F',
     SOLUTION_COLOR: '#6DA2FF',
     CONNECTION_COLOR: '#666',
@@ -25,7 +26,7 @@ Canvas = {
     },
 
     fitTextToBox: function(index, tempText, words) {
-        var maxWidth = 60;
+        var maxWidth = 120;
         text.attr("text", tempText + " " + words[index]);
         if (text.getBBox().width > maxWidth) {
             tempText += "\n" + words[index];
@@ -54,7 +55,7 @@ Canvas = {
         var content = $.parseJSON(window.data).title;
         var tempText = this.wrapText(content);
         text.attr("text", tempText.substring(1));
-        text.attr({ "font-size": 18, "font-family": "Opificio", "fill": "#BAD3FF"});
+        text.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
     },
 
     createSolutions: function () {
@@ -63,7 +64,7 @@ Canvas = {
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
         for (var i = 0; i < solutions.length; i++) {
-            var radius = 125 + (50 * (i % 2));
+            var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.WIDTH / 2 + (Math.cos(radians) * radius);
             var posY = this.HEIGHT / 2 + (Math.sin(radians) * radius);
             this.createLine(posX, posY);
@@ -122,12 +123,10 @@ Canvas = {
                     }
                 },
                 mouseenter: function () {
-                    Canvas.solutions[i-1].animate({transform: "s2"}, 250);
-                    // console.log(Canvas.solutions[0]);
-
+                    Canvas.solutions[this.id].animate({transform: "s2"}, 250);
                 },
                 mouseleave: function () {
-                    Canvas.solutions[i-1].animate({transform: "s1"}, 250)
+                    Canvas.solutions[this.id].animate({transform: "s1"}, 250)
                 }
             });
         }
@@ -180,10 +179,12 @@ Menu = {
     HEIGHT: undefined,
     ELEMENT: undefined,
     RAPHAEL: undefined,
+    NODES: [],
 
     init: function () {
         if (Menu.RAPHAEL) {
-            Menu.RAPHAEL.remove();
+            this.NODES = []
+            this.RAPHAEL.remove();
         }
         this.ELEMENT = $("#bubble-container");
         this.WIDTH = this.ELEMENT.width();
@@ -191,10 +192,19 @@ Menu = {
         this.RAPHAEL = new Raphael(this.ELEMENT.get(0), this.WIDTH, this.HEIGHT);
 
         this.createSolutions();
+        this.animate();
     },
 
     createSolutions: function () {
-        this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+        var node = this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+        this.NODES.push(node)
+    },
+
+    animate: function () {
+        for (var i = 0; i < this.NODES.length; i++) {
+            this.NODES[i].animate({cx: Math.random() * this.WIDTH, cy: Math.random() * this.HEIGHT}, 1000);
+        }
+        setTimeout(this.animate, 1000);
     }
-}
+};
 
