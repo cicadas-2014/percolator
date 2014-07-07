@@ -2,11 +2,9 @@
  buglist
 ---------
 
+- back button isn't working (from problem or solution)
+
 - sometimes it takes a refresh after loading the graphic view
-
-- sometimes clicking upvote/downvote doesn't do anything
-
-- when upvote/downvote works, the icons are replaced by text
 
 - extra scroll space (on my computer) below nodes
 

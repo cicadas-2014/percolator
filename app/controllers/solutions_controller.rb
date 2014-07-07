@@ -20,6 +20,28 @@ class SolutionsController < ApplicationController
     end
   end
 
+  def show
+    solution = Solution.find params[:id]
+    @form_solution = solution
+    @improvement = Improvement.new
+    improvements = []
+    solution.improvements.each do |improvement|
+      improvements << {id: improvement.id,
+                    title: improvement.title,
+                    description: improvement.description,
+                    username: improvement.user.username
+      }
+    end
+
+    @solution = {
+        id: solution.id,
+        # title: solution.title,
+        # description: solution.description,
+        improvements: improvements
+    }.to_json.html_safe
+    @solution
+  end
+
   private
 
   def solution_params
