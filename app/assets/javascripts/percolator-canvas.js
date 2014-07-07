@@ -43,7 +43,7 @@ Canvas = {
             click: function () {
                 if (!isZooming) {
                     zoomIn();
-                    hideSolutions()
+                    Canvas.hideSolutions()
                 }
             },
             mouseenter: function () {
