@@ -14,8 +14,9 @@ Comments = {
         return form
     },
 
-    commentHTML: function(type, commentId, description, user){
-        var comment = '<div class="' + type + '-comment" id="_' + commentId + '">' +
+    commentHTML: function(type, description, user){
+        // took out commentId---wasn't sure if it was necessary
+        var comment = '<div class="' + type + '-comment">' +
                         '<div class="comment-description">' + description + '</div>' +
                         '<div class="comment-user">' + user + '</div>'
         return comment
@@ -38,10 +39,20 @@ Comments = {
     },
 
     queryCommentDatabase: function(commentCategory, typeId){
+        var comments = [];
+        this.$el = this
         $.ajax({
-            type: "POST",
-            url: "/"
+            type: "GET",
+            url: "/" + commentCategory + "/comments/" + typeId + "/create"
+        }).done(function(response){
+            for(i = 0; i < response[commentCategory].length; i++) {
+                // var user = response[commentCategory][i].user_id
+                var username = response[commentCategory][i].username
+                var type = response[commentCategory][i].description
+                comments << this.$el.commentHTML(commentCategory, type, user)
+            }
         })
+        return comments
     },
 
     init: function(){

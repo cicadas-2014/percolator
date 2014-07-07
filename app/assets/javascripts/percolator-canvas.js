@@ -46,9 +46,9 @@ Canvas = {
                     Canvas.hideSolutions();
                     // If zooming in on problem, append comment div
                     if ($("#used_and_abused")) {
-                        Comments.appendDiv("problem", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                        Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
                     } else {
-                        Comments.appendDiv("problem", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                        Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
                     }
                 }
             },
@@ -63,9 +63,9 @@ Canvas = {
                     if (!isZooming) {
                         zoomIn(this);
                         if ($("#used_and_abused")) {
-                            Comments.appendDiv("solution", solutionNumber)
+                            Comments.appendDiv("solutions", solutionNumber)
                         } else {
-                            Comments.appendDiv("solution", solutionNumber)
+                            Comments.appendDiv("solutions", solutionNumber)
                         }
                         // replace comment form div elements with new for-looped comment HTML
                     }

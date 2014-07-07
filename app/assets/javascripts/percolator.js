@@ -299,7 +299,7 @@ $(document).on("ajax:success", "#solution-form", function(){
     ajaxRequest.done(function( response ) {
         console.log(response)
         // window.data = response
-        init();
+        // init();
     })
 })
 
@@ -311,22 +311,23 @@ function clearPaper(paper){
 
 // GTG
 function addEventListeners() {
-        $('#chart-popup button#back').click(function () {
-            zoomOut();
-            hideChartPopupElements();
-            // hide div class comment-form
-            console.log("Firing back")
-        });
-        $('#chart-popup button#render-solution-form').click(function () {
-            renderSolutionForm();
-            console.log("Firing form")
-        });
+    $('#chart-popup button#back').click(function () {
+        zoomOut();
+        hideChartPopupElements();
+        // hide div class comment-form
+        console.log("Firing back")
+    });
+    $('#chart-popup button#render-solution-form').click(function () {
+        renderSolutionForm();
+        console.log("Firing form")
+    });
 
-        $('#new_solution').on("submit", function (e) {
-            e.preventDefault();
-            $(this.solution_title).val("");
-            $(this.solution_description).val("");
-            $(this).hide();
+    $('#new_solution').on("submit", function (e) {
+        e.preventDefault();
+        $(this.solution_title).val("");
+        $(this.solution_description).val("");
+        $(this).hide();
+    })
 }
 // GTG
 
