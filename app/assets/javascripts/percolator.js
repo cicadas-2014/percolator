@@ -1,108 +1,210 @@
-// function Canvas () {
-//     this.windowWidth = $(window).width();
-//     this.windowHeight = $(window).height() - 90;
-//     this.paper = new Raphael($("#canvas_container").get(0), this.windowWidth, this.windowHeight)
-//     this.data = $.parseJSON(window.data).solutions
-// }
+function Canvas (jQSelector, delegate) {
+    // Assign controller object to delegate
+    this.delegate = delegate
+    this.jQSelector = jQSelector
 
-// Canvas.prototype.
+    // Ready the canvas
+    this.readyCanvas();
+    this.windowWidth = $(window).width();
+    this.windowHeight = $(window).height() - 90;
+    this.solutionSprites = [];
+    this.lines = [];
+    this.paper;
 
-// var PROBLEM_RADIUS = 75;
-// var SOLUTION_RADIUS = 8;
-// var PROBLEM_COLOR = '#37517F';
-// var SOLUTION_COLOR = '#6DA2FF';
-// var CONNECTION_COLOR = '#666';
-// var solutionSprites = [];
-// var lines = [];
+    // Grab and parse window.data json object sent by javascript tag in problem#show
+    this.solutionData = $.parseJSON(window.data).solutions
+    // Draw canvas objects
+    this.init();
+}
 
-// Canvas.prototype.createSolutions = function() {
-//     var radians = 0;
-//     var maxRadians = 2 * Math.PI;
-//     var step = (2 * Math.PI) / this.data.length;
+Canvas.prototype.PROBLEM_RADIUS = 75;
+Canvas.prototype.SOLUTION_RADIUS = 8;
+Canvas.prototype.PROBLEM_COLOR = '#37517F';
+Canvas.prototype.SOLUTION_COLOR = '#6DA2FF';
+Canvas.prototype.CONNECTION_COLOR = '#666';
+Canvas.prototype.ZOOM_MAX = 0.1;
 
-//     for (var i = 0; i < this.data.length; i++) {
-//         var radius = 125 + (50 * (i % 2))
+Canvas.prototype.readyCanvas = function() {
+    var problem = $.parseJSON(window.data)
+    $('#chart-popup #problem-container').removeClass('hidden');
+    $('#chart-popup #bubble-container').removeClass('hidden');
+    $('#solution-form').hide();
+    $('#chart-popup').hide();
+    $('#page-title')[0].innerHTML = problem.title;
+    $('#synopsis')[0].innerHTML = problem.description;
+}
 
-//         var posX = this.windowWidth / 2 + (Math.cos(radians) * radius);
-//         var posY = this.windowHeight / 2 + (Math.sin(radians) * radius);
-//         Factories.createLine(posX, posY)
-//         Factories.createSolution(posX, posY, i, this.data[i])
-//         addSolutionListeners(i);
-//         radians += step;
-//         if (radians > maxRadians) {
-//             radians -= maxRadians;
-//         }
-//     }
-// }
+Canvas.prototype.init = function() {
+    this.createRaphael();
+    this.createProblem();
+    this.createSolutions();
 
-// Canvas.prototype.createLine = function (posX, posY, id) {
-//     var solution = this.paper.circle(posX, posY, SOLUTION_RADIUS).attr({fill: SOLUTION_COLOR, stroke: "none"});
-//     solution.id = id;
-//     solution.node.id = id;
-//     solutionSprites.push(solution);
-//     return solution;
-// }
+    // Tell controller to add event listeners after object creation
+    this.delegate.addEventListeners();
+}
 
-// Canvas.prototype.createProblem = function() {
+Canvas.prototype.createRaphael = function() {
+    this.paper = new Raphael($(this.jQSelector).get(0), this.windowWidth, this.windowHeight)
+}
 
-// }
+Canvas.prototype.createProblem = function() {
+    var problem = this.paper.circle(this.windowWidth / 2, this.windowHeight / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
+    problem.node.id = 'problem';
+    this.delegate.addProblemListeners();
+}
 
-// Canvas.prototype.addEventListeners = function() {
-//     $('.chart-popup button#back').unbind('click').click(function () {
-//         hideChartPopupElements();
-//     });
-//     $('.chart-popup button#render-solution-form').unbind('click').click(function () {
-//         renderSolutionForm();
-//     })
-//     $('#new_solution').on("submit", function(e) {
-//         e.preventDefault();
-//         $(this.solution_title).val("");
-//         $(this.solution_description).val("");
-//         $(this).hide();
-//     })
-// }
+Canvas.prototype.createSolutions = function() {
+    var radians = 0;
+    var maxRadians = 2 * Math.PI;
+    var step = (2 * Math.PI) / this.solutionData.length;
 
-// function View () {
+    for (var i = 0; i < this.solutionData.length; i++) {
+        var radius = 125 + (50 * (i % 2))
 
-// }
+        var posX = this.windowWidth / 2 + (Math.cos(radians) * radius);
+        var posY = this.windowHeight / 2 + (Math.sin(radians) * radius);
 
-// View.prototype.initializeViews = function () {
+        this.createLine(posX, posY)
+        this.createSolution(posX, posY, i, this.solutionData[i])
+        this.delegate.addSolutionListeners(i);
 
-// }
+        radians += step;
+        if (radians > maxRadians) {
+            radians -= maxRadians;
+        }
+    }
+}
 
-// function Disqus() {
+Canvas.prototype.createLine = function(posX, posY) {
+    var line = this.paper.path("M" + posX + "," + posY + "L" + this.windowWidth / 2 + "," + this.windowHeight / 2).attr({stroke: this.CONNECTION_COLOR});
+    this.lines.push(line);
+    // return line;
+}
 
-// }
+Canvas.prototype.createSolution = function(posX, posY, id) {
+    var solution = this.paper.circle(posX, posY, this.SOLUTION_RADIUS).attr({fill: this.SOLUTION_COLOR, stroke: "none"});
+    solution.id = id;
+    solution.node.id = id;
+    this.solutionSprites.push(solution);
+    // return solution;
+}
 
-// Disqus.prototype.configure () {
+Canvas.prototype.addSolutionListeners = function(id) {
+    $('#' + id).bind({
+        click: function () {
+            if (!isZooming) {
+                zoomIn(this);
+            }
+        },
+        mouseenter: function () {
+        },
+        mouseleave: function () {
+        }
+    });
+}
 
-// }
+
+function SolutionFormModel (jQSelector, delegate) {
+    this.jQSelector = jQSelector
+    this.delegate = delegate
+    this.problemData;
+}
+
+function ImprovementFormModel (jQSelector, delegate) {
+    this.jQSelector = jQSelector
+    this.delegate = delegate
+    this.solutionData;
+}
+
+function ApplicationController (jQSelector) {
+    this.$cntrel = this
+    this.jQSelector = jQSelector
+    this.canvas = new Canvas("#canvas_container", this.$cntrel)
+    this.view = new View(this.jQSelector, this.$cntrel)
+    // ***************************
+    // ***************************
+    this.solutionModel = new FormModel("#solution-form", this.$cntrel);
+    this.improvementModel = new ImprovementFormModel("#improvement-form", this.$cntrel);
+
+    // Event Binding
+    this.jQSelector.find("#solution-form").on("submit", this.solutionModel.postAjaxForm)
+    this.jQSelector.find("#improvement-form").
+}
+
+ApplicationController.prototype.addEventListeners = function() {
+    $('.chart-popup button#back').unbind('click').click(function () {
+        hideChartPopupElements();
+    });
+    $('.chart-popup button#render-solution-form').unbind('click').click(function () {
+        renderSolutionForm();
+    })
+    $('#new_solution').on("submit", function(e) {
+        e.preventDefault();
+        $(this.solution_title).val("");
+        $(this.solution_description).val("");
+        $(this).hide();
+    })
+}
+
+ApplicationController.prototype.addSolutionListeners = function(id) {
+    $('#' + id).bind({
+        click: function () {
+            if (!isZooming) {
+                zoomIn(this);
+            }
+        },
+        mouseenter: function () {
+        },
+        mouseleave: function () {
+        }
+    });
+}
+
+ApplicationController.prototype.addProblemListeners = function() {
+    $('#problem').bind({
+        click: function () {
+            if (!isZooming) {
+                zoomIn();
+                hideSolutions()
+            }
+        },
+        mouseenter: function () {
+        },
+        mouseleave: function () {
+        }
+    });
+}
+
+$(document).ready(function(){
+    if ($("#canvas_container").length) {
+        new ApplicationController("#chart-popup")
+    }
+})
+
+$(document).ready(function () {
+    if ($("#canvas_container").length) {
+        var problem = $.parseJSON(window.data)
+        Constants.WIDTH = $(window).width();
+        Constants.HEIGHT = $(window).height() - 90;
+        $('#chart-popup #problem-container').removeClass('hidden');
+        $('#chart-popup #bubble-container').removeClass('hidden');
+        $('#solution-form').hide();
+        $('#chart-popup').hide();
+        $('#page-title')[0].innerHTML = problem.title;
+        $('#synopsis')[0].innerHTML = problem.description;
+        upvote();
+        downvote();
+        addEventListeners();
+        Canvas.init();
+    };
+});
 
 var paper;
 var isZooming = false;
 var solutionNumber;
 var isLoaded = false;
 
-function addEventListeners() {
 
-        console.log("Adding lsteners")
-        $('#chart-popup button#back').click(function () {
-            zoomOut();
-            hideChartPopupElements();
-            console.log("Firing back")
-        });
-        $('#chart-popup button#render-solution-form').click(function () {
-            renderSolutionForm();
-            console.log("Firing form")
-        });
-
-        $('#new_solution').on("submit", function (e) {
-            e.preventDefault();
-            $(this.solution_title).val("");
-            $(this.solution_description).val("");
-            $(this).hide();
-        })
-}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -129,6 +231,33 @@ function clearPaper(paper){
     paperDom.parentNode.removeChild(paperDom);
 }
 
+// GTG
+function addEventListeners() {
+        $('#chart-popup button#back').click(function () {
+            zoomOut();
+            hideChartPopupElements();
+            console.log("Firing back")
+        });
+        $('#chart-popup button#render-solution-form').click(function () {
+            renderSolutionForm();
+            console.log("Firing form")
+        });
+
+        $('#new_solution').on("submit", function (e) {
+            e.preventDefault();
+            $(this.solution_title).val("");
+            $(this.solution_description).val("");
+            $(this).hide();
+        })
+
+        // $('#new_improvement').on("submit", function(e) {
+        //     e.preventDefault();
+
+        // })
+}
+// GTG
+
+// GTG
 function init() {
     if (paper) {
         paper.remove();
@@ -138,7 +267,9 @@ function init() {
     createProblem();
     addEventListeners();
 }
+// GTG
 
+// GTG
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
@@ -159,12 +290,16 @@ function createSolutions() {
         }
     }
 }
+// GTG
 
+// GTG
 function createProblem() {
     Factories.createProblem();
     addProblemListeners();
 }
+// GTG
 
+// GTG
 function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
@@ -178,7 +313,9 @@ function addSolutionListeners(id) {
         }
     });
 }
+// GTG
 
+// GTG
 function addProblemListeners() {
     $('#problem').bind({
         click: function () {
@@ -193,6 +330,7 @@ function addProblemListeners() {
         }
     });
 }
+// GTG
 
 function hideSolutions(target) {
     for (var i = 0; i < solutionSprites.length; i++) {
