@@ -42,16 +42,16 @@ function init() {
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
-    var problem = $.parseJSON(window.data).solutions
-    var step = (2 * Math.PI) / problem.length;
+    var solutions = $.parseJSON(window.data).solutions
+    var step = (2 * Math.PI) / solutions.length;
 
-    for (var i = 0; i < problem.length; i++) {
+    for (var i = 0; i < solutions.length; i++) {
         var radius = 125 + (50 * (i % 2))
 
         var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
         var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
         Factories.createLine(posX, posY)
-        Factories.createSolution(posX, posY, i, problem[i])
+        Factories.createSolution(posX, posY, i, solutions[i])
         addSolutionListeners(i);
         radians += step;
         if (radians > maxRadians) {
@@ -105,12 +105,12 @@ function addProblemListeners() {
 }
 
 function hideSolutions(target) {
-    for (var i = 0; i < solutions.length; i++) {
-        if (solutions[i][0] == target) {
+    for (var i = 0; i < solutionSprites.length; i++) {
+        if (solutionSprites[i][0] == target) {
             lines[i].animate({ opacity: 0 }, 2000);
         }
         else {
-            solutions[i].animate({ opacity: 0 }, 1000);
+            solutionSprites[i].animate({ opacity: 0 }, 1000);
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
@@ -118,8 +118,8 @@ function hideSolutions(target) {
 }
 
 function showSolutions() {
-    for (var i = 0; i < solutions.length; i++) {
-        solutions[i].animate({ opacity: 1 }, 1000);
+    for (var i = 0; i < solutionSprites.length; i++) {
+        solutionSprites[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
     // isZooming = false;
@@ -180,8 +180,8 @@ function zoomIn(target) {
 }
 
 function zoomOut() {
-    zoomOutComplete = false;
     paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
+    zoomOutComplete = false;
     isZoomed = false;
 }
 
