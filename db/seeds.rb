@@ -66,7 +66,7 @@ end
 problems.each do |problem|
   Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
   problem[:solutions].each do |solution|
-    Solution.create(title: solution[:title], description: solution[:description], problem_id: 1, user_id: 1)
+    Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])
   end
 end
 

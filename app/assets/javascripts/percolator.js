@@ -1,24 +1,13 @@
+
+// GTG
 var paper;
 var isZooming = false;
 var solutionNumber;
+var isLoaded = false;
+// GTG
 
-function addEventListeners() {
-    $('#chart-popup button#back').unbind('click').click(function () {
-        zoomOut();
-        hideChartPopupElements();
-    });
-    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
-        renderSolutionForm();
-    })
-    $('#new_solution').on("submit", function(e) {
-        e.preventDefault();
-        $(this.solution_title).val("");
-        $(this.solution_description).val("");
-        $(this).hide();
-    })
-}
 
-// Tell ajax before it sends that we want js request
+
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
@@ -27,9 +16,52 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
-});
+    var ajaxRequest = $.ajax({
+        type: "POST",
+        url: problem_solutions_create_path()
+    })
+    ajaxRequest.done(function( response ) {
+        console.log(response)
+        // window.data = response
+        init();
+    })
+})
 
+
+function clearPaper(paper){
+    var paperDom = paper.canvas;
+    paperDom.parentNode.removeChild(paperDom);
+}
+
+// GTG
+function addEventListeners() {
+        $('#chart-popup button#back').unbind('click').click(function () {
+            zoomOut();
+            hideChartPopupElements();
+            console.log("Firing back")
+        });
+        $('#chart-popup button#render-solution-form').unbind('click').click(function () {
+            renderSolutionForm();
+            console.log("Firing form")
+        });
+
+        $('#new_solution').on("submit", function (e) {
+            e.preventDefault();
+            $(this.solution_title).val("");
+            $(this.solution_description).val("");
+            $(this).hide();
+        })
+
+        // $('#new_improvement').on("submit", function(e) {
+        //     e.preventDefault();
+
+        // })
+}
+// GTG
+
+// GTG
 function init() {
+    isZooming = false;
     if (paper) {
         paper.remove();
     };
@@ -38,7 +70,9 @@ function init() {
     createProblem();
     addEventListeners();
 }
+// GTG
 
+// GTG
 function createSolutions() {
     var radians = 0;
     var maxRadians = 2 * Math.PI;
@@ -59,12 +93,16 @@ function createSolutions() {
         }
     }
 }
+// GTG
 
+// GTG
 function createProblem() {
     Factories.createProblem();
     addProblemListeners();
 }
+// GTG
 
+// GTG
 function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
@@ -78,7 +116,9 @@ function addSolutionListeners(id) {
         }
     });
 }
+// GTG
 
+// GTG
 function addProblemListeners() {
     $('#problem').bind({
         click: function () {
@@ -93,7 +133,9 @@ function addProblemListeners() {
         }
     });
 }
+// GTG
 
+// GTG
 function hideSolutions(target) {
     for (var i = 0; i < solutionSprites.length; i++) {
         if (solutionSprites[i][0] == target) {
@@ -105,18 +147,21 @@ function hideSolutions(target) {
         }
     }
 }
+// GTG
 
+// GTG
 function showSolutions() {
     for (var i = 0; i < solutionSprites.length; i++) {
         solutionSprites[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
 }
+// GTG
 
 function showPopup(obj) {
     $('#chart-popup').hide().slideDown(500);
     $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
-    // SAVE COMMENT***********
+    // SAVE COMMENT
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
@@ -142,28 +187,71 @@ function renderSolutionForm() {
     $("#new_solution").show();
 }
 
+// Canvas.prototype.zoomIn = function(target) {
+//     var posX;
+//     var posY;
+//     if (target) {//it is a solution
+//         posX = target.attributes[0].value - ((this.windowWidth / 2) * this.ZOOM_MAX);
+//         posY = target.attributes[1].value - ((this.windowHeight / 2) * this.ZOOM_MAX);
+//         $("span.upvote").attr("id", "upvote")
+//         $("span.downvote").attr("id", "downvote")
+//     }
+//     else { //it is a problem
+//         posX = (this.windowWidth / 2) - ((this.windowWidth / 2) * this.ZOOM_MAX);
+//         posY = (this.windowHeight / 2) - ((this.windowHeight / 2) * this.ZOOM_MAX);
+//         $("span.upvote").attr("id", "problem_upvote")
+//         $("span.downvote").attr("id", "problem_downvote")
+//     }
+//     solutionNumber = $(target).attr("id");
+//     this.isZooming = true;
+//     this.paper.animateViewBox(0, 0, this.windowWidth * this.ZOOM_MAX, this.windowHeight * this.ZOOM_MAX, 2000, '<>', zoomOutComplete)
+//     Canvas.zoomIn(posX, posY, zoomInComplete);
+//     this.$el.hideSolutions();
+// }
+
+// Canvas.prototype.zoomOut = function() {
+//     this.paper.animateViewBox(0, 0, this.windowWidth, this.windowHeight, 2000, '<>', zoomOutComplete)
+//     // Canvas.zoomOut(0, 0, zoomOutComplete);
+//     this.$el.showSolutions();
+//     this.isZooming = true;
+// }
+
+// GTG
 function zoomIn(target) {
-    isZooming = true;
     var posX;
     var posY;
-    var modWidth = Constants.WIDTH * Constants.ZOOM_MAX;
-    var modHeight = Constants.HEIGHT * Constants.ZOOM_MAX;
-    if (target) {
+    if (target) {//it is a solution
         posX = target.attributes[0].value - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
         posY = target.attributes[1].value - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
+        $("span.upvote").attr("id", "upvote")
+        $("span.downvote").attr("id", "downvote")
     }
-    else {
+    else { //it is a problem
         posX = (Constants.WIDTH / 2) - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
         posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
+        $("span.upvote").attr("id", "problem_upvote")
+        $("span.downvote").attr("id", "problem_downvote")
     }
-    solutionNumber = $(target).attr("id")
-    paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', zoomInComplete);
-}
+    solutionNumber = $(target).attr("id");
+    console.log($(target).closest('span'))
+    // if (typeof($(target).attr("id")) == 'undefined' ) {
 
+    // } else {
+
+    // }
+    isZooming = true;
+    Canvas.zoomIn(posX, posY, zoomInComplete);
+    Canvas.hideSolutions();
+}
+// GTG
+
+// GTG
 function zoomOut() {
-    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>',zoomOutComplete);
+    Canvas.zoomOut(0, 0, zoomOutComplete);
+    Canvas.showSolutions();
     isZooming = true;
 }
+// GTG
 
 function zoomInComplete()
 {
@@ -180,12 +268,14 @@ function zoomOutComplete()
 // }
 
 
+// GTG
 function upvote() {
     $("#upvote").on("click",function(){
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            url: "/upvote",
-            type: "POST"
+            url: "/solution_upvote",
+            type: "POST",
+            data: {solution_number: solutionNumber.toString()}
         }).done(function(r){
             var response = $.parseJSON(r);
             count = response[0] - response[1];
@@ -193,13 +283,16 @@ function upvote() {
         });
     });
 }
+// GTG
 
+// GTG
 function downvote() {
     $("#downvote").on("click",function(){
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            url: "/downvote",
-            type: "POST"
+            url: "/solution_downvote",
+            type: "POST",
+            data: {solution_number: solutionNumber.toString()}
         }).done(function(r){
             var response1 = $.parseJSON(r);
              count = response1[0] - response1[1];
@@ -208,8 +301,25 @@ function downvote() {
         });
     });
 }
+// GTG
 
+// function ajaxUpvote() {
+//     $.ajax({
+//         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+//         url: "/solution_upvote",
+//         type: "POST"
+//     }).done(function(r){
+//         var response = $.parseJSON(r);
+//         count = response[0] - response[1];
+//         $("#count").html(""+count+"");
+//     });
+// }
 
+// function ajaxDownvote() {
+
+// }
+
+// GTG
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data)
@@ -223,13 +333,19 @@ $(document).ready(function () {
         $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
-        init();
-    }
+        addEventListeners();
+        Canvas.init();
+    };
 });
-
+// GTG
 
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    init();
+    Canvas.init();
+});
+
+$(document).on("ajax:success", "#solution-form", function(){
+    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").hide();
 });

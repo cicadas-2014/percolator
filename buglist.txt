@@ -2,6 +2,8 @@
  buglist
 ---------
 
+- back button fails sometimes
+
 - sometimes solution nodes disappear after zooming out
 
 - weird display for problem view
