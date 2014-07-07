@@ -7,36 +7,55 @@ Canvas = {
     WIDTH: undefined,
     HEIGHT: undefined,
     RAPHAEL: undefined,
-    RADIUS: 125,
-    PROBLEM_RADIUS: 75,
-    SOLUTION_RADIUS: 8,
+    RADIUS: 200,
+    PROBLEM_RADIUS: 125,
+    SOLUTION_RADIUS: 20,
     PROBLEM_COLOR: '#37517F',
     SOLUTION_COLOR: '#6DA2FF',
     CONNECTION_COLOR: '#666',
     solutions: [],
     lines: [],
 
-    createProblem: function () {
-        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2).attr({opacity: 0});
-        var content = $.parseJSON(window.data).title;
+    wrapText: function (content) {
         var words = content.split(" ");
         var tempText = "";
-        var maxWidth = 60;
         for (var i=0; i<words.length; i++) {
-          text.attr("text", tempText + " " + words[i]);
-          if (text.getBBox().width > maxWidth) {
-            tempText += "\n" + words[i];
-          } else {
-            tempText += " " + words[i];
-          }
+          tempText = Canvas.fitTextToBox(i, tempText, words)
         }
-        text.attr("text", tempText.substring(1));
-        text.attr({ "font-size": 18, "font-family": "Opificio", "fill": "#BAD3FF"});
-        var problem = this.RAPHAEL.circle(this.WIDTH / 2, this.HEIGHT / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
-        problem.node.id = 'problem';
+        return tempText;
+    },
+
+    fitTextToBox: function(index, tempText, words) {
+        var maxWidth = 120;
+        text.attr("text", tempText + " " + words[index]);
+        if (text.getBBox().width > maxWidth) {
+            tempText += "\n" + words[index];
+        } else {
+            tempText += " " + words[index];
+        }
+        return tempText;
+    },
+
+    createProblemText: function () {
+        Canvas.createText();
+        problem = Canvas.createProblem();
         problemText = this.RAPHAEL.set();
         problemText.push(problem);
         problemText.push(text);
+    },
+
+    createProblem: function () {  
+        var problem = this.RAPHAEL.circle(this.WIDTH / 2, this.HEIGHT / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
+        problem.node.id = 'problem';
+        return problem; 
+    },
+
+    createText: function () {    
+        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2).attr({opacity: 0});
+        var content = $.parseJSON(window.data).title;
+        var tempText = this.wrapText(content);
+        text.attr("text", tempText.substring(1));
+        text.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
     },
 
     createSolutions: function () {
@@ -44,9 +63,7 @@ Canvas = {
         var maxRadians = 2 * Math.PI;
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
-
         for (var i = 0; i < solutions.length; i++) {
-
             var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.WIDTH / 2 + (Math.cos(radians) * radius);
             var posY = this.HEIGHT / 2 + (Math.sin(radians) * radius);
@@ -80,16 +97,22 @@ Canvas = {
                 if (!isZooming) {
                     zoomIn();
                     Canvas.hideSolutions()
+                    text.animate({opacity: 0}, 1300);
+
                 }
             },
             mouseenter: function () {
-                problemText.animate({transform: "s1.5"}, 400);
+                if (!isZooming) {
+                problemText.animate({transform: "s1.3"}, 400);
                 text.animate({opacity: 1}, 300).toFront();
                 text.node.setAttribute("pointer-events", "none");
+                }   
             },
             mouseleave: function () {
+                if (!isZooming) {
                 problemText.animate({transform: "s1"}, 400);
                 text.animate({opacity: 0}, 300);
+                }
             }
         });
         for (var i = 0; i < this.solutions.length; i++) {
@@ -100,12 +123,10 @@ Canvas = {
                     }
                 },
                 mouseenter: function () {
-                    Canvas.solutions[i-1].animate({transform: "s1.7"}, 250);
-                    // console.log(Canvas.solutions[0]);
-
+                    Canvas.solutions[this.id].animate({transform: "s2"}, 250);
                 },
                 mouseleave: function () {
-                    Canvas.solutions[i-1].animate({transform: "s1"}, 250)
+                    Canvas.solutions[this.id].animate({transform: "s1"}, 250)
                 }
             });
         }
@@ -120,7 +141,7 @@ Canvas = {
         this.RAPHAEL = new Raphael($("#canvas_container").get(0), this.WIDTH, this.HEIGHT);
 
         this.createSolutions();
-        this.createProblem();
+        this.createProblemText();
         this.addEventListeners();
     },
 

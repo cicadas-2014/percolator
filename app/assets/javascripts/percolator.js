@@ -99,6 +99,7 @@ function zoomIn(target) {
 
 // GTG
 function zoomOut() {
+    problemText.animate({transform: "s1"}, 400);
     Canvas.zoomOut(0, 0, zoomOutComplete);
     Canvas.showSolutions();
     isZooming = true;
