@@ -2,12 +2,10 @@
  buglist
 ---------
 
-- back button isn't working (from problem or solution)
+- sometimes solution nodes disappear after zooming out
+
+- weird display for problem view
 
 - sometimes it takes a refresh after loading the graphic view
 
 - extra scroll space (on my computer) below nodes
-
-- when looking at a problem/solution, extra scroll space contains duplicate of the nodespace
-
-- percolate doesn't leave space for submit button

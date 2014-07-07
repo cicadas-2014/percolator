@@ -120,6 +120,15 @@ function showPopup(obj) {
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
+    sendIdAjax();
+}
+
+function sendIdAjax() {
+    $.ajax({
+        type: "POST",
+        url: '/improvements',
+        data: solutionNumber
+    });
 }
 
 function hideChartPopupElements() {
@@ -166,6 +175,10 @@ function zoomOutComplete()
 {
     isZooming = false;
 }
+// function improvement() {
+//     $()
+// }
+
 
 function upvote() {
     $("#upvote").on("click",function(){
