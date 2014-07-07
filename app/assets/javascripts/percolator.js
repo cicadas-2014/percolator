@@ -81,21 +81,27 @@
 var paper;
 var isZooming = false;
 var solutionNumber;
+var isLoaded = false;
 
 function addEventListeners() {
-    $('#chart-popup button#back').bind('click').click(function () {
-        zoomOut();
-        hideChartPopupElements();
-    });
-    $('#chart-popup button#render-solution-form').bind('click').click(function () {
-        renderSolutionForm();
-    });
-    $('#new_solution').on("submit", function (e) {
-        e.preventDefault();
-        $(this.solution_title).val("");
-        $(this.solution_description).val("");
-        $(this).hide();
-    })
+
+        console.log("Adding lsteners")
+        $('#chart-popup button#back').click(function () {
+            zoomOut();
+            hideChartPopupElements();
+            console.log("Firing back")
+        });
+        $('#chart-popup button#render-solution-form').click(function () {
+            renderSolutionForm();
+            console.log("Firing form")
+        });
+
+        $('#new_solution').on("submit", function (e) {
+            e.preventDefault();
+            $(this.solution_title).val("");
+            $(this.solution_description).val("");
+            $(this).hide();
+        })
 }
 
 jQuery.ajaxSetup({
@@ -125,7 +131,7 @@ function clearPaper(paper){
 
 function init() {
     if (paper) {
-        clearpaper(paper);
+        paper.remove();
     };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
@@ -292,7 +298,6 @@ function downvote() {
 
 
 $(document).ready(function () {
-    console.log("document ready")
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
@@ -309,7 +314,6 @@ $(document).ready(function () {
         Canvas.init();
     };
 });
-
 
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
