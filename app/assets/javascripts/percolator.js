@@ -108,8 +108,8 @@ $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
     var ajaxRequest = $.ajax({
-        type: "GET",
-        url: "/problems/show"
+        type: "POST",
+        url: problem_solutions_create_path()
     })
     ajaxRequest.done(function( response ) {
         console.log(response)
