@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
   resources :problems, only: [:show, :new, :create] do
     post '/solutions/create', to: 'solutions#create'
+  end
+
+  resources :solutions, only: [] do
     post '/improvements/create', to: 'improvements#create'
   end
+
   devise_for :users, controllers: { registrations: 'user'}
 
   root to: 'problems#index'
 
-  post '/upvote', to: "votes#upvote"
-  post '/downvote', to: "votes#downvote"
+  post '/solution_upvote', to: "votes#solution_upvote"
+  post '/solution_downvote', to: "votes#solution_downvote"
+  post '/problem_upvote', to: "votes#problem_upvote"
+  post '/problem_downvote', to: "votes#problem_downvote"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
