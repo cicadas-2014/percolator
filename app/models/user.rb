@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   def voteables
     Vote.where(user_id: self.id)
   end
+
+  def commentables
+    Comment.where(user_id: self.id)
+  end
 end

@@ -231,6 +231,7 @@ class ProblemsController < ApplicationController
   def show
     problem = Problem.find params[:id]
     @form_problem = problem
+    @improvement = Improvement.new
     @solution = Solution.new
     solutions = []
     problem.solutions.each do |solution|
