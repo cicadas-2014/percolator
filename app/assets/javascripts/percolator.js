@@ -125,7 +125,7 @@ function clearPaper(paper){
 
 function init() {
     if (paper) {
-        clearpaper(paper);
+        paper.remove();
     };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
