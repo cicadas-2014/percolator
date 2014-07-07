@@ -4,7 +4,11 @@
 
 <div id="canvas_container"></div>
 <div id="chart-popup">
+    <div id="bubble-container">
+    </div>
     <div id="problem-container" class="hidden">
+
+        <h3>Synopsis</h3>
         <div id="synopsis"></div>
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">PERCOLATE</button>
@@ -17,20 +21,11 @@
                 <image src="<%= image_path "thumbs-down.png" %>"/>
             </span>
         </div>
-        <div id="disqus_thread"></div>
+
     </div>
-        <div id="bubble-container"></div>
+
+    <div id="disqus_thread"></div>
 </div>
-
-<script type="text/javascript">
-    var disqus_shortname = 'perc';
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
 
 <div id="solution-form">
     <%= render '/solutions/form' %>
