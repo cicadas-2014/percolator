@@ -43,7 +43,13 @@ Canvas = {
             click: function () {
                 if (!isZooming) {
                     zoomIn();
-                    Canvas.hideSolutions()
+                    Canvas.hideSolutions();
+                    // If zooming in on problem, append comment div
+                    if ($("#used_and_abused")) {
+                        Comments.appendDiv("problem", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                    } else {
+                        Comments.appendDiv("problem", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                    }
                 }
             },
             mouseenter: function () {
@@ -56,6 +62,12 @@ Canvas = {
                 click: function () {
                     if (!isZooming) {
                         zoomIn(this);
+                        if ($("#used_and_abused")) {
+                            Comments.appendDiv("solution", solutionNumber)
+                        } else {
+                            Comments.appendDiv("solution", solutionNumber)
+                        }
+                        // replace comment form div elements with new for-looped comment HTML
                     }
                 },
                 mouseenter: function () {

@@ -314,6 +314,7 @@ function addEventListeners() {
         $('#chart-popup button#back').click(function () {
             zoomOut();
             hideChartPopupElements();
+            // hide div class comment-form
             console.log("Firing back")
         });
         $('#chart-popup button#render-solution-form').click(function () {
@@ -326,12 +327,6 @@ function addEventListeners() {
             $(this.solution_title).val("");
             $(this.solution_description).val("");
             $(this).hide();
-        })
-
-        // $('#new_improvement').on("submit", function(e) {
-        //     e.preventDefault();
-
-        // })
 }
 // GTG
 
