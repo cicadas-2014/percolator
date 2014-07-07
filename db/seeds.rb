@@ -47,7 +47,7 @@ problems = [
         :solutions => [
             {
                 :title => "For a number of years, I worked as a wealth management advisor.",
-                :description => "If you are a poor person who hates gay people/broken-English-speaking immigrants/Republicans/whatever, your need for a paying job forces a level of decorum in your conduct, and you learn to keep quiet your most objectionable opinions so you can get along with your employers/customers.",
+                :description => "If you are a poor person who hates the underprivileged, your need for a paying job forces a level of decorum in your conduct, and you learn to keep quiet your most objectionable opinions so you can get along with your employers/customers.",
                 :problem_id => 3,
                 :user_id => 1,
                 :upvotes => 50,
@@ -63,13 +63,11 @@ problems = [
   count += 1
 end
 
-2.times do |count|
-  p problems[count][:title]
-  Problem.create(title: problems[count][:title], description: problems[count][:description], user_id: problems[count][:user_id])
-end
-
-20.times do
-  Solution.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(10), problem_id: rand(10) + 1, user_id: rand(5) + 1)
+problems.each do |problem|
+  Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
+  problem[:solutions].each do |solution|
+    Solution.create(title: solution[:title], description: solution[:description], problem_id: 1, user_id: 1)
+  end
 end
 
 50.times do
