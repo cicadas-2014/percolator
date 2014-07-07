@@ -3,14 +3,14 @@ var isZooming = false;
 var solutionNumber;
 
 function addEventListeners() {
-    $('#chart-popup button#back').unbind('click').click(function () {
+    $('#chart-popup button#back').bind('click').click(function () {
         zoomOut();
         hideChartPopupElements();
     });
-    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
+    $('#chart-popup button#render-solution-form').bind('click').click(function () {
         renderSolutionForm();
-    })
-    $('#new_solution').on("submit", function(e) {
+    });
+    $('#new_solution').on("submit", function (e) {
         e.preventDefault();
         $(this.solution_title).val("");
         $(this.solution_description).val("");
@@ -18,105 +18,14 @@ function addEventListeners() {
     })
 }
 
-// Tell ajax before it sends that we want js request
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
-// ajax events can't be bound to the original DOM element
-$(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("")
-    $("#solution-form").hide();
-});
-
-function init() {
-    if (paper) {
-        paper.remove();
-    };
-    paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
-    createSolutions();
-    createProblem();
-    addEventListeners();
-}
-
-function createSolutions() {
-    var radians = 0;
-    var maxRadians = 2 * Math.PI;
-    var solutions = $.parseJSON(window.data).solutions
-    var step = (2 * Math.PI) / solutions.length;
-
-    for (var i = 0; i < solutions.length; i++) {
-        var radius = 125 + (50 * (i % 2))
-
-        var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
-        var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
-        Factories.createLine(posX, posY)
-        Factories.createSolution(posX, posY, i, solutions[i])
-        addSolutionListeners(i);
-        radians += step;
-        if (radians > maxRadians) {
-            radians -= maxRadians;
-        }
-    }
-}
-
-function createProblem() {
-    Factories.createProblem();
-    addProblemListeners();
-}
-
-function addSolutionListeners(id) {
-    $('#' + id).bind({
-        click: function () {
-            if (!isZooming) {
-                zoomIn(this);
-            }
-        },
-        mouseenter: function () {
-        },
-        mouseleave: function () {
-        }
-    });
-}
-
-function addProblemListeners() {
-    $('#problem').bind({
-        click: function () {
-            if (!isZooming) {
-                zoomIn();
-                hideSolutions()
-            }
-        },
-        mouseenter: function () {
-        },
-        mouseleave: function () {
-        }
-    });
-}
-
-function hideSolutions(target) {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        if (solutionSprites[i][0] == target) {
-            lines[i].animate({ opacity: 0 }, 2000);
-        }
-        else {
-            solutionSprites[i].animate({ opacity: 0 }, 1000);
-            lines[i].animate({ opacity: 0 }, 500);
-        }
-    }
-}
-
-function showSolutions() {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        solutionSprites[i].animate({ opacity: 1 }, 1000);
-        lines[i].animate({ opacity: 1 }, 2000);
-    }
-}
-
 function showPopup(obj) {
     $('#chart-popup').hide().slideDown(500);
     $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
-    // SAVE COMMENT***********
+    // SAVE COMMENT
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
@@ -134,25 +43,25 @@ function renderSolutionForm() {
 }
 
 function zoomIn(target) {
-    isZooming = true;
     var posX;
     var posY;
-    var modWidth = Constants.WIDTH * Constants.ZOOM_MAX;
-    var modHeight = Constants.HEIGHT * Constants.ZOOM_MAX;
-    if (target) {
+    if (target) {//it is a solution
         posX = target.attributes[0].value - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
         posY = target.attributes[1].value - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
-    else {
+    else { //it is a problem
         posX = (Constants.WIDTH / 2) - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
         posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
-    solutionNumber = $(target).attr("id")
-    paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', zoomInComplete);
+    solutionNumber = $(target).attr("id");
+    isZooming = true;
+    Canvas.zoomIn(posX, posY, zoomInComplete);
+    Canvas.hideSolutions();
 }
 
 function zoomOut() {
-    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>',zoomOutComplete);
+    Canvas.zoomOut(0, 0, zoomOutComplete);
+    Canvas.showSolutions();
     isZooming = true;
 }
 
@@ -210,7 +119,8 @@ $(document).ready(function () {
         $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
-        init();
+        addEventListeners();
+        Canvas.init();
     }
 });
 
@@ -218,5 +128,10 @@ $(document).ready(function () {
 $(window).resize(function () {
     Constants.WIDTH = $(window).width();
     Constants.HEIGHT = $(window).height() - 90;
-    init();
+    Canvas.init();
+});
+
+$(document).on("ajax:success", "#solution-form", function(){
+    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").hide();
 });
