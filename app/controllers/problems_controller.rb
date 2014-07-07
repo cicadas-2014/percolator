@@ -115,7 +115,9 @@ class ProblemsController < ApplicationController
         description: problem.description,
         solutions: solutions
     }.to_json.html_safe
-    @problem = DUMMY_DATA[1].to_json.html_safe
+    if (false)
+      @problem = DUMMY_DATA[1].to_json.html_safe
+    end
     @problem
   end
 
