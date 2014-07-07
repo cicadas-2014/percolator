@@ -1,10 +1,10 @@
-var isZooming = false;
 var paper;
-var isZoomed = false;
+var isZooming = false;
 var solutionNumber;
 
 function addEventListeners() {
     $('#chart-popup button#back').unbind('click').click(function () {
+        zoomOut();
         hideChartPopupElements();
     });
     $('#chart-popup button#render-solution-form').unbind('click').click(function () {
@@ -69,17 +69,12 @@ function addSolutionListeners(id) {
     $('#' + id).bind({
         click: function () {
             if (!isZooming) {
-                console.log("in addSolutionListeners function")
-                console.log(this)
-            zoomIn(this);
-                console.log("in addSolutionListeners function")
+                zoomIn(this);
             }
         },
         mouseenter: function () {
-            handleSolutionMouseEnter(this);
         },
         mouseleave: function () {
-            handleSolutionMouseLeave();
         }
     });
 }
@@ -88,18 +83,13 @@ function addProblemListeners() {
     $('#problem').bind({
         click: function () {
             if (!isZooming) {
-                console.log("in addProblemListeners function")
-                console.log(this)
-            zoomIn();
-                console.log("in addProblemListeners function")
-            hideSolutions()
+                zoomIn();
+                hideSolutions()
             }
         },
         mouseenter: function () {
-            handleSolutionMouseEnter(this);
         },
         mouseleave: function () {
-            handleSolutionMouseLeave();
         }
     });
 }
@@ -114,7 +104,6 @@ function hideSolutions(target) {
             lines[i].animate({ opacity: 0 }, 500);
         }
     }
-    // isZooming = false;
 }
 
 function showSolutions() {
@@ -122,37 +111,21 @@ function showSolutions() {
         solutionSprites[i].animate({ opacity: 1 }, 1000);
         lines[i].animate({ opacity: 1 }, 2000);
     }
-    // isZooming = false;
 }
 
-function showChartPopupElements(obj) {
+function showPopup(obj) {
     $('#chart-popup').hide().slideDown(500);
     $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
     // SAVE COMMENT***********
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
-    isZooming = false;
 }
 
 function hideChartPopupElements() {
     $('#chart-popup').show().slideUp(500);
-    isZooming = false;
 }
 
-// function showProblemElements(visible) {
-//     if (visible)
-//         $('#problem_detail_left').show();
-//     else
-//         $('#problem_detail_left').hide();
-// }
-
-// function handleProblemClick() {
-//     if (isZoomed) {
-//         paper.animateViewBox(0, 0, WIDTH, HEIGHT, 2000, '<>', showProblemElements(false))
-//     }
-//     else {
-//         paper.animateViewBox((WIDTH / 2) - ((WIDTH / 2) * ZOOM_MAX), (HEIGHT / 2) - ((HEIGHT / 2) * ZOOM_MAX), WIDTH * ZOOM_MAX, HEIGHT * ZOOM_MAX, 2000, '<>',showProblemElements(true))
 function renderSolutionForm() {
     var solutionForm = $('#solution-form').detach();
     $(solutionForm).appendTo("#problem-container");
@@ -175,22 +148,23 @@ function zoomIn(target) {
         posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
     }
     solutionNumber = $(target).attr("id")
-    paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', showChartPopupElements);
-    isZoomed = true;
+    paper.animateViewBox(posX, posY, modWidth, modHeight, 2000, '<>', zoomInComplete);
 }
 
 function zoomOut() {
-    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>');
-    zoomOutComplete = false;
-    isZoomed = false;
+    paper.animateViewBox(0, 0, Constants.WIDTH, Constants.HEIGHT, 2000, '<>',zoomOutComplete);
+    isZooming = true;
 }
 
-function handleSolutionMouseEnter() {
-    $('.solution').html("DIE");
+function zoomInComplete()
+{
+    showPopup()
+    isZooming = false;
 }
 
-function handleSolutionMouseLeave() {
-    $('.solution').html("");
+function zoomOutComplete()
+{
+    isZooming = false;
 }
 
 function upvote() {
