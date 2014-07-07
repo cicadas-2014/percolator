@@ -87,6 +87,138 @@ class ProblemsController < ApplicationController
                       }
 
                   ]
+              },
+              {
+                  :title => "Problem 2 solution 1 title",
+                  :description => "Problem 2 solution 1 description",
+                  :problem_id => 2,
+                  :user_id => 3,
+                  :upvotes => 75,
+                  :downvotes => 75,
+                  :candidates => [
+                      {
+                          :title => "Problem 2 solution 1 candidate 1 title",
+                          :description => "Problem 2 solution 1 candidate 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 candidate 2 title",
+                          :description => "Problem 2 solution 1 candidate 2 description",
+                      }
+                  ],
+                  :ancestors => [
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      }
+
+                  ]
+              },
+              {
+                  :title => "Problem 2 solution 1 title",
+                  :description => "Problem 2 solution 1 description",
+                  :problem_id => 2,
+                  :user_id => 3,
+                  :upvotes => 75,
+                  :downvotes => 75,
+                  :candidates => [
+                      {
+                          :title => "Problem 2 solution 1 candidate 1 title",
+                          :description => "Problem 2 solution 1 candidate 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 candidate 2 title",
+                          :description => "Problem 2 solution 1 candidate 2 description",
+                      }
+                  ],
+                  :ancestors => [
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      }
+
+                  ]
+              },
+              {
+                  :title => "Problem 2 solution 1 title",
+                  :description => "Problem 2 solution 1 description",
+                  :problem_id => 2,
+                  :user_id => 3,
+                  :upvotes => 75,
+                  :downvotes => 75,
+                  :candidates => [
+                      {
+                          :title => "Problem 2 solution 1 candidate 1 title",
+                          :description => "Problem 2 solution 1 candidate 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 candidate 2 title",
+                          :description => "Problem 2 solution 1 candidate 2 description",
+                      }
+                  ],
+                  :ancestors => [
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      }
+
+                  ]
+              },
+              {
+                  :title => "Problem 2 solution 1 title",
+                  :description => "Problem 2 solution 1 description",
+                  :problem_id => 2,
+                  :user_id => 3,
+                  :upvotes => 75,
+                  :downvotes => 75,
+                  :candidates => [
+                      {
+                          :title => "Problem 2 solution 1 candidate 1 title",
+                          :description => "Problem 2 solution 1 candidate 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 candidate 2 title",
+                          :description => "Problem 2 solution 1 candidate 2 description",
+                      }
+                  ],
+                  :ancestors => [
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      }
+
+                  ]
               }
           ]
       }
@@ -115,7 +247,7 @@ class ProblemsController < ApplicationController
         description: problem.description,
         solutions: solutions
     }.to_json.html_safe
-    if (false)
+    if (true)
       @problem = DUMMY_DATA[1].to_json.html_safe
     end
     @problem
