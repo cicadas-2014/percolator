@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/problem_upvote', to: "votes#problem_upvote"
   post '/problem_downvote', to: "votes#problem_downvote"
 
-
+  post '/improvements', to: 'improvements#send'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

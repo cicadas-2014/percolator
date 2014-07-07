@@ -1,6 +1,7 @@
-
 var isZooming = false;
 var solutionNumber;
+var isLoaded = false;
+// GTG
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -42,15 +43,25 @@ function addEventListeners() {
 
         // })
 }
+// GTG
 
 function showPopup() {
     $('#chart-popup').hide().slideDown(500);
-    //$('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
+    $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
     // SAVE COMMENT
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
-    //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
+    $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
+    sendIdAjax();
     Menu.init();
+}
+
+function sendIdAjax() {
+    $.ajax({
+        type: "POST",
+        url: '/improvements',
+        data: solutionNumber
+    });
 }
 
 function hideChartPopupElements() {
@@ -63,7 +74,6 @@ function renderSolutionForm() {
     $("#solution-form").show();
     $("#new_solution").show();
 }
-
 
 function zoomIn(target) {
     var posX;
@@ -81,17 +91,19 @@ function zoomIn(target) {
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
-
     isZooming = true;
     Canvas.zoomIn(posX, posY, zoomInComplete);
     Canvas.hideSolutions();
 }
+// GTG
 
+// GTG
 function zoomOut() {
     Canvas.zoomOut(0, 0, zoomOutComplete);
     Canvas.showSolutions();
     isZooming = true;
 }
+// GTG
 
 function zoomInComplete()
 {
@@ -103,7 +115,12 @@ function zoomOutComplete()
 {
     isZooming = false;
 }
+// function improvement() {
+//     $()
+// }
 
+
+// GTG
 function upvote() {
     $("#upvote").on("click",function(){
         $.ajax({
@@ -118,7 +135,9 @@ function upvote() {
         });
     });
 }
+// GTG
 
+// GTG
 function downvote() {
     $("#downvote").on("click",function(){
         $.ajax({
@@ -134,6 +153,7 @@ function downvote() {
         });
     });
 }
+// GTG
 
 // function ajaxUpvote() {
 //     $.ajax({
@@ -151,6 +171,7 @@ function downvote() {
 
 // }
 
+// GTG
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data);

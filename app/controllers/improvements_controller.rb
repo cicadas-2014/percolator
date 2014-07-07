@@ -1,6 +1,12 @@
 class ImprovementsController < ApplicationController
   protect_from_forgery
-  
+  def send
+  	@solution = Solution.find params[:id]
+  	respond_to do |format|
+  		format.json { render json: @solution, status: :created}
+  	end
+  end
+
   def create
     @solution = Solution.find params[:solution_id]
     @improvement = Improvement.new(improvement_params)
