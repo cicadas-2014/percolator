@@ -7,6 +7,7 @@ Canvas = {
     WIDTH: undefined,
     HEIGHT: undefined,
     RAPHAEL: undefined,
+    RADIUS: 125,
     PROBLEM_RADIUS: 75,
     SOLUTION_RADIUS: 8,
     PROBLEM_COLOR: '#37517F',
@@ -46,7 +47,7 @@ Canvas = {
 
         for (var i = 0; i < solutions.length; i++) {
 
-            var radius = 125 + (50 * (i % 2));
+            var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.WIDTH / 2 + (Math.cos(radians) * radius);
             var posY = this.HEIGHT / 2 + (Math.sin(radians) * radius);
             this.createLine(posX, posY);
@@ -157,10 +158,12 @@ Menu = {
     HEIGHT: undefined,
     ELEMENT: undefined,
     RAPHAEL: undefined,
+    NODES: [],
 
     init: function () {
         if (Menu.RAPHAEL) {
-            Menu.RAPHAEL.remove();
+            this.NODES = []
+            this.RAPHAEL.remove();
         }
         this.ELEMENT = $("#bubble-container");
         this.WIDTH = this.ELEMENT.width();
@@ -168,10 +171,19 @@ Menu = {
         this.RAPHAEL = new Raphael(this.ELEMENT.get(0), this.WIDTH, this.HEIGHT);
 
         this.createSolutions();
+        this.animate();
     },
 
     createSolutions: function () {
-        this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+        var node = this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+        this.NODES.push(node)
+    },
+
+    animate: function () {
+        for (var i = 0; i < this.NODES.length; i++) {
+            this.NODES[i].animate({cx: Math.random() * this.WIDTH, cy: Math.random() * this.HEIGHT}, 1000);
+        }
+        setTimeout(this.animate, 1000);
     }
-}
+};
 
