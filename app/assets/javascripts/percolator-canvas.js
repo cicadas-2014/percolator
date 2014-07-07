@@ -171,6 +171,7 @@ Menu = {
         this.RAPHAEL = new Raphael(this.ELEMENT.get(0), this.WIDTH, this.HEIGHT);
 
         this.createSolutions();
+        this.animate();
     },
 
     createSolutions: function () {
@@ -179,10 +180,8 @@ Menu = {
     },
 
     animate: function () {
-        for (var i = 0; i < this.NODES; i++) {
-            var newX = Math.random() * this.WIDTH;
-            var newY = Math.random() * this.HEIGHT;
-            this.NODES[i].animate({cx: newX, cy: newY}, 1000);
+        for (var i = 0; i < this.NODES.length; i++) {
+            this.NODES[i].animate({cx: Math.random() * this.WIDTH, cy: Math.random() * this.HEIGHT}, 1000);
         }
         setTimeout(this.animate, 1000);
     }
