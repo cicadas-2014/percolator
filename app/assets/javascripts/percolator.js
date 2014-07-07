@@ -298,7 +298,6 @@ function downvote() {
 
 
 $(document).ready(function () {
-    console.log("Document ready")
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data)
         Constants.WIDTH = $(window).width();
@@ -313,7 +312,7 @@ $(document).ready(function () {
         downvote();
         addEventListeners();
         Canvas.init();
-    }
+    };
 });
 
 $(window).resize(function () {
