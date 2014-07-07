@@ -62,9 +62,7 @@ Canvas = {
         var maxRadians = 2 * Math.PI;
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
-
         for (var i = 0; i < solutions.length; i++) {
-
             var radius = 125 + (50 * (i % 2));
             var posX = this.WIDTH / 2 + (Math.cos(radians) * radius);
             var posY = this.HEIGHT / 2 + (Math.sin(radians) * radius);
@@ -98,16 +96,22 @@ Canvas = {
                 if (!isZooming) {
                     zoomIn();
                     Canvas.hideSolutions()
+                    text.animate({opacity: 0}, 1300);
+
                 }
             },
             mouseenter: function () {
-                problemText.animate({transform: "s1.5"}, 400);
+                if (!isZooming) {
+                problemText.animate({transform: "s1.3"}, 400);
                 text.animate({opacity: 1}, 300).toFront();
                 text.node.setAttribute("pointer-events", "none");
+                }   
             },
             mouseleave: function () {
+                if (!isZooming) {
                 problemText.animate({transform: "s1"}, 400);
                 text.animate({opacity: 0}, 300);
+                }
             }
         });
         for (var i = 0; i < this.solutions.length; i++) {
@@ -118,7 +122,7 @@ Canvas = {
                     }
                 },
                 mouseenter: function () {
-                    Canvas.solutions[i-1].animate({transform: "s1.7"}, 250);
+                    Canvas.solutions[i-1].animate({transform: "s2"}, 250);
                     // console.log(Canvas.solutions[0]);
 
                 },
