@@ -1,39 +1,25 @@
-
-// GTG
-var paper;
 var isZooming = false;
 var solutionNumber;
 var isLoaded = false;
 // GTG
 
-
-
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
-// ajax events can't be bound to the original DOM element
 $(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
     var ajaxRequest = $.ajax({
         type: "POST",
         url: problem_solutions_create_path()
-    })
+    });
     ajaxRequest.done(function( response ) {
-        console.log(response)
-        // window.data = response
-        init();
+        console.log(response);
+        Canvas.init();
     })
-})
+});
 
-
-function clearPaper(paper){
-    var paperDom = paper.canvas;
-    paperDom.parentNode.removeChild(paperDom);
-}
-
-// GTG
 function addEventListeners() {
         $('#chart-popup button#back').unbind('click').click(function () {
             zoomOut();
@@ -50,7 +36,7 @@ function addEventListeners() {
             $(this.solution_title).val("");
             $(this.solution_description).val("");
             $(this).hide();
-        })
+        });
 
         // $('#new_improvement').on("submit", function(e) {
         //     e.preventDefault();
@@ -59,106 +45,7 @@ function addEventListeners() {
 }
 // GTG
 
-// GTG
-function init() {
-    isZooming = false;
-    if (paper) {
-        paper.remove();
-    };
-    paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
-    createSolutions();
-    createProblem();
-    addEventListeners();
-}
-// GTG
-
-// GTG
-function createSolutions() {
-    var radians = 0;
-    var maxRadians = 2 * Math.PI;
-    var solutions = $.parseJSON(window.data).solutions
-    var step = (2 * Math.PI) / solutions.length;
-
-    for (var i = 0; i < solutions.length; i++) {
-        var radius = 125 + (50 * (i % 2))
-
-        var posX = Constants.WIDTH / 2 + (Math.cos(radians) * radius);
-        var posY = Constants.HEIGHT / 2 + (Math.sin(radians) * radius);
-        Factories.createLine(posX, posY)
-        Factories.createSolution(posX, posY, i, solutions[i])
-        addSolutionListeners(i);
-        radians += step;
-        if (radians > maxRadians) {
-            radians -= maxRadians;
-        }
-    }
-}
-// GTG
-
-// GTG
-function createProblem() {
-    Factories.createProblem();
-    addProblemListeners();
-}
-// GTG
-
-// GTG
-function addSolutionListeners(id) {
-    $('#' + id).bind({
-        click: function () {
-            if (!isZooming) {
-                zoomIn(this);
-            }
-        },
-        mouseenter: function () {
-        },
-        mouseleave: function () {
-        }
-    });
-}
-// GTG
-
-// GTG
-function addProblemListeners() {
-    $('#problem').bind({
-        click: function () {
-            if (!isZooming) {
-                zoomIn();
-                hideSolutions()
-            }
-        },
-        mouseenter: function () {
-        },
-        mouseleave: function () {
-        }
-    });
-}
-// GTG
-
-// GTG
-function hideSolutions(target) {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        if (solutionSprites[i][0] == target) {
-            lines[i].animate({ opacity: 0 }, 2000);
-        }
-        else {
-            solutionSprites[i].animate({ opacity: 0 }, 1000);
-            lines[i].animate({ opacity: 0 }, 500);
-        }
-    }
-}
-// GTG
-
-// GTG
-function showSolutions() {
-    for (var i = 0; i < solutionSprites.length; i++) {
-        solutionSprites[i].animate({ opacity: 1 }, 1000);
-        lines[i].animate({ opacity: 1 }, 2000);
-    }
-}
-// GTG
-
-function showPopup(obj) {
+function showPopup() {
     $('#chart-popup').hide().slideDown(500);
     $('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
     // SAVE COMMENT
@@ -166,6 +53,7 @@ function showPopup(obj) {
     // these queries can access the correct solution number without making another query
     $('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
     sendIdAjax();
+    Menu.init();
 }
 
 function sendIdAjax() {
@@ -187,58 +75,22 @@ function renderSolutionForm() {
     $("#new_solution").show();
 }
 
-// Canvas.prototype.zoomIn = function(target) {
-//     var posX;
-//     var posY;
-//     if (target) {//it is a solution
-//         posX = target.attributes[0].value - ((this.windowWidth / 2) * this.ZOOM_MAX);
-//         posY = target.attributes[1].value - ((this.windowHeight / 2) * this.ZOOM_MAX);
-//         $("span.upvote").attr("id", "upvote")
-//         $("span.downvote").attr("id", "downvote")
-//     }
-//     else { //it is a problem
-//         posX = (this.windowWidth / 2) - ((this.windowWidth / 2) * this.ZOOM_MAX);
-//         posY = (this.windowHeight / 2) - ((this.windowHeight / 2) * this.ZOOM_MAX);
-//         $("span.upvote").attr("id", "problem_upvote")
-//         $("span.downvote").attr("id", "problem_downvote")
-//     }
-//     solutionNumber = $(target).attr("id");
-//     this.isZooming = true;
-//     this.paper.animateViewBox(0, 0, this.windowWidth * this.ZOOM_MAX, this.windowHeight * this.ZOOM_MAX, 2000, '<>', zoomOutComplete)
-//     Canvas.zoomIn(posX, posY, zoomInComplete);
-//     this.$el.hideSolutions();
-// }
-
-// Canvas.prototype.zoomOut = function() {
-//     this.paper.animateViewBox(0, 0, this.windowWidth, this.windowHeight, 2000, '<>', zoomOutComplete)
-//     // Canvas.zoomOut(0, 0, zoomOutComplete);
-//     this.$el.showSolutions();
-//     this.isZooming = true;
-// }
-
-// GTG
 function zoomIn(target) {
     var posX;
     var posY;
-    if (target) {//it is a solution
-        posX = target.attributes[0].value - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
-        posY = target.attributes[1].value - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
-        $("span.upvote").attr("id", "upvote")
-        $("span.downvote").attr("id", "downvote")
+    if (target) {
+        posX = target.attributes[0].value - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
+        posY = target.attributes[1].value - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
+        $("span.upvote").attr("id", "upvote");
+        $("span.downvote").attr("id", "downvote");
+        solutionNumber = $(target).attr("id");
     }
-    else { //it is a problem
-        posX = (Constants.WIDTH / 2) - ((Constants.WIDTH / 2) * Constants.ZOOM_MAX);
-        posY = (Constants.HEIGHT / 2) - ((Constants.HEIGHT / 2) * Constants.ZOOM_MAX);
-        $("span.upvote").attr("id", "problem_upvote")
-        $("span.downvote").attr("id", "problem_downvote")
+    else {
+        posX = (Canvas.WIDTH / 2) - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
+        posY = (Canvas.HEIGHT / 2) - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
+        $("span.upvote").attr("id", "problem_upvote");
+        $("span.downvote").attr("id", "problem_downvote");
     }
-    solutionNumber = $(target).attr("id");
-    console.log($(target).closest('span'))
-    // if (typeof($(target).attr("id")) == 'undefined' ) {
-
-    // } else {
-
-    // }
     isZooming = true;
     Canvas.zoomIn(posX, posY, zoomInComplete);
     Canvas.hideSolutions();
@@ -255,7 +107,7 @@ function zoomOut() {
 
 function zoomInComplete()
 {
-    showPopup()
+    showPopup();
     isZooming = false;
 }
 
@@ -295,7 +147,7 @@ function downvote() {
             data: {solution_number: solutionNumber.toString()}
         }).done(function(r){
             var response1 = $.parseJSON(r);
-             count = response1[0] - response1[1];
+            var count = response1[0] - response1[1];
             $("#count").html(""+count+"");
 
         });
@@ -322,11 +174,9 @@ function downvote() {
 // GTG
 $(document).ready(function () {
     if ($("#canvas_container").length) {
-        var problem = $.parseJSON(window.data)
-        Constants.WIDTH = $(window).width();
-        Constants.HEIGHT = $(window).height() - 90;
-        $('#chart-popup #problem-container').removeClass('hidden');
-        $('#chart-popup #bubble-container').removeClass('hidden');
+        var problem = $.parseJSON(window.data);
+        $('#problem-container').removeClass('hidden');
+        $('#bubble-container').removeClass('hidden');
         $('#solution-form').hide();
         $('#chart-popup').hide();
         $('#page-title')[0].innerHTML = problem.title;
@@ -335,17 +185,14 @@ $(document).ready(function () {
         downvote();
         addEventListeners();
         Canvas.init();
-    };
+    }
 });
-// GTG
 
 $(window).resize(function () {
-    Constants.WIDTH = $(window).width();
-    Constants.HEIGHT = $(window).height() - 90;
     Canvas.init();
 });
 
 $(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("")
+    $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
 });

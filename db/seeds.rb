@@ -9,49 +9,90 @@ types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
 
-problems = [
+problemDummyData = [
     {
         :user_id => 1,
         :title => "How does a programmer become a brogrammer?",
         :description => "I've heard a lot about brogramming. Is it a language? My desire to be a brogrammer eclipses my desire for life itself",
         :solutions => [
             {
-                :title => "Be a huge douche who knows javascript",
+                :title => "Be a huge jerk who knows javascript",
                 :description => "Lots of red meat, push-ups on one hand, while coding on the other, sunglasses at all times, a tan is important, popped collar is a must. It's important that you can squash anyone who might call you 'geek' or 'nerd' and that you can pick up girls, but also equally important that you know the Star Wars movies by heart, and understand programming ideas, like recursion and inheritance.",
                 :problem_id => 1,
-                :user_id => 5,
+                :user_id => 12,
                 :upvotes => 50,
-                :downvotes=> 75
+                :downvotes => 75,
+                :candidates => [
+                ],
+                :anscestors => [
+                ]
+            },
+
+            {
+                :title => "Be an awesome programmer who codes like a boss.",
+                :description => "Be a gentle man scholar, a lover of code, and a badass lion hunter.",
+                :problem_id => 1,
+                :user_id => 2,
+                :upvotes => 50,
+                :downvotes => 75,
+                :candidates => [
+                ],
+                :anscestors => [
+                ]
+
+            },
+
+            {
+                :title => "Investment banking is a better way to make money for that kind of guy.",
+                :description => "Seriously, Wolf of Wall Street. Check it out.",
+                :problem_id => 1,
+                :user_id => 3,
+                :upvotes => 50,
+                :downvotes => 75,
+                :candidates => [
+                ],
+                :anscestors => [
+                ]
             }
         ]
     },
     {
         :user_id => 2,
-        :title => "What's my social status? Should I date up or down?",
-        :description => "I see many references to one's social status, such as 'date up' and 'marry up', etc. So, what's my social status? I'm 33, white, single, healthy, I have a degree in CS and make $110K/yr.",
+        :title => "Problem 2 title",
+        :description => "Problem 2 description",
         :solutions => [
             {
-                :title => "Don't fall in love wth status",
-                :description => "The day I married my husband he had literally a dollar to his name, no car, no high school diploma, at the time no job and he had just gotten sober a few months before. Everyone I knew told me I was an idiot.",
+                :title => "Problem 2 solution 1 title",
+                :description => "Problem 2 solution 1 description",
                 :problem_id => 2,
                 :user_id => 3,
-                :upvotes => 50,
-                :downvotes=> 75
-            }
-        ]
-    },
-    {
-        :user_id => 3,
-        :title => "How does it feel to work in service capacity position where one constantly interacts with extremely wealthy?",
-        :description => "For example, an air host on a private jet, a maid at a palace, etc.",
-        :solutions => [
-            {
-                :title => "For a number of years, I worked as a wealth management advisor.",
-                :description => "If you are a poor person who hates the underprivileged, your need for a paying job forces a level of decorum in your conduct, and you learn to keep quiet your most objectionable opinions so you can get along with your employers/customers.",
-                :problem_id => 3,
-                :user_id => 1,
-                :upvotes => 50,
-                :downvotes=> 75
+                :upvotes => 75,
+                :downvotes => 75,
+                :candidates => [
+                    {
+                        :title => "Problem 2 solution 1 candidate 1 title",
+                        :description => "Problem 2 solution 1 candidate 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 candidate 2 title",
+                        :description => "Problem 2 solution 1 candidate 2 description",
+                    }
+                ],
+                :anscestors => [
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    }
+
+                ]
             }
         ]
     }
