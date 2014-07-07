@@ -1,8 +1,8 @@
 Comments = {
     comments: [],
 
-    divHTML: function(type, typeId){
-        var div = '<div class="comment-form ' + type + 'id="__' + typeId + '">' + '</div>'
+    divHTML: function(){
+        var div = '<div class="comment-form" id="used_and_abused"></div>'
         return div
     },
 
@@ -21,28 +21,27 @@ Comments = {
         return comment
     },
 
-    appendDiv: function(){
-
+    appendDiv: function(type, typeId){
+        // *****THIS*****
+        if ($("#comment-form").length) {
+            $("#comment-form").empty();
+            this.appendCommentBox(type, typeId);
+        } else {
+            $("#problem-container").append(this.divHTML())
+            this.appendCommentBox(type, typeId);
+        }
     },
 
-    appendForm: function(){
-
+    appendCommentBox: function(type, typeId){
+        $("#comment-form").append(this.formHTML(type, typeId))
+        $("#comment-form").append(this.queryCommentDatabase(type, typeId))
     },
 
-    appendComment: function(){
-
-    },
-
-    commentToggler: function(commentCategory){
-
-    },
-
-    queryCommentDatabase: function(commentCategory){
-
-    },
-
-    getCategorySpecificComment: function(commentCategory){
-
+    queryCommentDatabase: function(commentCategory, typeId){
+        $.ajax({
+            type: "POST",
+            url: "/"
+        })
     },
 
     init: function(){
