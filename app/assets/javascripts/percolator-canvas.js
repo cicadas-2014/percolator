@@ -15,27 +15,46 @@ Canvas = {
     solutions: [],
     lines: [],
 
-    createProblem: function () {
-        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2).attr({opacity: 0});
-        var content = $.parseJSON(window.data).title;
+    wrapText: function (content) {
         var words = content.split(" ");
         var tempText = "";
-        var maxWidth = 60;
         for (var i=0; i<words.length; i++) {
-          text.attr("text", tempText + " " + words[i]);
-          if (text.getBBox().width > maxWidth) {
-            tempText += "\n" + words[i];
-          } else {
-            tempText += " " + words[i];
-          }
+          tempText = Canvas.fitTextToBox(i, tempText, words)
         }
-        text.attr("text", tempText.substring(1));
-        text.attr({ "font-size": 18, "font-family": "Opificio", "fill": "#BAD3FF"});
-        var problem = this.RAPHAEL.circle(this.WIDTH / 2, this.HEIGHT / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
-        problem.node.id = 'problem';
+        return tempText;
+    },
+
+    fitTextToBox: function(index, tempText, words) {
+        var maxWidth = 60;
+        text.attr("text", tempText + " " + words[index]);
+        if (text.getBBox().width > maxWidth) {
+            tempText += "\n" + words[index];
+        } else {
+            tempText += " " + words[index];
+        }
+        return tempText;
+    },
+
+    createProblemText: function () {
+        Canvas.createText();
+        problem = Canvas.createProblem();
         problemText = this.RAPHAEL.set();
         problemText.push(problem);
         problemText.push(text);
+    },
+
+    createProblem: function () {  
+        var problem = this.RAPHAEL.circle(this.WIDTH / 2, this.HEIGHT / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
+        problem.node.id = 'problem';
+        return problem; 
+    },
+
+    createText: function () {    
+        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2).attr({opacity: 0});
+        var content = $.parseJSON(window.data).title;
+        var tempText = this.wrapText(content);
+        text.attr("text", tempText.substring(1));
+        text.attr({ "font-size": 18, "font-family": "Opificio", "fill": "#BAD3FF"});
     },
 
     createSolutions: function () {
@@ -119,7 +138,7 @@ Canvas = {
         this.RAPHAEL = new Raphael($("#canvas_container").get(0), this.WIDTH, this.HEIGHT);
 
         this.createSolutions();
-        this.createProblem();
+        this.createProblemText();
         this.addEventListeners();
     },
 
