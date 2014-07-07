@@ -16,6 +16,6 @@
 //= require turbolinks
 //= require raphael
 //= require raphael-animated-viewbox
-//= require percolator-factories
+//= require percolator-canvas.js
 //= require percolator
 //= require_tree .
