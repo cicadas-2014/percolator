@@ -499,12 +499,7 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote")
     }
     solutionNumber = $(target).attr("id");
-    console.log($(target).closest('span'))
-    // if (typeof($(target).attr("id")) == 'undefined' ) {
-
-    // } else {
-
-    // }
+    console.log(solutionNumber)
     isZooming = true;
     Canvas.zoomIn(posX, posY, zoomInComplete);
     Canvas.hideSolutions();
