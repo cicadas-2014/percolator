@@ -2,23 +2,39 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
+  def create
+
+  end
+
   private
 
-  def problem_comments(problem_number)
+  def problem_comments
+    problem_number = params[:problem_id]
     @comments = {
-      prob_comment: Comment.where(commentable_type: "problem", commentable_id: problem_number)
-    }
+      problems: Comment.where(commentable_type: "problem", commentable_id: problem_number)
+    }.to_json
+    respond_to do |format|
+      format.js { render json: @comments}
+    end
   end
 
-  def problem_solutions(problem_number, solution_number)
+  def problem_solutions
+    solution_number = params[:solution_id]
     @comments = {
-      sol_comment: Comment.where(commentable_type: "solution", commentable_id: solution_number)
-    }
+      solutions: Comment.where(commentable_type: "solution", commentable_id: solution_number)
+    }.to_json
+    respond_to do |format|
+      format.js { render json: @comments}
+    end
   end
 
-  def problem_improvements(problem_number, improvement_number)
+  def problem_improvements
+    improvement_number = params[:improvement_id]
     @comments = {
-      imp_comment: Comment.where(commentable_type: "improvement", commentable_id: improvement_number)
+      improvements: Comment.where(commentable_type: "improvement", commentable_id: improvement_number)
     }
+    respond_to do |format|
+      format.js { render json: @comments}
+    end
   end
 end
