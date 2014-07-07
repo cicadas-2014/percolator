@@ -107,9 +107,15 @@ jQuery.ajaxSetup({
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("")
     $("#solution-form").hide();
-    // console.log(paper)
-    // clearPaper()
-    init();
+    var ajaxRequest = $.ajax({
+        type: "GET",
+        url: "/problems/show"
+    })
+    ajaxRequest.done(function( response ) {
+        console.log(response)
+        window.data = response
+        init();
+    })
 })
 
 
@@ -120,7 +126,7 @@ function clearPaper(paper){
 
 function init() {
     if (paper) {
-        paper.remove();
+        clearpaper(paper);
     };
     paper = new Raphael($("#canvas_container").get(0), Constants.WIDTH, Constants.HEIGHT);
     createSolutions();
