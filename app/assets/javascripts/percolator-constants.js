@@ -4,13 +4,13 @@ Constants = {
     WIDTH: $(window).height()
 };
 
-var PROBLEM_RADIUS = 75;
-var SOLUTION_RADIUS = 8;
-var PROBLEM_COLOR = '#37517F';
-var SOLUTION_COLOR = '#6DA2FF';
-var CONNECTION_COLOR = '#666';
-var solutionSprites = [];
-var lines = [];
+PROBLEM_RADIUS = 75;
+SOLUTION_RADIUS = 8;
+PROBLEM_COLOR = '#37517F';
+SOLUTION_COLOR = '#6DA2FF';
+CONNECTION_COLOR = '#666';
+solutionSprites = [];
+lines = [];
 
 //<li title="#37517F" style="background: #37517F">
 //<li title="#BAD3FF" style="background: #BAD3FF">

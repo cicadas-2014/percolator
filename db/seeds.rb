@@ -9,19 +9,51 @@ types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
 
-data = [
+problems = [
     {
-        problem:
+        :user_id => 1,
+        :title => "How does a programmer become a brogrammer?",
+        :description => "I've heard a lot about brogramming. Is it a language? My desire to be a brogrammer eclipses my desire for life itself",
+        :solutions => [
             {
-                user_id: 0,
-                title: "",
-                description: "",
-                solutions: {
-                    title: "",
-                    description: "",
-                    user_id: 0,
-                }
+                :title => "Be a huge douche who knows javascript",
+                :description => "Lots of red meat, push-ups on one hand, while coding on the other, sunglasses at all times, a tan is important, popped collar is a must. It's important that you can squash anyone who might call you 'geek' or 'nerd' and that you can pick up girls, but also equally important that you know the Star Wars movies by heart, and understand programming ideas, like recursion and inheritance.",
+                :problem_id => 1,
+                :user_id => 5,
+                :upvotes => 50,
+                :downvotes=> 75
             }
+        ]
+    },
+    {
+        :user_id => 2,
+        :title => "What's my social status? Should I date up or down?",
+        :description => "I see many references to one's social status, such as 'date up' and 'marry up', etc. So, what's my social status? I'm 33, white, single, healthy, I have a degree in CS and make $110K/yr.",
+        :solutions => [
+            {
+                :title => "Don't fall in love wth status",
+                :description => "The day I married my husband he had literally a dollar to his name, no car, no high school diploma, at the time no job and he had just gotten sober a few months before. Everyone I knew told me I was an idiot.",
+                :problem_id => 2,
+                :user_id => 3,
+                :upvotes => 50,
+                :downvotes=> 75
+            }
+        ]
+    },
+    {
+        :user_id => 3,
+        :title => "How does it feel to work in service capacity position where one constantly interacts with extremely wealthy?",
+        :description => "For example, an air host on a private jet, a maid at a palace, etc.",
+        :solutions => [
+            {
+                :title => "For a number of years, I worked as a wealth management advisor.",
+                :description => "If you are a poor person who hates the underprivileged, your need for a paying job forces a level of decorum in your conduct, and you learn to keep quiet your most objectionable opinions so you can get along with your employers/customers.",
+                :problem_id => 3,
+                :user_id => 1,
+                :upvotes => 50,
+                :downvotes=> 75
+            }
+        ]
     }
 ]
 
@@ -31,12 +63,11 @@ data = [
   count += 1
 end
 
-10.times do
-  Problem.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(10), user_id: rand(5) + 1)
-end
-
-20.times do
-  Solution.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(10), problem_id: rand(10) + 1, user_id: rand(5) + 1)
+problems.each do |problem|
+  Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
+  problem[:solutions].each do |solution|
+    Solution.create(title: solution[:title], description: solution[:description], problem_id: 1, user_id: 1)
+  end
 end
 
 50.times do
