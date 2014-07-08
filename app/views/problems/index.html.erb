@@ -22,13 +22,15 @@
 
 <div class="container">
     <div class="centered">
-        <h3 class=".centered">popular discussions</h3>
+        <h2>popular discussions</h2>
     </div>
     <div id="problem-menu">
         <% @problems.each do |problem| %>
-            <div class="problem">
-                <%= link_to problem.title, problem_path(problem) %><br>
-                <div class="bubble-button">go</div>div>
+            <div class="problem-container">
+                <div class="problem">
+                    <%= link_to content_tag(:span, problem.title),  problem_path(problem) %>
+                </div>
+                <div class="bubble-button">go</div>
             </div>
         <% end %>
     </div>
