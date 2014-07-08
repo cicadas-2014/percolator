@@ -8,7 +8,7 @@ function Problem(posX, posY, raphael) {
 }
 
 Problem.prototype.createText = function () {
-    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
+    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 1});
     //var tempText = this.wrapText($.parseJSON(window.data).title);
     //this.textSprite.attr("text", tempText.substring(1));
     //this.textSprite.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
@@ -33,3 +33,10 @@ Problem.prototype.fitTextToBox = function (index, tempText, words) {
     }
     return tempText;
 }
+
+// Problem.prototype.createVoteFrame = function() {
+//     var upvoteRatio = $.parseJSON(window.data).upvotes / ($.parseJSON(window.data).upvotes + $.parseJSON(window.data).downvotes)
+//     var downvoteRatio = $.parseJSON(window.data).downvotes / ($.parseJSON(window.data).upvotes + $.parseJSON(window.data).downvotes)
+//     var r = 255*downvoteRatio;
+//     var g = 255*upvoteRatio
+// }

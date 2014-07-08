@@ -3,6 +3,53 @@ class ProblemsController < ApplicationController
   require 'json'
   # before_action :load_user, only: :create
 
+
+  def index
+    @problems = Problem.all
+  end
+
+  def show
+    problem = Problem.find params[:id]
+    @form_problem = problem
+    @improvement = Improvement.new
+    @solution = Solution.new
+    solutions = []
+    problem.solutions.each do |solution|
+      solutions << {id: solution.id,
+                    title: solution.title,
+                    description: solution.description,
+                    #username: solution.user.username
+      }
+    end
+
+    @problem = {
+        id: problem.id,
+        title: problem.title,
+        description: problem.description,
+        solutions: solutions,
+        # votes: "hi tim"
+    }.to_json.html_safe
+    if (true)
+      @problem = DUMMY_DATA[1].to_json.html_safe
+    end
+    @problem
+  end
+
+  def create
+    @problem = Problem.new(problem_params)
+    @problem.user_id = current_user.id
+    if @problem.save
+      redirect_to problem_path(@problem)
+    else
+      flash.now[:notice] = "All fields must be populated!"
+      render :new
+    end
+  end
+
+  def new
+    @problem = Problem.new
+  end
+
   DUMMY_DATA = [
       {
           :user_id => 1,
@@ -49,6 +96,7 @@ class ProblemsController < ApplicationController
                   ]
               }
           ]
+
       },
       {
           :user_id => 2,
@@ -220,55 +268,11 @@ class ProblemsController < ApplicationController
 
                   ]
               }
-          ]
+          ],
+          # :upvotes => 15,
+          # :downvotes => 6
       }
   ]
-
-  def index
-    @problems = Problem.all
-  end
-
-  def show
-    problem = Problem.find params[:id]
-    @form_problem = problem
-    @improvement = Improvement.new
-    @solution = Solution.new
-    solutions = []
-    problem.solutions.each do |solution|
-      solutions << {id: solution.id,
-                    title: solution.title,
-                    description: solution.description,
-                    #username: solution.user.username
-      }
-    end
-
-    @problem = {
-        id: problem.id,
-        title: problem.title,
-        description: problem.description,
-        solutions: solutions
-    }.to_json.html_safe
-    if (true)
-      @problem = DUMMY_DATA[1].to_json.html_safe
-    end
-    @problem
-  end
-
-  def create
-    @problem = Problem.new(problem_params)
-    @problem.user_id = current_user.id
-    if @problem.save
-      redirect_to problem_path(@problem)
-    else
-      flash.now[:notice] = "All fields must be populated!"
-      render :new
-    end
-  end
-
-  def new
-    @problem = Problem.new
-  end
-
   private
 
   def problem_params
