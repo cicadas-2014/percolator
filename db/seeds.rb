@@ -9,7 +9,7 @@ types = %w(user problem solution improvement)
 usernames = %w(indigo mario simon tim berners)
 count = 0
 
-problemDummyData = [
+problems = [
     {
         :user_id => 1,
         :title => "How does a programmer become a brogrammer?",
@@ -48,11 +48,7 @@ problemDummyData = [
                 :problem_id => 1,
                 :user_id => 3,
                 :upvotes => 50,
-                :downvotes => 75,
-                :candidates => [
-                ],
-                :anscestors => [
-                ]
+                :downvotes=> 75,
             }
         ]
     },
@@ -67,7 +63,7 @@ problemDummyData = [
                 :problem_id => 2,
                 :user_id => 3,
                 :upvotes => 75,
-                :downvotes => 75,
+                :downvotes=> 75,
                 :candidates => [
                     {
                         :title => "Problem 2 solution 1 candidate 1 title",
@@ -93,6 +89,21 @@ problemDummyData = [
                     }
 
                 ]
+            }
+        ]
+    },
+    {
+        :user_id => 3,
+        :title => "How does it feel to work in service capacity position where one constantly interacts with extremely wealthy?",
+        :description => "For example, an air host on a private jet, a maid at a palace, etc.",
+        :solutions => [
+            {
+                :title => "For a number of years, I worked as a wealth management advisor.",
+                :description => "If you are a poor person who hates the underprivileged, your need for a paying job forces a level of decorum in your conduct, and you learn to keep quiet your most objectionable opinions so you can get along with your employers/customers.",
+                :problem_id => 3,
+                :user_id => 1,
+                :upvotes => 50,
+                :downvotes=> 75
             }
         ]
     }
