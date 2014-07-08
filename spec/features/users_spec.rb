@@ -4,30 +4,10 @@ require 'spec_helper'
 ## some tests don't pass unless run through silenium (min 8 chars*)
 ## brings to old devise route
 feature 'Users', type: :feature, js: true do
-
-	scenario 'cannot see forms before clicking the form buttons' do
-		visit root_path
-		expect(page.body).to have_css('div.hidden')
-	end
-
-	scenario 'can see a form by clicking the sign up button' do
+	scenario 'clicking the register button brings us to the register form' do
 		visit root_path
 		click_button 'u_button'
-		expect(page.body).to have_css('div.hidden')
-	end
-
-	scenario 'can see a form by clicking the sign in button' do
-		visit root_path
-		click_button 'i_button'
-		expect(page.body).to have_css('div.hidden')
-	end
-
-	scenario 'can no longer see a form after clicking button twice' do
-		visit root_path
-		click_button 'i_button'
-		click_button 'u_button'
-		click_button 'i_button'
-		expect(page.body).to have_css('div.hidden')
+		expect(current_path).to eq(new_user_registration_path)
 	end
 
 	scenario 'can create a new account with valid parameters' do
@@ -37,7 +17,7 @@ feature 'Users', type: :feature, js: true do
 		fill_in 'sign_up_user_password', with: 'password'
 		fill_in 'sign_up_user_password_confirmation', with: 'password'
 		click_button 'Sign up'
-		expect(page.body).to have_content("Posit Problem")
+		expect(page.body).to have_button("Posit")
 	end
 
 	scenario 'cannot create a password less than 8 characters' do
@@ -71,6 +51,11 @@ feature 'Users', type: :feature, js: true do
 		expect(page).to have_content("Email has already been taken.")
 	end
 
+	scenario 'pressing the login button brings the login form' do
+		visit root_path
+		click_button 'i_button'
+		expect(current_path).to eq(new_user_session_path)
+	end
 
 	let (:user) { User.create( email: 'user@dbc.gov', password: 'password')}
 	scenario 'can login with valid information' do
@@ -79,7 +64,7 @@ feature 'Users', type: :feature, js: true do
 		fill_in 'sign_in_user_email', with: user.email
 		fill_in 'sign_in_user_password', with: user.password
 		click_button 'Sign in'
-		expect(page.body).to have_content("Posit Problem")
+		expect(page.body).to have_button("Posit")
 	end
 
 	scenario 'cannot login with invalid information' do
