@@ -3,19 +3,6 @@ var solutionNumber;
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
-
-$(document).on("ajax:success", "#solution-form", function(){
-    $("#solution-form").find("input[type=text], textarea").val("");
-    $("#solution-form").hide();
-    var ajaxRequest = $.ajax({
-        type: "POST",
-        url: problem_solutions_create_path()
-    });
-    ajaxRequest.done(function( response ) {
-        console.log(response);
-        BubbleGraph.init();
-    })
 });
 
 function addEventListeners() {
@@ -30,7 +17,7 @@ function addEventListeners() {
         console.log("Firing form")
     });
 
-    $('#new_solution').on("submit", function (e) {
+    $('form').on("submit", "#new_solution", function (e) {
         e.preventDefault();
         $(this.solution_title).val("");
         $(this.solution_description).val("");
@@ -72,7 +59,7 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote");
     }
     solutionNumber = $(target).attr("id");
-    $('#improvement-form').show();
+    // $('#improvement-form').show();
     isZooming = true;
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
@@ -181,13 +168,8 @@ $(document).ready(function () {
     }
 });
 
-$(window).resize(function () {
-    Canvas.init();
-});
-
 $(document).on("ajax:complete", function(event, xhr){
     console.log("I'm in the ajax complete")
-    console.log(xhr)
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
@@ -197,13 +179,16 @@ $(document).on("ajax:complete", function(event, xhr){
                 parsedText.username))
         } else if (parsedText.saved === false) {
             Comments.showCommentMessage(false)
-        } else {
+        } else if (parsedText.save_status === true) {
+            console.log("I was saved!")
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
+            BubbleMenu.appendAndReInit(parsedText);
             $("#improvement-form").find("input[type=text], textarea").val("");
             $("#improvement-form").hide();
+        } else {
+            console.log("I didn't get saved!!")
         }
-        console.log($.parseJSON(xhr.responseText))
     }
     console.log("I'm in the ajax complete")
 });
