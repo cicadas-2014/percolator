@@ -1,14 +1,3 @@
-Constants = {
-    ZOOM_MAX: 0.1,
-    WIDTH: $(window).width(),
-    WIDTH: $(window).height()
-};
-
-PROBLEM_RADIUS = 75;
-SOLUTION_RADIUS = 8;
-PROBLEM_COLOR = '#37517F';
-SOLUTION_COLOR = '#6DA2FF';
-CONNECTION_COLOR = '#666';
 solutionSprites = [];
 lines = [];
 

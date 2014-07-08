@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :problems, only: [:show, :new, :create] do
+  resources :problems, only: [:new, :create, :show] do
     post '/solutions/create', to: 'solutions#create'
   end
 
@@ -16,6 +16,17 @@ Rails.application.routes.draw do
   post '/problem_upvote', to: "votes#problem_upvote"
   post '/problem_downvote', to: "votes#problem_downvote"
 
+  get '/problems/comments/:problem_id', to: "comments#problem_comments"
+  get '/solutions/comments/:solution_id', to: "comments#solution_comments"
+  get '/improvements/comments/:improvement_id', to: "comments#improvement_comments"
+  post '/problems/comments/:problem_id/create', to: "comments#create", as: "new_problems_comment"
+  # post '/problems/comments/:problem_id/create', to: "comments#problem_create", as: "new_problems_comment_reply"
+  post '/solutions/comments/:solution_id/create', to: "comments#create", as: "new_solutions_comment"
+  # post '/problems/solutions/:problem_id/create', to: "comments#solution_create", as: "new_solutions_comment_reply"
+  post '/improvements/comments/:improvement_id/create', to: "comments#create", as: "new_improvements_comment"
+  # post '/problems/improvements/:problem_id/create', to: "comments#improvement_create", as: "new_problems_comment_reply"
+
+  # post '/improvements', to: 'improvements#send'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

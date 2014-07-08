@@ -1,6 +1,7 @@
 class ImprovementsController < ApplicationController
   protect_from_forgery
 
+
   def create
     @solution = Solution.find params[:solution_id]
 

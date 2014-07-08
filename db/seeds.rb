@@ -16,27 +16,79 @@ problems = [
         :description => "I've heard a lot about brogramming. Is it a language? My desire to be a brogrammer eclipses my desire for life itself",
         :solutions => [
             {
-                :title => "Be a huge douche who knows javascript",
+                :title => "Be a huge jerk who knows javascript",
                 :description => "Lots of red meat, push-ups on one hand, while coding on the other, sunglasses at all times, a tan is important, popped collar is a must. It's important that you can squash anyone who might call you 'geek' or 'nerd' and that you can pick up girls, but also equally important that you know the Star Wars movies by heart, and understand programming ideas, like recursion and inheritance.",
                 :problem_id => 1,
-                :user_id => 5,
+                :user_id => 12,
                 :upvotes => 50,
-                :downvotes=> 75
+                :downvotes => 75,
+                :candidates => [
+                ],
+                :anscestors => [
+                ]
+            },
+
+            {
+                :title => "Be an awesome programmer who codes like a boss.",
+                :description => "Be a gentle man scholar, a lover of code, and a badass lion hunter.",
+                :problem_id => 1,
+                :user_id => 2,
+                :upvotes => 50,
+                :downvotes => 75,
+                :candidates => [
+                ],
+                :anscestors => [
+                ]
+
+            },
+
+            {
+                :title => "Investment banking is a better way to make money for that kind of guy.",
+                :description => "Seriously, Wolf of Wall Street. Check it out.",
+                :problem_id => 1,
+                :user_id => 3,
+                :upvotes => 50,
+                :downvotes=> 75,
             }
         ]
     },
     {
         :user_id => 2,
-        :title => "What's my social status? Should I date up or down?",
-        :description => "I see many references to one's social status, such as 'date up' and 'marry up', etc. So, what's my social status? I'm 33, white, single, healthy, I have a degree in CS and make $110K/yr.",
+        :title => "Problem 2 title",
+        :description => "Problem 2 description",
         :solutions => [
             {
-                :title => "Don't fall in love wth status",
-                :description => "The day I married my husband he had literally a dollar to his name, no car, no high school diploma, at the time no job and he had just gotten sober a few months before. Everyone I knew told me I was an idiot.",
+                :title => "Problem 2 solution 1 title",
+                :description => "Problem 2 solution 1 description",
                 :problem_id => 2,
                 :user_id => 3,
-                :upvotes => 50,
-                :downvotes=> 75
+                :upvotes => 75,
+                :downvotes=> 75,
+                :candidates => [
+                    {
+                        :title => "Problem 2 solution 1 candidate 1 title",
+                        :description => "Problem 2 solution 1 candidate 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 candidate 2 title",
+                        :description => "Problem 2 solution 1 candidate 2 description",
+                    }
+                ],
+                :anscestors => [
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    },
+                    {
+                        :title => "Problem 2 solution 1 ancestor 1 title",
+                        :description => "Problem 2 solution 1 ancestor 1 description",
+                    }
+
+                ]
             }
         ]
     },
@@ -63,7 +115,7 @@ problems = [
   count += 1
 end
 
-problems.each do |problem|
+problemDummyData.each do |problem|
   Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
   problem[:solutions].each do |solution|
     Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])
@@ -92,6 +144,24 @@ end
   end
 
   Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1, vote_type: true)
+end
+
+types.delete("user")
+300.times do
+
+  case types.sample
+  when "problem"
+    type = "problem"
+    count = 10
+  when "solution"
+    type = "solution"
+    count = 20
+  when "improvement"
+    type = "improvement"
+    count = 50
+  end
+
+  Comment.create(description: Faker::Lorem.paragraph(8), username: Faker::Lorem.word, commentable_type: type, commentable_id: rand(count) + 1)
 end
 
 # latest transcript

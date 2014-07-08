@@ -4,9 +4,11 @@
 
 <div id="canvas_container"></div>
 <div id="chart-popup">
+    <div id="bubble-container">
+    </div>
     <div id="problem-container" class="hidden">
-        <div id="bubble-container">
-        </div>
+
+        <h3>Synopsis</h3>
         <div id="synopsis"></div>
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">PERCOLATE</button>
@@ -16,9 +18,10 @@
             </span>
             <span id="count"></span>
             <span class="downvote" id="downvote">
-                <image src="<%= image_path "thumbs-down.png" %>"/>
+                <image src="<%= image_path "thumbs-down.png" %>"/><br>
             </span>
         </div>
+
     </div>
 
     <div id="disqus_thread"></div>

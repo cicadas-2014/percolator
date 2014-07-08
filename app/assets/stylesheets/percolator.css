@@ -97,17 +97,11 @@ body {
     height:100%;
 }
 
-#chart-popup h2 {
+#chart-popup h1, h2, h3, h4, h5 {
     font-family: Opificio;
     color: #BAD3FF;
-    font-size: 24px;
 }
 
-#chart-popup h4 {
-    font-family: Opificio;
-    color: #BAD3FF;
-    font-size: 24px;
-}
 
 #chart-popup #problem-container {
 
@@ -120,23 +114,21 @@ body {
     z-index:1;
 }
 
-#chart-popup #problem-container h3 {
-    color: #CCCCCC;
-}
-
-#chart-popup #problem-container p {
+#problem-container p {
     color: #888888;
 }
 
-#chart-popup #problem-container button{
+#problem-container button{
     color: #FFF;
     background-color: #3A424F;
 }
 
-#chart-popup #bubble-container {
-    background-color: #FFFFFF;
+#bubble-container {
+    position:relative;
+    background-color: #555555;
     width:100%;
     min-height: 250px;
+    z-index: 2;
 }
 
 .solution {
@@ -154,6 +146,8 @@ body {
     position: absolute;
 }
 
+
+
 #sign_up_form {
     font-size: 10px;
 }
@@ -161,24 +155,24 @@ body {
 #sign_in_form {
     font-size: 10px;
 }
-
 #sign_up_button {
-    -ms-transform: scale(.5,.5); /* IE 9 */
-    -webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-    transform: scale(.5,.5);
+-ms-transform: scale(.5,.5); /* IE 9 */
+-webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
+transform: scale(.5,.5);
 }
+
 
 #sign_up {
     min-width: 199px;
     min-height: 193px;
     float: right;
 }
-
 #sign_in_button {
-    -ms-transform: scale(.5,.5); /* IE 9 */
-    -webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-    transform: scale(.5,.5);
+-ms-transform: scale(.5,.5); /* IE 9 */
+-webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
+transform: scale(.5,.5);
 }
+
 
 #sign_in {
     min-width: 199px;
@@ -206,4 +200,10 @@ body {
 
 .hidden {
     display: none;
+}
+
+.comment-form {
+    display: inline-block;
+    clear: both;
+    float: left;
 }
