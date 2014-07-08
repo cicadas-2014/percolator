@@ -7,9 +7,9 @@ Canvas = {
     WIDTH: undefined,
     HEIGHT: undefined,
     RAPHAEL: undefined,
-    RADIUS: 200,
+    RADIUS: 220,
     PROBLEM_RADIUS: 125,
-    SOLUTION_RADIUS: 20,
+    SOLUTION_RADIUS: 40,
     PROBLEM_COLOR: '#37517F',
     SOLUTION_COLOR: '#6DA2FF',
     CONNECTION_COLOR: '#666',
@@ -80,8 +80,13 @@ Canvas = {
         var solution = this.RAPHAEL.circle(posX, posY, this.SOLUTION_RADIUS).attr({fill: this.SOLUTION_COLOR, stroke: "none"});
         solution.id = id;
         solution.node.id = id;
-        Canvas.solutions.push(solution);
-        return solution;
+        var solutionText = this.RAPHAEL.text(posX, posY).attr("text", $.parseJSON(window.data).solutions[id].title).attr({opacity: 0, "font-family": "Opificio", "fill": "white"});
+        solutionText.node.setAttribute('pointer-events', 'none');
+        var solutionWithText = this.RAPHAEL.set();
+        solutionWithText.push(solution);
+        solutionWithText.push(solutionText);
+        Canvas.solutions.push(solutionWithText);
+        return solutionWithText;
     },
 
     createLine: function (posX, posY) {
@@ -98,7 +103,6 @@ Canvas = {
                     zoomIn();
                     Canvas.hideSolutions()
                     text.animate({opacity: 0}, 1300);
-
                 }
             },
             mouseenter: function () {
@@ -123,10 +127,24 @@ Canvas = {
                     }
                 },
                 mouseenter: function () {
-                    Canvas.solutions[this.id].animate({transform: "s2"}, 250);
+                    if (!isZooming) {
+                        Canvas.solutions[this.id].forEach(function(element){
+                            element.animate({transform: "s1.5"}, 250);
+                            if (element.type === "text") {
+                            element.animate({opacity: 1}, 250);
+                            };
+                        });
+                    }
                 },
                 mouseleave: function () {
-                    Canvas.solutions[this.id].animate({transform: "s1"}, 250)
+                    if (!isZooming) {
+                        Canvas.solutions[this.id].forEach(function(element){
+                            element.animate({transform: "s1"}, 250);
+                            if (element.type === "text") {
+                                element.animate({opacity: 0}, 250);
+                            };
+                        });
+                    }
                 }
             });
         }

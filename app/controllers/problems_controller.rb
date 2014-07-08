@@ -56,7 +56,7 @@ class ProblemsController < ApplicationController
           :description => "Problem 2 description",
           :solutions => [
               {
-                  :title => "Problem 2 solution 1 title",
+                  :title => "Problem 2 solution 0 title",
                   :description => "Problem 2 solution 1 description",
                   :problem_id => 2,
                   :user_id => 3,
@@ -90,6 +90,39 @@ class ProblemsController < ApplicationController
               },
               {
                   :title => "Problem 2 solution 1 title",
+                  :description => "Problem 2 solution 2 description",
+                  :problem_id => 2,
+                  :user_id => 3,
+                  :upvotes => 75,
+                  :downvotes => 75,
+                  :candidates => [
+                      {
+                          :title => "Problem 2 solution 1 candidate 1 title",
+                          :description => "Problem 2 solution 1 candidate 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 candidate 2 title",
+                          :description => "Problem 2 solution 1 candidate 2 description",
+                      }
+                  ],
+                  :ancestors => [
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      },
+                      {
+                          :title => "Problem 2 solution 1 ancestor 1 title",
+                          :description => "Problem 2 solution 1 ancestor 1 description",
+                      }
+
+                  ]
+              },
+              {
+                  :title => "Problem 2 solution 2 title",
                   :description => "Problem 2 solution 1 description",
                   :problem_id => 2,
                   :user_id => 3,
@@ -122,7 +155,7 @@ class ProblemsController < ApplicationController
                   ]
               },
               {
-                  :title => "Problem 2 solution 1 title",
+                  :title => "Problem 2 solution 3 title",
                   :description => "Problem 2 solution 1 description",
                   :problem_id => 2,
                   :user_id => 3,
@@ -155,40 +188,7 @@ class ProblemsController < ApplicationController
                   ]
               },
               {
-                  :title => "Problem 2 solution 1 title",
-                  :description => "Problem 2 solution 1 description",
-                  :problem_id => 2,
-                  :user_id => 3,
-                  :upvotes => 75,
-                  :downvotes => 75,
-                  :candidates => [
-                      {
-                          :title => "Problem 2 solution 1 candidate 1 title",
-                          :description => "Problem 2 solution 1 candidate 1 description",
-                      },
-                      {
-                          :title => "Problem 2 solution 1 candidate 2 title",
-                          :description => "Problem 2 solution 1 candidate 2 description",
-                      }
-                  ],
-                  :ancestors => [
-                      {
-                          :title => "Problem 2 solution 1 ancestor 1 title",
-                          :description => "Problem 2 solution 1 ancestor 1 description",
-                      },
-                      {
-                          :title => "Problem 2 solution 1 ancestor 1 title",
-                          :description => "Problem 2 solution 1 ancestor 1 description",
-                      },
-                      {
-                          :title => "Problem 2 solution 1 ancestor 1 title",
-                          :description => "Problem 2 solution 1 ancestor 1 description",
-                      }
-
-                  ]
-              },
-              {
-                  :title => "Problem 2 solution 1 title",
+                  :title => "Problem 2 solution 4 title",
                   :description => "Problem 2 solution 1 description",
                   :problem_id => 2,
                   :user_id => 3,
