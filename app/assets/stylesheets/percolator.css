@@ -207,3 +207,6 @@ transform: scale(.5,.5);
     clear: both;
     float: left;
 }
+.centered {
+    text-align: center;
+}

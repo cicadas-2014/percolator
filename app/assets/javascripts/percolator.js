@@ -1,5 +1,33 @@
-var isZooming = false;
 var solutionNumber;
+
+Percolator = {
+
+    isZooming: false,
+
+    zoomIn: function (target) {
+
+        var posX;
+        var posY;
+        if (target) {
+            posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "upvote");
+            $("span.downvote").attr("id", "downvote");
+            solutionNumber = $(target).attr("id");
+        }
+        else {
+            posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "problem_upvote");
+            $("span.downvote").attr("id", "problem_downvote");
+        }
+        solutionNumber = $(target).attr("id");
+        $('#improvement-form').show();
+        Percolator.isZooming.isZooming = true;
+        BubbleGraph.zoomIn(posX, posY, zoomInComplete);
+        BubbleGraph.hideSolutions();
+    }
+}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -73,7 +101,7 @@ function zoomIn(target) {
     }
     solutionNumber = $(target).attr("id");
     $('#improvement-form').show();
-    isZooming = true;
+    Percolator.isZooming.isZooming = true;
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
@@ -113,18 +141,18 @@ function comments() {
 function zoomOut() {
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
-    isZooming = true;
+    Percolator.isZooming = true;
 }
 
 function zoomInComplete()
 {
     showPopup();
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function zoomOutComplete()
 {
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function upvote() {

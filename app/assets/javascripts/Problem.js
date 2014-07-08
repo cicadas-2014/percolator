@@ -38,3 +38,30 @@ Problem.prototype.animate = function (direction) {
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300).toFront();
 };
+
+Problem.prototype.addEventListeners = function () {
+    var target = $('#problem')
+    target.bind({
+        click: function () {
+            if (!Percolator.isZooming) {
+                Percolator.zoomIn();
+                BubbleGraph.hideSolutions();
+                if ($("#used_and_abused")) {
+                    Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                } else {
+                    Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                }
+            }
+        },
+        mouseenter: function () {
+            if (!Percolator.isZooming) {
+                BubbleGraph.problem.animate("in")
+            }
+        },
+        mouseleave: function () {
+            if (!Percolator.isZooming) {
+                BubbleGraph.problem.animate("out")
+            }
+        }
+    });
+}

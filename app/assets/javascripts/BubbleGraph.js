@@ -1,56 +1,4 @@
-function addProblemListeners() {
-    var target = $('#problem')
-    target.bind({
-        click: function () {
-            if (!isZooming) {
-                zoomIn();
-                BubbleGraph.hideSolutions();
-                if ($("#used_and_abused")) {
-                    Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
-                } else {
-                    Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
-                }
-            }
-        },
-        mouseenter: function () {
-            if (!isZooming) {
-                BubbleGraph.problem.animate("in")
-            }
-        },
-        mouseleave: function () {
-            if (!isZooming) {
-                BubbleGraph.problem.animate("out")
-            }
-        }
-    });
-}
-function addSolutionListeners() {
-    for (var i = 0; i < this.solutions.length; i++) {
-        var target = $('#' + this.solutions[i].id)
-        target.bind({
-            click: function () {
-                if (!isZooming) {
-                    zoomIn(this);
-                    if ($("#used_and_abused")) {
-                        Comments.appendDiv("solutions", solutionNumber)
-                    } else {
-                        Comments.appendDiv("solutions", solutionNumber)
-                    }
-                }
-            },
-            mouseenter: function () {
-                if (!isZooming) {
-                    BubbleGraph.solutions[this.id].animate("in")
-                }
-            },
-            mouseleave: function () {
-                if (!isZooming) {
-                    BubbleGraph.solutions[this.id].animate("out")
-                }
-            }
-        });
-    }
-}
+
 BubbleGraph = {
 
     ZOOM_MAX: 0.1,
@@ -65,6 +13,7 @@ BubbleGraph = {
 
     createProblem: function () {
         this.problem = new Problem(this.width / 2, this.height / 2, this.raphael);
+        this.problem.addEventListeners();
     },
 
 
@@ -78,7 +27,8 @@ BubbleGraph = {
             var posX = this.width / 2 + (Math.cos(radians) * radius);
             var posY = this.height / 2 + (Math.sin(radians) * radius);
             this.createLine(posX, posY);
-            var solution = new Solution(posX, posY, i, this.raphael)
+            var solution = new Solution(posX, posY, i, this.raphael);
+            solution.addEventListeners()
             BubbleGraph.solutions.push(solution);
             radians += step;
             if (radians > maxRadians) {
@@ -93,11 +43,6 @@ BubbleGraph = {
         return line;
     },
 
-    addEventListeners: function () {
-        addProblemListeners();
-        addSolutionListeners.call(this);
-    },
-
     init: function () {
         this.raphael && this.raphael.remove();
         this.width = $(window).width();
@@ -106,7 +51,6 @@ BubbleGraph = {
 
         this.createSolutions();
         this.createProblem();
-        this.addEventListeners();
     },
 
     hideSolutions: function (target) {

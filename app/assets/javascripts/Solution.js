@@ -39,3 +39,29 @@ Solution.prototype.animate = function (direction) {
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300).toFront();
 };
+
+Solution.prototype.addEventListeners = function () {
+    var target = $('#' + this.id)
+    target.bind({
+        click: function () {
+            if (!Percolator.isZooming) {
+                Percolator.zoomIn(this);
+                if ($("#used_and_abused")) {
+                    Comments.appendDiv("solutions", solutionNumber)
+                } else {
+                    Comments.appendDiv("solutions", solutionNumber)
+                }
+            }
+        },
+        mouseenter: function () {
+            if (!Percolator.isZooming) {
+                BubbleGraph.solutions[this.id].animate("in")
+            }
+        },
+        mouseleave: function () {
+            if (!Percolator.isZooming) {
+                BubbleGraph.solutions[this.id].animate("out")
+            }
+        }
+    });
+};
