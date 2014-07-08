@@ -10,7 +10,6 @@ BubbleGraph = {
     solutions: [],
     lines: [],
 
-
     createProblem: function () {
         this.problem = new Problem(this.width / 2, this.height / 2, this.raphael);
         this.problem.addEventListeners();

@@ -11,8 +11,7 @@ function Problem(posX, posY, raphael) {
 
 Problem.prototype.createText = function () {
 
-    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
-    var textSprite = this.textSprite;
+    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 1});
 
     var text = $.parseJSON(window.data).title;
     var words = text.split(" ");
@@ -65,3 +64,10 @@ Problem.prototype.addEventListeners = function () {
         }
     });
 }
+
+// Problem.prototype.createVoteFrame = function() {
+//     var upvoteRatio = $.parseJSON(window.data).upvotes / ($.parseJSON(window.data).upvotes + $.parseJSON(window.data).downvotes)
+//     var downvoteRatio = $.parseJSON(window.data).downvotes / ($.parseJSON(window.data).upvotes + $.parseJSON(window.data).downvotes)
+//     var r = 255*downvoteRatio;
+//     var g = 255*upvoteRatio
+// }
