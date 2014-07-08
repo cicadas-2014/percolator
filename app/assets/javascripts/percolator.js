@@ -1,5 +1,33 @@
-var isZooming = false;
 var solutionNumber;
+
+Percolator = {
+
+    isZooming: false,
+
+    zoomIn: function (target) {
+
+        var posX;
+        var posY;
+        if (target) {
+            posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "upvote");
+            $("span.downvote").attr("id", "downvote");
+            solutionNumber = $(target).attr("id");
+        }
+        else {
+            posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "problem_upvote");
+            $("span.downvote").attr("id", "problem_downvote");
+        }
+        solutionNumber = $(target).attr("id");
+        $('#improvement-form').show();
+        Percolator.isZooming.isZooming = true;
+        BubbleGraph.zoomIn(posX, posY, zoomInComplete);
+        BubbleGraph.hideSolutions();
+    }
+}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -99,8 +127,8 @@ function improvements(solutionNumber) {
 
         });
 
-}
 
+}
 
 function comments() {
     id = $.parseJSON(window.data).solutions[solutionNumber].id;
@@ -118,23 +146,21 @@ function comments() {
 }
 
 
-// GTG
 function zoomOut() {
-    problemSet.animate({transform: "s1"}, 400);
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
-    isZooming = true;
+    Percolator.isZooming = true;
 }
 
 function zoomInComplete()
 {
     showPopup();
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function zoomOutComplete()
 {
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function upvote() {
@@ -151,9 +177,7 @@ function upvote() {
         });
     });
 }
-// GTG
 
-// GTG
 function downvote() {
     $("#downvote").on("click",function(){
         $.ajax({
@@ -185,13 +209,42 @@ $(document).ready(function () {
         addEventListeners();
         BubbleGraph.init();
     }
+    $('.problem_title').keypress(function(){
+
+    if(this.value.length > 87){
+        return false;
+    }
+    if(this.value.length === 87){
+        $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
+    };
+});
 });
 
-$(document).on("ajax:success", "#solution-form", function(){
+$(window).resize(function () {
+    Canvas.init();
+});
 
-    $("#solution-form").find("input[type=text], textarea").val("");
-    $("#solution-form").hide();
-
+$(document).on("ajax:complete", function(event, xhr){
+    console.log("I'm in the ajax complete")
+    console.log(xhr)
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        $("target").innerHTML = xhr.responseText
+        var parsedText = $.parseJSON(xhr.responseText)
+        if (parsedText.saved === true) {
+            Comments.showCommentMessage(true)
+            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.commentable_id,
+                parsedText.username))
+        } else if (parsedText.saved === false) {
+            Comments.showCommentMessage(false)
+        } else {
+            $("#solution-form").find("input[type=text], textarea").val("");
+            $("#solution-form").hide();
+            $("#improvement-form").find("input[type=text], textarea").val("");
+            $("#improvement-form").hide();
+        }
+        console.log($.parseJSON(xhr.responseText))
+    }
+    console.log("I'm in the ajax complete")
 });
 
 $(window).resize(function () {

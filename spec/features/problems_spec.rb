@@ -7,6 +7,7 @@ feature 'User creates a new problem', type: :feature, js: true do
   before(:each) do
     login_as user, scope: :user
   end
+
   scenario 'with valid title and description' do
     create_problem_with("holla back", "homie")
     expect(page).to have_css("div#canvas_container")
@@ -22,6 +23,19 @@ feature 'User creates a new problem', type: :feature, js: true do
     create_problem_with("title1", nil)
 
     expect(page).to have_content("All fields must be populated!")
+  end
+
+  scenario 'title cannot be larger than 88 characters' do
+    visit new_problem_path
+    fill_in 'problem_title', with: "siuafhoiudahsofiuahdsoifuasheajdoifuahsodifuahsoieuafjdiouashfioeuhasjodifuasheoiauhdoiasuhefoaidjoaisudfhaoisufhaosiudfh"
+    fill_in 'problem_description', with: "djf"
+    find_field('problem_title').value.length.should eq(88)
+  end
+
+  scenario 'page displays message when you reach max characters' do
+    visit new_problem_path
+    fill_in 'problem_title', with: "siuafhoiudahsofiuahdsoifuasheajdoifuahsodifuahsoieuafjdiouashfioeuhasjodifuasheoiauhdoiasuhefoaidjoaisudfhaoisufhaosiudfh"
+    expect(page.body).to have_content("Max characters for title: 88")
   end
 
   def create_problem_with(title, description)
