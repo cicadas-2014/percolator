@@ -44,6 +44,7 @@ Problem.prototype.addEventListeners = function () {
         click: function () {
             if (!Percolator.isZooming) {
                 Percolator.zoomIn();
+                Percolator.currentState = "problem";
                 BubbleGraph.hideSolutions();
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));

@@ -16,6 +16,13 @@ Solution.prototype.createText = function () {
     var textSprite = this.textSprite;
 
     console.log("LIKELY ERROR HERE")
+    if (Percolator.currentState == "problem") {
+        $('#render-solution-form').show();
+        $("#improvement-button").hide();
+    } else if (Percolator.currentState == "solution") {
+        $('#render-solution-form').hide();
+        $("#improvement-button").show();
+    }
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     if (text.length > 55) {
         text = text.substring(0, 45) + "...";
@@ -50,6 +57,7 @@ Solution.prototype.addEventListeners = function () {
         click: function () {
             if (!Percolator.isZooming) {
                 Percolator.zoomIn(this);
+                Percolator.currentState = "solution";
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("solutions", solutionNumber)
                 } else {

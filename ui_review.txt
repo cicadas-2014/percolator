@@ -33,3 +33,17 @@
 - leave bubbles labeled
 
 - center, enlarge bubble view
+
+-----------------
+ rebecca's ideas
+-----------------
+
+- convert css to sass
+
+- make colors variables
+
+- forms + buttons consistency
+
+- element placing/styling
+
+- fixing everrrything
