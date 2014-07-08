@@ -1,7 +1,5 @@
 var isZooming = false;
 var solutionNumber;
-var isLoaded = false;
-// GTG
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -16,7 +14,7 @@ $(document).on("ajax:success", "#solution-form", function(){
     });
     ajaxRequest.done(function( response ) {
         console.log(response);
-        Canvas.init();
+        BubbleGraph.init();
     })
 });
 
@@ -43,14 +41,7 @@ function addEventListeners() {
 
 function showPopup() {
     $('#chart-popup').hide().slideDown(500);
-
-    //$('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
-
-    // SAVE COMMENT
-    // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
-    // these queries can access the correct solution number without making another query
-    //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
-    Menu.init();
+    BubbleMenu.init($.parseJSON(window.data).solutions);
 }
 
 function hideChartPopupElements() {
@@ -67,37 +58,24 @@ function renderSolutionForm() {
 function zoomIn(target) {
     var posX;
     var posY;
-
-    if (target) {//it is a solution
-        posX = target.attributes[0].value - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
-        posY = target.attributes[1].value - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
-        $("span.upvote").attr("id", "upvote")
-        $("span.downvote").attr("id", "downvote")
-    solutionNumber = $(target).attr("id");
-        improvements(solutionNumber);
-
+    if (target) {
+        posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+        $("span.upvote").attr("id", "upvote");
+        $("span.downvote").attr("id", "downvote");
+        solutionNumber = $(target).attr("id");
     }
-    else {// if the click target is the problem
-        posX = (Canvas.WIDTH / 2) - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
-        posY = (Canvas.HEIGHT / 2) - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
+    else {
+        posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
-
-
-     $('#improvement-form').show();
-
-    console.log($(target).closest('span'))
-
-    // if (typeof($(target).attr("id")) == 'undefined' ) {
-
-    // } else {
-
-    // }
-
+    solutionNumber = $(target).attr("id");
+    $('#improvement-form').show();
     isZooming = true;
-    Canvas.zoomIn(posX, posY, zoomInComplete);
-    Canvas.hideSolutions();
+    BubbleGraph.zoomIn(posX, posY, zoomInComplete);
+    BubbleGraph.hideSolutions();
 }
 // GTG
  function improvements(solutionNumber) {
@@ -136,12 +114,11 @@ function comments() {
 
 // GTG
 function zoomOut() {
-    problemText.animate({transform: "s1"}, 400);
-    Canvas.zoomOut(0, 0, zoomOutComplete);
-    Canvas.showSolutions();
-    isZooming = true;3
+    problemSet.animate({transform: "s1"}, 400);
+    BubbleGraph.zoomOut(0, 0, zoomOutComplete);
+    BubbleGraph.showSolutions();
+    isZooming = true;
 }
-// GTG
 
 function zoomInComplete()
 {
@@ -153,12 +130,7 @@ function zoomOutComplete()
 {
     isZooming = false;
 }
-// function improvement() {
-//     $()
-// }
 
-
-// GTG
 function upvote() {
     $("#upvote").on("click",function(e){
         $.ajax({
@@ -191,25 +163,7 @@ function downvote() {
         });
     });
 }
-// GTG
 
-// function ajaxUpvote() {
-//     $.ajax({
-//         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-//         url: "/solution_upvote",
-//         type: "POST"
-//     }).done(function(r){
-//         var response = $.parseJSON(r);
-//         count = response[0] - response[1];
-//         $("#count").html(""+count+"");
-//     });
-// }
-
-// function ajaxDownvote() {
-
-// }
-
-// GTG
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data);
@@ -223,7 +177,7 @@ $(document).ready(function () {
         upvote();
         downvote();
         addEventListeners();
-        Canvas.init();
+        BubbleGraph.init();
     }
 });
 
@@ -254,7 +208,11 @@ $(document).on("ajax:complete", function(event, xhr){
     console.log("I'm in the ajax complete")
 });
 
-// $(document).on("ajax:complete", ".comment_form", response){
-
-//     console.log()
-// })
+$(window).resize(function () {
+    if ($("#canvas_container").length) {
+        BubbleGraph.init();
+    }
+    if ($("#bubble-container").length) {
+        BubbleMenu.init(BubbleMenu.data);
+    }
+});
