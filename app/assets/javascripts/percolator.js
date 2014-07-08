@@ -194,7 +194,6 @@ $(document).ready(function () {
         $('#solution-form').hide();
         $("#improvement-form").hide();
         $('#chart-popup').hide();
-        $('#page-title')[0].innerHTML = problem.title;
         $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
