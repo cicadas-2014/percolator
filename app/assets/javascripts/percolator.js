@@ -47,16 +47,7 @@ function showPopup() {
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
-    sendIdAjax();
     Menu.init();
-}
-
-function sendIdAjax() {
-    $.ajax({
-        type: "POST",
-        url: '/improvements',
-        data: solutionNumber
-    });
 }
 
 function hideChartPopupElements() {
@@ -73,14 +64,14 @@ function renderSolutionForm() {
 function zoomIn(target) {
     var posX;
     var posY;
-    if (target) {
+    if (target) {// if the click target is a solution
         posX = target.attributes[0].value - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
         posY = target.attributes[1].value - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
         $("span.upvote").attr("id", "upvote");
         $("span.downvote").attr("id", "downvote");
         solutionNumber = $(target).attr("id");
     }
-    else {
+    else {// if the click target is the problem
         posX = (Canvas.WIDTH / 2) - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
         posY = (Canvas.HEIGHT / 2) - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
         $("span.upvote").attr("id", "problem_upvote");
