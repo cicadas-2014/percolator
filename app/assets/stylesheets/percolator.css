@@ -238,3 +238,8 @@ body {
 #sign_in_form {
     text-align: center;
 }
+
+#too_many_chars {
+    text-align: center;
+    color: "red";
+}
