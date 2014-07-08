@@ -19,10 +19,10 @@ problems = [
                 :title => "Be a huge jerk who knows javascript",
                 :description => "Lots of red meat, push-ups on one hand, while coding on the other, sunglasses at all times, a tan is important, popped collar is a must. It's important that you can squash anyone who might call you 'geek' or 'nerd' and that you can pick up girls, but also equally important that you know the Star Wars movies by heart, and understand programming ideas, like recursion and inheritance.",
                 :problem_id => 1,
-                :user_id => 12,
+                :user_id => 4,
                 :upvotes => 50,
                 :downvotes => 75,
-                :candidates => [
+                :improvements => [
                 ],
                 :anscestors => [
                 ]
@@ -35,7 +35,7 @@ problems = [
                 :user_id => 2,
                 :upvotes => 50,
                 :downvotes => 75,
-                :candidates => [
+                :improvements => [
                 ],
                 :anscestors => [
                 ]
@@ -54,38 +54,38 @@ problems = [
     },
     {
         :user_id => 2,
-        :title => "Problem 2 title",
-        :description => "Problem 2 description",
+        :title => "Kids are starving in Africa",
+        :description => "Therer are hundreds of kids dying in africa everyday in africa because of starvvation. I want to help but I don't know how to. ",
         :solutions => [
             {
-                :title => "Problem 2 solution 1 title",
-                :description => "Problem 2 solution 1 description",
+                :title => "Donate to the African Starvation Org.",
+                :description => "There is an organization that take African kids food , you should donate to them. ",
                 :problem_id => 2,
                 :user_id => 3,
                 :upvotes => 75,
                 :downvotes=> 75,
-                :candidates => [
+                :improvements => [
                     {
-                        :title => "Problem 2 solution 1 candidate 1 title",
-                        :description => "Problem 2 solution 1 candidate 1 description",
+                        :title => "Start Your own foundation",
+                        :description => "I heard ASO is a scam you should just start your own organization.",
                     },
                     {
-                        :title => "Problem 2 solution 1 candidate 2 title",
-                        :description => "Problem 2 solution 1 candidate 2 description",
+                        :title => "There is bigger issues in the world",
+                        :description => "There is bigger issues in the world than starving African Kids we shouls worry about something else.",
                     }
                 ],
                 :anscestors => [
                     {
-                        :title => "Problem 2 solution 1 ancestor 1 title",
-                        :description => "Problem 2 solution 1 ancestor 1 description",
+                        :title => "Take them food",
+                        :description => "Y dont you go to africa and just take food",
                     },
                     {
-                        :title => "Problem 2 solution 1 ancestor 1 title",
-                        :description => "Problem 2 solution 1 ancestor 1 description",
+                        :title => "There is nothing you can do",
+                        :description => "It is impossible to help them don't even try",
                     },
                     {
-                        :title => "Problem 2 solution 1 ancestor 1 title",
-                        :description => "Problem 2 solution 1 ancestor 1 description",
+                        :title => "Go to Africa and cook for them.",
+                        :description => "You should take your stove to Africa and just start cooking there.",
                     }
 
                 ]
@@ -115,7 +115,7 @@ problems = [
   count += 1
 end
 
-problemDummyData.each do |problem|
+problems.each do |problem|
   Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
   problem[:solutions].each do |solution|
     Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])

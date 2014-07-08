@@ -64,6 +64,11 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
+     $('#improvement-form').unbind('click').click(function () {
+        console.log("getting there");
+        improvements(solutionNumber);
+    });
+
 }
 // GTG
 
@@ -99,27 +104,30 @@ function zoomIn(target) {
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
-    solutionNumber = $(target).attr("id");
-    $('#improvement-form').show();
-    Percolator.isZooming.isZooming = true;
+    isZooming = true;
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
-
+// GTG
 function improvements(solutionNumber) {
-    id = $.parseJSON(window.data).solutions[solutionNumber].id;
-    $('.Improve').on("click",function(e){
-        e.preventDefault();
-        var args = {};
-        args.title = $("#improvement_title").val();
-        args.description = $("#improvement_description").val();
-    $.ajax({
-        type: "post",
-        url: "/solutions/"+id+"/improvements/create",
-        data: args
-    });
+        console.log("oobama1")
+        $('#improvement-form').show();
 
- });
+        id = $.parseJSON(window.data).solutions[solutionNumber].id;
+        $('.Improve').on("click",function(e){
+            e.preventDefault();
+            var args = {};
+            args.title = $("#improvement_title").val();
+            args.description = $("#improvement_description").val();
+            $.ajax({
+                type: "post",
+                url: "/solutions/"+id+"/improvements/create",
+                data: args
+            });
+
+        });
+
+
 }
 
 function comments() {
