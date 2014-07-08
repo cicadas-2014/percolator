@@ -10,25 +10,38 @@ class ProblemsController < ApplicationController
   def show
     problem = Problem.find params[:id]
     @form_problem = problem
-    @improvement = Improvement.new
     @solution = Solution.new
     solutions = []
+    improvements = []
     problem.solutions.each do |solution|
-      solutions << {id: solution.id,
-                    title: solution.title,
-                    description: solution.description,
-                    #username: solution.user.username
-      }
+      solution.improvements.each do |improvement|
+        improvements << {id: improvement.id,
+          title: improvement.title,
+          description: improvement.description,
+          username: improvement.user.username,
+          upvotes: improvement.voteables.where(vote_type: true).count,
+          downvotes: improvement.voteables.where(vote_type: false).count
+        }
+        end
+        solutions << {id: solution.id,
+          title: solution.title,
+          description: solution.description,
+          username: solution.user.username,
+          improvements: improvements,
+          upvotes: solution.voteables.where(vote_type: true).count,
+          downvotes: solution.voteables.where(vote_type: false).count
+
+        }
     end
 
     @problem = {
-        id: problem.id,
-        title: problem.title,
-        description: problem.description,
+      id: problem.id,
+      title: problem.title,
+      description: problem.description,
+      solutions: solutions
+      }.to_json.html_safe
 
-        solutions: solutions
-    }.to_json.html_safe
-    @problem
+    p @problem
   end
 
   def create
