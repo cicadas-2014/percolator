@@ -207,15 +207,31 @@ Menu = {
     },
 
     createSolutions: function () {
-        var node = this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
-        this.NODES.push(node)
+        for (var i = 0; i < 15; i++) {
+            var node = new MenuNode(this.RAPHAEL);
+            node.sprite.attr({'cx': (100 * i).toString()});
+            this.NODES.push(node)
+        }
     },
 
     animate: function () {
         for (var i = 0; i < this.NODES.length; i++) {
-            this.NODES[i].animate({cx: Math.random() * this.WIDTH, cy: Math.random() * this.HEIGHT}, 1000);
+            this.NODES[i].animate();
         }
         setTimeout(this.animate, 1000);
     }
+};
+
+MenuNode = function (raphael) {
+    this.raphael = raphael;
+    this.sprite = raphael.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+    this.direction = Math.round(Math.random()) == 0 ? -1 : 1;
+    this.centerPos = Menu.HEIGHT / 2;
+};
+
+MenuNode.prototype.animate = function () {
+    var targetY = this.centerPos + (Math.random() * 100 * this.direction);
+    this.sprite.animate({cy: targetY}, 5000);
+    this.direction *= -1;
 };
 
