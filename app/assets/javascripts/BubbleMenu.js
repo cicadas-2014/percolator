@@ -37,12 +37,12 @@ BubbleMenu = {
     },
 
     animate: function () {
-        if (this.nodes) {
+        if (this.solutions) {
+            for (var i = 0; i < this.solutions.length; i++) {
+                this.solutions[i].animate();
+            }
+            this.animationTimeout = setTimeout(this.animate, 1000);
         }
-        for (var i = 0; i < this.nodes.length; i++) {
-            this.nodes[i].animate();
-        }
-        this.animationTimeout = setTimeout(this.animate, 1000);
     }
 };
 

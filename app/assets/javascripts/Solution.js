@@ -14,7 +14,7 @@ Solution.prototype.createText = function () {
 
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
     var textSprite = this.textSprite;
-    var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
+    var text = $.parseJSON(window.data).solutions[1].title || "Failure";
     var words = text.split(" ");
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
@@ -36,7 +36,7 @@ Solution.prototype.animate = function (direction) {
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
-    this.textSprite.animate({opacity: opacity}, 300).toFront();
+    this.textSprite.animate({opacity: opacity}, 300);//.toFront();
 };
 
 Solution.prototype.addEventListeners = function () {
