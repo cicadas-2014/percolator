@@ -1,9 +1,9 @@
-<%= form_for @problem do |f| %>
-  <p>What's your problem?</p><br>
-  <%= f.label :title, "Title" %><br>
-  <%= f.text_field :title, :class => "problem_title" %><br>
+<%= form_for @problem, html: {class: :popup_form} do |f| %>
+  <h3>start a discussion</h3>
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title, :class => "problem_title" %>
 
-  <%= f.label :description, "Description" %> <br>
-  <%= f.text_area :description, size: "50x8"%><br>
-  <%= f.submit "Posit", :class => "Posit" %>
+  <%= f.label :description, "Description" %>
+  <%= f.text_area :description, size: "50x8" %>
+  <%= f.submit "posit", :class => "posit" %>
 <% end %>
