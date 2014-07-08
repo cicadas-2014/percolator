@@ -200,6 +200,15 @@ $(document).ready(function () {
         addEventListeners();
         BubbleGraph.init();
     }
+    $('.problem_title').keypress(function(){
+
+    if(this.value.length > 87){
+        return false;
+    }
+    if(this.value.length === 87){
+        $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
+    };
+});
 });
 
 $(window).resize(function () {

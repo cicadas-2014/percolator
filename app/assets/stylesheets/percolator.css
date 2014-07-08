@@ -247,7 +247,7 @@ body {
     color: #666666;
     font-family: Opificio;
     font-size: 24px;
-    max-width: 640px;                                git add
+    max-width: 640px;
     padding-left:40px;
     padding-right:40px;
     padding-bottom:40px;
@@ -287,4 +287,16 @@ body {
     display: block;
 }
 
+#sign_up_form {
+    text-align: center;
+}
+
+#sign_in_form {
+    text-align: center;
+}
+
+#too_many_chars {
+    text-align: center;
+    color: red;
+}
 

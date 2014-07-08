@@ -1,7 +1,7 @@
 <%= form_for @problem, html: {class: :popup_form} do |f| %>
   <h3>start a discussion</h3>
   <%= f.label :title, "Title" %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, :class => "problem_title" %>
 
   <%= f.label :description, "Description" %>
   <%= f.text_area :description, size: "50x8" %>
