@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20140707184253) do
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
-    t.string   "title"
     t.text     "description"
     t.string   "username"
     t.datetime "created_at"

@@ -161,7 +161,7 @@ types.delete("user")
     count = 50
   end
 
-  Comment.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(8), username: Faker::Lorem.word, commentable_type: type, commentable_id: rand(count) + 1)
+  Comment.create(description: Faker::Lorem.paragraph(8), username: Faker::Lorem.word, commentable_type: type, commentable_id: rand(count) + 1)
 end
 
 # latest transcript
