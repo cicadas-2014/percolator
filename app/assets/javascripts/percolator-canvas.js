@@ -186,46 +186,47 @@ Canvas = {
 
 Menu = {
 
-    WIDTH: undefined,
-    HEIGHT: undefined,
-    ELEMENT: undefined,
-    RAPHAEL: undefined,
-    NODES: [],
+    width: undefined,
+    height: undefined,
+    element: undefined,
+    raphael: undefined,
+    animationTimeout: undefined,
+    nodes: [],
     data: undefined,
 
     init: function (data) {
 
-        if (Menu.RAPHAEL) {
-            this.NODES = []
-            this.RAPHAEL.remove();
+        if (Menu.raphael) {
+            this.nodes = [];
+            this.raphael.remove();
+            clearTimeout(this.animationTimeout);
         }
         this.data = data
-        this.ELEMENT = $("#bubble-container");
-        this.WIDTH = this.ELEMENT.width();
-        this.HEIGHT = this.ELEMENT.height();
-        this.RAPHAEL = new Raphael(this.ELEMENT.get(0), this.WIDTH, this.HEIGHT);
+        this.element = $("#bubble-container");
+        this.width = this.element.width();
+        this.height = this.element.height();
+        this.raphael = new Raphael(this.element.get(0), this.width, this.height);
 
         this.createSolutions();
         this.animate();
     },
 
     createSolutions: function () {
-        var period = this.WIDTH / (this.data.length + 1);
+        var period = this.width / (this.data.length + 1);
         for (var i = 0; i < this.data.length; i++) {
-            var node = new MenuNode(this.RAPHAEL);
-
+            var node = new MenuNode(this.raphael);
             var pos = (period * (i + 1))
             node.sprite.attr({'cx': pos.toString()});
-            node.sprite.attr({'cy': this.HEIGHT.toString()});
-            this.NODES.push(node)
+            node.sprite.attr({'cy': this.height.toString()});
+            this.nodes.push(node)
         }
     },
 
     animate: function () {
-        for (var i = 0; i < this.NODES.length; i++) {
-            this.NODES[i].animate();
+        for (var i = 0; i < this.nodes.length; i++) {
+            this.nodes[i].animate();
         }
-        setTimeout(this.animate, 1000);
+        this.animationTimeout = setTimeout(this.animate, 1000);
     }
 };
 
@@ -233,12 +234,23 @@ MenuNode = function (raphael) {
     this.raphael = raphael;
     this.sprite = raphael.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
     this.direction = Math.round(Math.random()) == 0 ? -1 : 1;
-    this.centerPos = Menu.HEIGHT / 2;
+    this.centerPos = Menu.height / 2;
 };
 
 MenuNode.prototype.animate = function () {
-    var targetY = this.centerPos + (Math.random() * 100 * this.direction);
+    var targetY = this.centerPos + (Math.random() * 25 * this.direction);
     this.sprite.animate({cy: targetY}, 1000);
     this.direction *= -1;
 };
+
+$(window).resize(function () {
+    if ($("#canvas_container").length) {
+        Canvas.init();
+    }
+    if ($("#bubble-container").length) {
+        Menu.init(Menu.data);
+    }
+});
+
+
 

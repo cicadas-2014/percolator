@@ -74,15 +74,15 @@ function zoomIn(target) {
     var posX;
     var posY;
     if (target) {
-        posX = target.attributes[0].value - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
-        posY = target.attributes[1].value - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
+        posX = target.attributes[0].value - ((Canvas.width / 2) * Canvas.ZOOM_MAX);
+        posY = target.attributes[1].value - ((Canvas.height / 2) * Canvas.ZOOM_MAX);
         $("span.upvote").attr("id", "upvote");
         $("span.downvote").attr("id", "downvote");
         solutionNumber = $(target).attr("id");
     }
     else {
-        posX = (Canvas.WIDTH / 2) - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
-        posY = (Canvas.HEIGHT / 2) - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
+        posX = (Canvas.width / 2) - ((Canvas.width / 2) * Canvas.ZOOM_MAX);
+        posY = (Canvas.height / 2) - ((Canvas.height / 2) * Canvas.ZOOM_MAX);
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
@@ -184,10 +184,6 @@ $(document).ready(function () {
         addEventListeners();
         Canvas.init();
     }
-});
-
-$(window).resize(function () {
-    Canvas.init();
 });
 
 $(document).on("ajax:success", "#solution-form", function(){
