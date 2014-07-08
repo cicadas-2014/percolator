@@ -37,7 +37,6 @@ BubbleMenu = {
     },
 
     animate: function () {
-<<<<<<< HEAD
         if (this.nodes) {
         }
         for (var i = 0; i < this.nodes.length; i++) {
@@ -90,7 +89,3 @@ MenuNode.prototype.animate = function () {
     this.sprite.animate({cy: targetY}, 1000);
     this.direction *= -1;
 };
-=======
-    }
-};
->>>>>>> 46c252eb2ad5b6a35e741747e6f7fa79a167b4f9
