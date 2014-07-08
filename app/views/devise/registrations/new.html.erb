@@ -1,5 +1,6 @@
-<div id="sign_up_form">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), namespace: 'sign_up') do |f| %>
+<div class="frame" id="sign_up_form">
+    <h2>sign up</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), namespace: 'sign_up') do |f| %>
   <ul>
   </ul>
 
@@ -12,6 +13,6 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "go" %></div>
 <% end %>
 </div>
