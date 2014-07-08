@@ -104,7 +104,7 @@ problemDummyData = [
   count += 1
 end
 
-problems.each do |problem|
+problemDummyData.each do |problem|
   Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
   problem[:solutions].each do |solution|
     Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])
@@ -133,6 +133,24 @@ end
   end
 
   Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1, vote_type: true)
+end
+
+types.delete("user")
+300.times do
+
+  case types.sample
+  when "problem"
+    type = "problem"
+    count = 10
+  when "solution"
+    type = "solution"
+    count = 20
+  when "improvement"
+    type = "improvement"
+    count = 50
+  end
+
+  Comment.create(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(8), username: Faker::Lorem.word, commentable_type: type, commentable_id: rand(count) + 1)
 end
 
 # latest transcript
