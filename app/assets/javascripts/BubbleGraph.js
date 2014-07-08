@@ -160,7 +160,7 @@ BubbleGraph = {
         if (this.raphael) {
             this.raphael.remove();
         }
-        ;
+
         this.width = $(window).width();
         this.height = $(window).height() - 90;
         this.raphael = new Raphael($("#canvas_container").get(0), this.width, this.height);
