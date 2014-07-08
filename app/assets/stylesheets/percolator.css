@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: Opificio;
-    src: asset-url('Opificio.ttf');
+    src: '../fonts/Opificio.ttf';
 }
 
 @font-face {
@@ -17,6 +17,7 @@ html {
 }
 
 body {
+    background-color: #222222;
     height:100%;
 }
 
@@ -59,9 +60,29 @@ body {
     min-height: 74px;
     font-family: Opificio;
     color: #6DA2FF;
+    background-color: #FFFFFF;
     font-size: 36px;
     width: 100%;
     vertical-align:middle;
+}
+
+.header_button{
+    float:left;
+    padding:30px;
+    font-size: 18px;
+}
+
+.header input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #FFFFFF;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
 }
 
 .header image {
@@ -161,14 +182,8 @@ body {
     float: right;
 }
 
-#posit_button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 30px;
-    text-align: center;
-    font-family: Opificio;
+#posit_link a {
+    color: #ffffff;
 }
 
 .brand a {
@@ -203,10 +218,8 @@ body {
     text-align: center;
 }
 
-
-
 .bubble-button {
-    /*float: right;*/
+    float: right;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -216,19 +229,97 @@ body {
     color: #FFFFFF;
     background-color: #6DA2FF;
     border-radius: 50px;
-    min-width: 30px;
     max-width: 30px;
+    min-width: 30px;
     min-height: 30px;
     text-align: center;
+}
 
+#percolator_button {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    color: #FFFFFF;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.problem:link, .problem:visited, .problem:hover, .problem:active, {
+    text-decoration: none;
 }
 
 #new_problem {
     text-align: center;
 }
 
-.Posit {
+.posit {
+    font-size: 18px;
+}
+
+.frame {
+    margin-top: 40px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    color: #666666;
+    font-family: Opificio;
     font-size: 24px;
+    max-width: 640px;
+    min-height: 400px;
+    padding-left:40px;
+    padding-right:40px;
+    padding-bottom:40px;
+    background-image: url('../images/congruent_outline.png');
+    border: 1px solid #000000;
+}
+
+.frame input {
+    width: 560px;
+    border-radius: 10px;
+    border: 3px solid #6DA2FF;
+}
+
+.frame textarea {
+    width: 560px;
+    height: 200px;
+    border: 3px solid #6DA2FF;
+    border-radius: 10px;
+}
+
+.frame input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.frame input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.popup_form label {
+    float: left;
+    text-align: left;
+    display: block;
 }
 
 #sign_up_form {
@@ -241,5 +332,6 @@ body {
 
 #too_many_chars {   
     text-align: center;
-    color: "red";
+    color: red;
 }
+

@@ -13,8 +13,8 @@
             <div class="brand"><%= link_to 'percolate', root_path %></div>
             <% if !current_user %>
                 <div id="user_login">
-                    <a href = '/users/sign_up'><button type="button" id="u_button">Register</button></a>
-                    <a href = '/users/sign_in'><button type="button" id="i_button">Login</button></a>
+                    <div class="header_button" onclick="location.href='/users/sign_in';" style="cursor: pointer;">Sign in</div>
+                    <div class="header_button" onclick="location.href='/users/sign_up';" style="cursor: pointer;">Sign up</div>
                 </div>
             <% else %>
             <div id="user_logout"><%= button_to('Logout', destroy_user_session_path, method: :delete) %></div>
