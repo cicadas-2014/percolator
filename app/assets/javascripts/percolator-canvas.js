@@ -98,6 +98,7 @@ Canvas = {
 
     addEventListeners: function () {
         $('#problem').bind({
+            // console.log("adding event listeners")
             click: function () {
                 if (!isZooming) {
                     zoomIn();

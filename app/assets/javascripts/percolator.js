@@ -21,6 +21,7 @@ $(document).on("ajax:success", "#solution-form", function(){
 });
 
 function addEventListeners() {
+
     $('#chart-popup button#back').unbind('click').click(function () {
         zoomOut();
         hideChartPopupElements();
@@ -42,7 +43,9 @@ function addEventListeners() {
 
 function showPopup() {
     $('#chart-popup').hide().slideDown(500);
+
     //$('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
+
     // SAVE COMMENT
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
@@ -64,12 +67,15 @@ function renderSolutionForm() {
 function zoomIn(target) {
     var posX;
     var posY;
-    if (target) {// if the click target is a solution
+
+    if (target) {//it is a solution
         posX = target.attributes[0].value - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
         posY = target.attributes[1].value - ((Canvas.HEIGHT / 2) * Canvas.ZOOM_MAX);
-        $("span.upvote").attr("id", "upvote");
-        $("span.downvote").attr("id", "downvote");
-        solutionNumber = $(target).attr("id");
+        $("span.upvote").attr("id", "upvote")
+        $("span.downvote").attr("id", "downvote")
+    solutionNumber = $(target).attr("id");
+        improvements(solutionNumber);
+
     }
     else {// if the click target is the problem
         posX = (Canvas.WIDTH / 2) - ((Canvas.WIDTH / 2) * Canvas.ZOOM_MAX);
@@ -77,20 +83,63 @@ function zoomIn(target) {
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
-    solutionNumber = $(target).attr("id");
-    console.log(solutionNumber)
+
+
+     $('#improvement-form').show();
+
+    console.log($(target).closest('span'))
+
+    // if (typeof($(target).attr("id")) == 'undefined' ) {
+
+    // } else {
+
+    // }
+
     isZooming = true;
     Canvas.zoomIn(posX, posY, zoomInComplete);
     Canvas.hideSolutions();
 }
 // GTG
+ function improvements(solutionNumber) {
+    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    $('.Improve').on("click",function(e){
+        e.preventDefault();
+        var args = {};
+        args.title = $("#improvement_title").val();
+        args.description = $("#improvement_description").val();
+    $.ajax({
+        type: "post",
+        url: "/solutions/"+id+"/improvements/create",
+        data: args
+    });
+
+ });
+
+}
+
+
+function comments() {
+    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    $('#submit_comment').on("click",function(e){
+        e.preventDefault();
+        var comments = {};
+        args.description = $("#improvement_description").val();
+        $.ajax({
+            type: "post",
+            url: "/solutions/"+id+"/improvements/create",
+            data: args
+        });
+
+    });
+}
+
 
 // GTG
 function zoomOut() {
     problemText.animate({transform: "s1"}, 400);
     Canvas.zoomOut(0, 0, zoomOutComplete);
     Canvas.showSolutions();
-    isZooming = true;
+    isZooming = true;3
 }
 // GTG
 
@@ -111,7 +160,7 @@ function zoomOutComplete()
 
 // GTG
 function upvote() {
-    $("#upvote").on("click",function(){
+    $("#upvote").on("click",function(e){
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
             url: "/solution_upvote",
@@ -167,6 +216,7 @@ $(document).ready(function () {
         $('#problem-container').removeClass('hidden');
         $('#bubble-container').removeClass('hidden');
         $('#solution-form').hide();
+        $("#improvement-form").hide();
         $('#chart-popup').hide();
         $('#page-title')[0].innerHTML = problem.title;
         $('#synopsis')[0].innerHTML = problem.description;
@@ -182,6 +232,8 @@ $(window).resize(function () {
 });
 
 $(document).on("ajax:success", "#solution-form", function(){
+
     $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
+
 });
