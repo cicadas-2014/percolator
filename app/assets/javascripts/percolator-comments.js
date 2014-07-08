@@ -16,7 +16,7 @@ Comments = {
 
     commentHTML: function(type, description, user){
         // took out commentId---wasn't sure if it was necessary
-        var comment = '<div class="' + type + '-comment">' +
+        var comment = '<div class="' + type + '-comment _comment_">' +
                         '<div class="comment-description">' + description + '</div>' +
                         '<div class="comment-user">' + user + '</div>'
         return comment
@@ -24,8 +24,8 @@ Comments = {
 
     appendDiv: function(type, typeId){
         // *****THIS*****
-        if ($("#comment-form").length) {
-            $("#comment-form").empty();
+        if ($(".comment-form").length) {
+            $(".comment-form").empty();
             this.appendCommentBox(type, typeId);
         } else {
             $("#problem-container").append(this.divHTML())
@@ -34,25 +34,41 @@ Comments = {
     },
 
     appendCommentBox: function(type, typeId){
-        $("#comment-form").append(this.formHTML(type, typeId))
-        $("#comment-form").append(this.queryCommentDatabase(type, typeId))
+        console.log("made it in the appendcommentbox")
+        $(".comment-form").append(this.formHTML(type, typeId))
+        // MARIO ADD IT AFTER THIS LINE
+        // MARIO ADD IT AFTER THIS LINE
+        // MARIO ADD IT AFTER THIS LINE
+        // MARIO ADD IT AFTER THIS LINE
+        this.queryCommentDatabase(type, typeId)
+
+        console.log("made it to the end of appendcommentbox")
     },
 
     queryCommentDatabase: function(commentCategory, typeId){
+        console.log(commentCategory)
         var comments = [];
-        this.$el = this
+        console.log("I'm inside the queryCommentDatabase")
+        console.log(this)
+        console.log("I'm inside the queryCommentDatabase")
+        console.log("I'm before this.$el is defined")
+        this.$el = $(this)
+        console.log(this.$el)
+        console.log("I'm aftter this.$el is defined")
         $.ajax({
             type: "GET",
-            url: "/" + commentCategory + "/comments/" + typeId + "/create"
+            url: "/" + commentCategory + "/comments/" + typeId
         }).done(function(response){
-            for(i = 0; i < response[commentCategory].length; i++) {
+            console.log("ajax was successful")
+            console.log(response[commentCategory].problems)
+            for(i = 0; i < response[commentCategory].problems.length; i++) {
                 // var user = response[commentCategory][i].user_id
-                var username = response[commentCategory][i].username
-                var type = response[commentCategory][i].description
-                comments << this.$el.commentHTML(commentCategory, type, user)
+                var username = response[commentCategory].problems[i].username
+                var type = response[commentCategory].problems[i].description
+                comments.push(Comments.commentHTML(commentCategory, type, username))
             }
+        $(".comment-form").append(comments)
         })
-        return comments
     },
 
     init: function(){
