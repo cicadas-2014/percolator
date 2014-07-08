@@ -14,8 +14,6 @@ Solution.prototype.createText = function () {
 
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
     var textSprite = this.textSprite;
-
-    console.log("LIKELY ERROR HERE")
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     var words = text.split(" ");
     var tempText = "";

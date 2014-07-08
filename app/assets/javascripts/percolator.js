@@ -38,11 +38,9 @@ function addEventListeners() {
     $('#chart-popup button#back').unbind('click').click(function () {
         zoomOut();
         hideChartPopupElements();
-        console.log("Firing back")
     });
     $('#chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
-        console.log("Firing form")
     });
 
     $('form').on("submit", "#new_solution", function (e) {
@@ -52,7 +50,6 @@ function addEventListeners() {
         $(this).hide();
     });
      $('#improvement-form').unbind('click').click(function () {
-        console.log("getting there");
         improvements(solutionNumber);
     });
 
@@ -97,7 +94,6 @@ function zoomIn(target) {
 }
 // GTG
 function improvements(solutionNumber) {
-        console.log("oobama1")
         $('#improvement-form').show();
 
         id = $.parseJSON(window.data).solutions[solutionNumber].id;
@@ -207,7 +203,6 @@ $(document).ready(function () {
 });
 
 $(document).on("ajax:complete", function(event, xhr){
-    console.log("I'm in the ajax complete")
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
@@ -218,17 +213,17 @@ $(document).on("ajax:complete", function(event, xhr){
         } else if (parsedText.saved === false) {
             Comments.showCommentMessage(false)
         } else if (parsedText.save_status === true) {
-            console.log("I was saved!")
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
-            BubbleMenu.appendAndReInit(parsedText);
+            window.data = parsedText.problem;
+            var solutions = $.parseJSON(window.data).solutions;
+            BubbleGraph.init(window.data)
+            BubbleMenu.init(solutions);
             $("#improvement-form").find("input[type=text], textarea").val("");
             $("#improvement-form").hide();
         } else {
-            console.log("I didn't get saved!!")
         }
     }
-    console.log("I'm in the ajax complete")
 });
 
 $(window).resize(function () {

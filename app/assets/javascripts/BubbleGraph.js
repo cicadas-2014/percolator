@@ -10,6 +10,22 @@ BubbleGraph = {
     solutions: [],
     lines: [],
 
+    init: function () {
+        if(this.raphael)
+        {
+            this.raphael.remove();
+            solutions = [];
+            lines= [];
+        }
+
+        this.width = $(window).width();
+        this.height = $(window).height() - 90;
+        this.raphael = new Raphael($("#canvas_container").get(0), this.width, this.height);
+
+        this.createSolutions();
+        this.createProblem();
+    },
+
     createProblem: function () {
         this.problem = new Problem(this.width / 2, this.height / 2, this.raphael);
         this.problem.addEventListeners();
@@ -21,6 +37,7 @@ BubbleGraph = {
         var maxRadians = 2 * Math.PI;
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
+        console.log("THE SOLUTION LIST IS THIS LONG" + solutions.length);
         for (var i = 0; i < solutions.length; i++) {
             var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.width / 2 + (Math.cos(radians) * radius);
@@ -42,16 +59,7 @@ BubbleGraph = {
         return line;
     },
 
-    init: function () {
-        this.raphael && this.raphael.remove();
 
-        this.width = $(window).width();
-        this.height = $(window).height() - 90;
-        this.raphael = new Raphael($("#canvas_container").get(0), this.width, this.height);
-
-        this.createSolutions();
-        this.createProblem();
-    },
 
     hideSolutions: function (target) {
         for (var i = 0; i < BubbleGraph.solutions.length; i++) {

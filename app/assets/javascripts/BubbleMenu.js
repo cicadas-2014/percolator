@@ -43,37 +43,6 @@ BubbleMenu = {
             this.nodes[i].animate();
         }
         this.animationTimeout = setTimeout(this.animate, 1000);
-    },
-
-    appendAndReInit: function(newSolution) {
-        console.log("in the appendAndReInit")
-        console.log(newSolution)
-        console.log("in the appendAndReInit")
-        console.log("sandwiching window.data.add")
-        $($.parseJSON(window.data).solutions).add(newSolution);
-        console.log($.parseJSON(window.data).solutions)
-        console.log("sandwiching window.data.add")
-        console.log("--------------------")
-        console.log("sandwiching upvote")
-        upvote();
-        console.log("sandwiching upvote")
-        console.log("--------------------")
-        console.log("sandwiching downvote")
-        downvote();
-        console.log("sandwiching downvote")
-        console.log("--------------------")
-        console.log("sandwiching addEventListeners")
-        addEventListeners();
-        console.log("sandwiching addEventListeners")
-        console.log("--------------------")
-        console.log("sandwiching bubble init")
-        BubbleGraph.init();
-        console.log("sandwiching bubble init")
-        this.zoomToNewSolution();
-    },
-
-    zoomToNewSolution: function(solutionNumber) {
-
     }
 };
 

@@ -1,5 +1,7 @@
 class SolutionsController < ApplicationController
+  include ProblemDataFormatHelper
   protect_from_forgery
+
   def create
     @problem = Problem.find params[:problem_id]
     @solution = Solution.new(solution_params)
@@ -7,6 +9,7 @@ class SolutionsController < ApplicationController
     @solution.problem_id = params[:problem_id]
     if @solution.save
       render json: {  id: @solution.id,
+                      problem: format_problem_for_client(@problem),
                       title: @solution.title,
                       description: @solution.description,
                       save_status: true
