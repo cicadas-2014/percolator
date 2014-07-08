@@ -48,7 +48,7 @@ function showPopup() {
     // these queries can access the correct solution number without making another query
     //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
     sendIdAjax();
-    Menu.init();
+    Menu.init($.parseJSON(window.data).solutions);
 }
 
 function sendIdAjax() {

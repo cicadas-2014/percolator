@@ -191,12 +191,15 @@ Menu = {
     ELEMENT: undefined,
     RAPHAEL: undefined,
     NODES: [],
+    data: undefined,
 
-    init: function () {
+    init: function (data) {
+
         if (Menu.RAPHAEL) {
             this.NODES = []
             this.RAPHAEL.remove();
         }
+        this.data = data
         this.ELEMENT = $("#bubble-container");
         this.WIDTH = this.ELEMENT.width();
         this.HEIGHT = this.ELEMENT.height();
@@ -207,9 +210,13 @@ Menu = {
     },
 
     createSolutions: function () {
-        for (var i = 0; i < 15; i++) {
+        var period = this.WIDTH / (this.data.length + 1);
+        for (var i = 0; i < this.data.length; i++) {
             var node = new MenuNode(this.RAPHAEL);
-            node.sprite.attr({'cx': (100 * i).toString()});
+
+            var pos = (period * (i + 1))
+            node.sprite.attr({'cx': pos.toString()});
+            node.sprite.attr({'cy': this.HEIGHT.toString()});
             this.NODES.push(node)
         }
     },
@@ -231,7 +238,7 @@ MenuNode = function (raphael) {
 
 MenuNode.prototype.animate = function () {
     var targetY = this.centerPos + (Math.random() * 100 * this.direction);
-    this.sprite.animate({cy: targetY}, 5000);
+    this.sprite.animate({cy: targetY}, 1000);
     this.direction *= -1;
 };
 
