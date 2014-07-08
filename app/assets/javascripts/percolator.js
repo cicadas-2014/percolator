@@ -181,11 +181,31 @@ $(document).ready(function () {
     }
 });
 
-$(document).on("ajax:success", "#solution-form", function(){
+$(window).resize(function () {
+    Canvas.init();
+});
 
-    $("#solution-form").find("input[type=text], textarea").val("");
-    $("#solution-form").hide();
-
+$(document).on("ajax:complete", function(event, xhr){
+    console.log("I'm in the ajax complete")
+    console.log(xhr)
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        $("target").innerHTML = xhr.responseText
+        var parsedText = $.parseJSON(xhr.responseText)
+        if (parsedText.saved === true) {
+            Comments.showCommentMessage(true)
+            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.commentable_id,
+                parsedText.username))
+        } else if (parsedText.saved === false) {
+            Comments.showCommentMessage(false)
+        } else {
+            $("#solution-form").find("input[type=text], textarea").val("");
+            $("#solution-form").hide();
+            $("#improvement-form").find("input[type=text], textarea").val("");
+            $("#improvement-form").hide();
+        }
+        console.log($.parseJSON(xhr.responseText))
+    }
+    console.log("I'm in the ajax complete")
 });
 
 $(window).resize(function () {

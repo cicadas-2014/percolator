@@ -7,10 +7,12 @@ Comments = {
     },
 
     formHTML: function(type, typeId){
-        var form = '<form accept-charset="UTF-8" action="/' + type + '/' + typeId +'/comments/create"' +
-                    ' class="new_' + type + '" data-remote="true" id="new_' + type + '"method="post">' +
-                    '<input class="comment-box" type="textarea"><br>' +
-                    '<input class="' + type + '" type="submit" value="Comment"></form>'
+        var form = '<form accept-charset="UTF-8" class="comment_form" action="/' + type + '/comments/' + typeId +
+        '/create" data-remote="true" id="new_comment_' + type + '" method="post">' +
+        '<div style="display:none"><input name="utf8" type="hidden" value="✓"></div>' +
+        '<label for="comment_description">Comment: </label><br> <textarea id="comment_description"' +
+        'name="comment_description"></textarea><br>' +
+        '<input name="commit" type="submit" value="Comment"> </form>'
         return form
     },
 
@@ -23,7 +25,6 @@ Comments = {
     },
 
     appendDiv: function(type, typeId){
-        // *****THIS*****
         if ($(".comment-form").length) {
             $(".comment-form").empty();
             this.appendCommentBox(type, typeId);
@@ -36,6 +37,7 @@ Comments = {
     appendCommentBox: function(type, typeId){
         $(".comment-form").append(this.formHTML(type, typeId))
         this.queryCommentDatabase(type, typeId)
+        // this.addFormListener(type, typeId);
     },
 
     queryCommentDatabase: function(commentCategory, typeId){
@@ -53,26 +55,13 @@ Comments = {
         })
     },
 
-    grabComment: function(){
-
-    },
-
-    ajaxAddComment: function(){
-
-    },
-
-    showCommentMessage: function(){
-
+    showCommentMessage: function(validity){
+        if (validity === true) {
+            $(".comment-form").before('<div class="comment-save-pass">Comment Saved!!</div>')
+        } else {
+            $(".comment-form").before('<div class="comment-save-fail">Comment failed to save... ):</div>')
+        }
     }
-
-
-  //return form html
-  //return
-  //ajaxgrabcomments("solution"/"improvement"/"problem")
-  //hide and show comments based on S/I/P
-  //append comments form
-  //append comments
-  //append
 }
 
 $(document).ready(function(){
