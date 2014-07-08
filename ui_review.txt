@@ -1,0 +1,35 @@
+-------------
+ ui feedback
+-------------
+
+- login and register should be in the top right
+
+- take out signed in successfully
+
+- put "welcome <email> in top right"
+
+- fix log in consistency
+
+- existing problems don't look interactable, needs to be more visible
+
+- posit problem button should be much bigger and more obvious (red button, should be more inviting)
+
+- posit problem form should be styled
+
+- key on the side of the page (graph view)
+
+- MUCH more clarity on the bubble view
+
+- clearer directions as to which fields fill out what
+
+- more feedback on clicks
+
+- put title and description in better places
+
+- once functionality is all in place, 2 priorities:
+	- styling...
+	- explain to user what to do on the site
+
+- leave bubbles labeled
+
+- center, enlarge bubble view

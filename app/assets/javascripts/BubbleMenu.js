@@ -5,17 +5,17 @@ BubbleMenu = {
     element: undefined,
     raphael: undefined,
     animationTimeout: undefined,
-    nodes: [],
+    solutions: [],
     data: undefined,
 
-    init: function (data) {
+    init: function () {
 
         if (BubbleMenu.raphael) {
-            this.nodes = [];
+            this.solutions = [];
             this.raphael.remove();
             clearTimeout(this.animationTimeout);
         }
-        this.data = data
+        this.data = $.parseJSON(window.data).solutions;
         this.element = $("#bubble-container");
         this.width = this.element.width();
         this.height = this.element.height();
@@ -28,15 +28,16 @@ BubbleMenu = {
     createSolutions: function () {
         var period = this.width / (this.data.length + 1);
         for (var i = 0; i < this.data.length; i++) {
-            var node = new MenuNode(this.raphael);
-            var pos = (period * (i + 1))
-            node.sprite.attr({'cx': pos.toString()});
-            node.sprite.attr({'cy': this.height.toString()});
-            this.nodes.push(node)
+            var pos = (period * (i + 1));
+            var solution = new Solution(0, 0, this.data[i].id, this.raphael);
+            solution.sprite.attr({'cx': pos.toString()});
+            solution.sprite.attr({'cy': this.height.toString()});
+            this.solutions.push(solution);
         }
     },
 
     animate: function () {
+<<<<<<< HEAD
         if (this.nodes) {
         }
         for (var i = 0; i < this.nodes.length; i++) {
@@ -89,3 +90,7 @@ MenuNode.prototype.animate = function () {
     this.sprite.animate({cy: targetY}, 1000);
     this.direction *= -1;
 };
+=======
+    }
+};
+>>>>>>> 46c252eb2ad5b6a35e741747e6f7fa79a167b4f9

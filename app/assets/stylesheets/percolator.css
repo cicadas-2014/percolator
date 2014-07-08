@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: Opificio;
-    src: asset-url('Opificio.ttf');
+    src: '../fonts/Opificio.ttf';
 }
 
 @font-face {
@@ -17,11 +17,11 @@ html {
 }
 
 body {
+    background-color: #222222;
     height:100%;
 }
 
 .container {
-    clear: both;
     width:100%;
     height: 100%;
     margin-left: auto;
@@ -33,23 +33,25 @@ body {
 #problem-menu {
     margin-left: auto;
     margin-right: auto;
+    max-width: 600px;
+    min-width: 600px;
 }
 
 #problem-menu .problem{
-    margin: 5px;
-    height: 30px;
-    text-align:center;
-    vertical-align:middle;
-    background-color: #fff;
+    padding: 5px;
+    max-width: 500px;
+    text-align: left;
+    /*background-color: #FFFFAA;*/
 }
 
-#problem-menu .problem a:hover {
-    opacity: 1;
+#problem-menu .problem-container {
+    padding: 5px;
+    height: 100%;
+    /*background-color: #FF0000;*/
+    /*border: 1px solid black;*/
 }
 
 #problem-menu .problem a{
-    opacity: .5;
-    transition: opacity .5s ease-out;
     color: #666666;
     text-decoration: none;
 }
@@ -58,9 +60,29 @@ body {
     min-height: 74px;
     font-family: Opificio;
     color: #6DA2FF;
+    background-color: #FFFFFF;
     font-size: 36px;
     width: 100%;
     vertical-align:middle;
+}
+
+.header_button{
+    float:left;
+    padding:30px;
+    font-size: 18px;
+}
+
+.header input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #FFFFFF;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
 }
 
 .header image {
@@ -80,6 +102,7 @@ body {
     border-top: 2px solid #6DA2FF ;
     border-bottom: 2px solid #6DA2FF ;
     font-family: Opificio;
+    min-height: 5px;
     color: #3A424F;
     font-size: 14pt;
     text-align: center;
@@ -99,7 +122,7 @@ body {
 
 #chart-popup h1, h2, h3, h4, h5 {
     font-family: Opificio;
-    color: #BAD3FF;
+    color: #6DA2FF;
 }
 
 
@@ -146,38 +169,21 @@ body {
     position: absolute;
 }
 
-
-
-#sign_up_form {
-    font-size: 10px;
-}
-
-#sign_in_form {
-    font-size: 10px;
-}
-#sign_up_button {
--ms-transform: scale(.5,.5); /* IE 9 */
--webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-transform: scale(.5,.5);
-}
-
-
-#sign_up {
-    min-width: 199px;
-    min-height: 193px;
+#user_login {
     float: right;
 }
-#sign_in_button {
--ms-transform: scale(.5,.5); /* IE 9 */
--webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-transform: scale(.5,.5);
+
+#user_login a {
+    text-decoration: none;
+    color: inherit;
 }
 
-
-#sign_in {
-    min-width: 199px;
-    min-height: 165px;
+#user_logout {
     float: right;
+}
+
+#posit_link a {
+    color: #ffffff;
 }
 
 .brand a {
@@ -207,3 +213,125 @@ transform: scale(.5,.5);
     clear: both;
     float: left;
 }
+
+.centered {
+    text-align: center;
+}
+
+.bubble-button {
+    float: right;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: Opificio;
+    padding-top:4px;
+    color: #FFFFFF;
+    background-color: #6DA2FF;
+    border-radius: 50px;
+    max-width: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    text-align: center;
+}
+
+#percolator_button {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    color: #FFFFFF;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.problem:link, .problem:visited, .problem:hover, .problem:active, {
+    text-decoration: none;
+}
+
+#new_problem {
+    text-align: center;
+}
+
+.posit {
+    font-size: 18px;
+}
+
+.frame {
+    margin-top: 40px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    color: #666666;
+    font-family: Opificio;
+    font-size: 24px;
+    max-width: 640px;
+    min-height: 400px;
+    padding-left:40px;
+    padding-right:40px;
+    padding-bottom:40px;
+    background-image: url('../images/congruent_outline.png');
+    border: 1px solid #000000;
+}
+
+.frame input {
+    width: 560px;
+    border-radius: 10px;
+    border: 3px solid #6DA2FF;
+}
+
+.frame textarea {
+    width: 560px;
+    height: 200px;
+    border: 3px solid #6DA2FF;
+    border-radius: 10px;
+}
+
+.frame input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.frame input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.popup_form label {
+    float: left;
+    text-align: left;
+    display: block;
+}
+
+#sign_up_form {
+    text-align: center;
+}
+
+#sign_in_form {
+    text-align: center;
+}
+
+#too_many_chars {
+    text-align: center;
+    color: red;
+}
+

@@ -1,36 +1,22 @@
-<% if !current_user %>
-<div id="sign_up">
-	<div id="sign_up_button"><h2><button type="button" id="u_button">Register</button></h2></div>
-		<div id="sign_up_form" class="hidden">
-			<%= render '/user/new', user: resource %>
-		</div>
-	<br>
-</div>
-<div id="sign_in">
-	<div id="sign_in_button"><h2><button type="button" id="i_button">Login</button></h2></div>
-		<div id="sign_in_form" class="hidden">
-			<%= render '/user/login', user: resource %>
-		</div>
-	<br>
-</div>		
-<% end %>
-<br>
-
-<% if current_user %>
-	<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-<% end %>
-
 <div class="container">
-    <div id="problem-menu">
+    <div class="frame">
+        <div class="centered">
+            <h2>popular discussions</h2>
+        </div>
+        <div id="problem-menu">
         <% @problems.each do |problem| %>
-            <div class="problem">
-                <%= link_to problem.title, problem_path(problem) %><br>
+            <div class="problem-container" onclick="location.href='<%=problem_path(problem)%>';" style="cursor: pointer;">
+                <div class="problem"><%= problem.title %></div>
+                <div class="bubble-button">go</div>
             </div>
         <% end %>
-    </div>
-		<% if current_user %>
-    	    <%= link_to('Posit Problem', new_problem_path) %>
+        </div>
+        <% if current_user %>
+            <%= link_to new_problem_path do %>
+                <div id="percolator_button">
+                    <p>start a discussion</p>
+                </div>
+            <% end %>
         <% end %>
     </div>
 </div>
-

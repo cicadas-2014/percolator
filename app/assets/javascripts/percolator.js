@@ -1,5 +1,33 @@
-var isZooming = false;
 var solutionNumber;
+
+Percolator = {
+
+    isZooming: false,
+
+    zoomIn: function (target) {
+
+        var posX;
+        var posY;
+        if (target) {
+            posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "upvote");
+            $("span.downvote").attr("id", "downvote");
+            solutionNumber = $(target).attr("id");
+        }
+        else {
+            posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+            posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+            $("span.upvote").attr("id", "problem_upvote");
+            $("span.downvote").attr("id", "problem_downvote");
+        }
+        solutionNumber = $(target).attr("id");
+        $('#improvement-form').show();
+        Percolator.isZooming.isZooming = true;
+        BubbleGraph.zoomIn(posX, posY, zoomInComplete);
+        BubbleGraph.hideSolutions();
+    }
+}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -23,6 +51,11 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
+     $('#improvement-form').unbind('click').click(function () {
+        console.log("getting there");
+        improvements(solutionNumber);
+    });
+
 }
 // GTG
 
@@ -58,30 +91,31 @@ function zoomIn(target) {
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
-    solutionNumber = $(target).attr("id");
-    // $('#improvement-form').show();
     isZooming = true;
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
 // GTG
- function improvements(solutionNumber) {
-    id = $.parseJSON(window.data).solutions[solutionNumber].id;
-    $('.Improve').on("click",function(e){
-        e.preventDefault();
-        var args = {};
-        args.title = $("#improvement_title").val();
-        args.description = $("#improvement_description").val();
-    $.ajax({
-        type: "post",
-        url: "/solutions/"+id+"/improvements/create",
-        data: args
-    });
+function improvements(solutionNumber) {
+        console.log("oobama1")
+        $('#improvement-form').show();
 
- });
+        id = $.parseJSON(window.data).solutions[solutionNumber].id;
+        $('.Improve').on("click",function(e){
+            e.preventDefault();
+            var args = {};
+            args.title = $("#improvement_title").val();
+            args.description = $("#improvement_description").val();
+            $.ajax({
+                type: "post",
+                url: "/solutions/"+id+"/improvements/create",
+                data: args
+            });
+
+        });
+
 
 }
-
 
 function comments() {
     id = $.parseJSON(window.data).solutions[solutionNumber].id;
@@ -99,23 +133,21 @@ function comments() {
 }
 
 
-// GTG
 function zoomOut() {
-    problemSet.animate({transform: "s1"}, 400);
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
-    isZooming = true;
+    Percolator.isZooming = true;
 }
 
 function zoomInComplete()
 {
     showPopup();
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function zoomOutComplete()
 {
-    isZooming = false;
+    Percolator.isZooming = false;
 }
 
 function upvote() {
@@ -132,9 +164,7 @@ function upvote() {
         });
     });
 }
-// GTG
 
-// GTG
 function downvote() {
     $("#downvote").on("click",function(){
         $.ajax({
@@ -159,13 +189,21 @@ $(document).ready(function () {
         $('#solution-form').hide();
         $("#improvement-form").hide();
         $('#chart-popup').hide();
-        $('#page-title')[0].innerHTML = problem.title;
         $('#synopsis')[0].innerHTML = problem.description;
         upvote();
         downvote();
         addEventListeners();
         BubbleGraph.init();
     }
+    $('.problem_title').keypress(function(){
+
+    if(this.value.length > 87){
+        return false;
+    }
+    if(this.value.length === 87){
+        $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
+    };
+});
 });
 
 $(document).on("ajax:complete", function(event, xhr){
