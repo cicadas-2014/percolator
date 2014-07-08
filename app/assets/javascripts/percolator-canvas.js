@@ -51,7 +51,7 @@ Canvas = {
     },
 
     createText: function () {
-        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2));
+        text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2);
         var content = $.parseJSON(window.data).title;
         var tempText = this.wrapText(content);
         text.attr("text", tempText.substring(1));
