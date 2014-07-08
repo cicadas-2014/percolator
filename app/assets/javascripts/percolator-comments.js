@@ -10,7 +10,7 @@ Comments = {
         var form = '<form accept-charset="UTF-8" action="/' + type + '/' + typeId +'/comments/create"' +
                     ' class="new_' + type + '" data-remote="true" id="new_' + type + '"method="post">' +
                     '<input class="comment-box" type="textarea"><br>' +
-                    '<input type="submit" value="Comment"></form>'
+                    '<input class="' + type + '" type="submit" value="Comment"></form>'
         return form
     },
 
