@@ -16,7 +16,7 @@ $(document).on("ajax:success", "#solution-form", function(){
     });
     ajaxRequest.done(function( response ) {
         console.log(response);
-        Canvas.init();
+        BubbleGraph.init();
     })
 });
 
@@ -48,7 +48,7 @@ function showPopup() {
     // these queries can access the correct solution number without making another query
     //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
     sendIdAjax();
-    Menu.init($.parseJSON(window.data).solutions);
+    BubbleMenu.init($.parseJSON(window.data).solutions);
 }
 
 function sendIdAjax() {
@@ -74,31 +74,31 @@ function zoomIn(target) {
     var posX;
     var posY;
     if (target) {
-        posX = target.attributes[0].value - ((Canvas.width / 2) * Canvas.ZOOM_MAX);
-        posY = target.attributes[1].value - ((Canvas.height / 2) * Canvas.ZOOM_MAX);
+        posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
         $("span.upvote").attr("id", "upvote");
         $("span.downvote").attr("id", "downvote");
         solutionNumber = $(target).attr("id");
     }
     else {
-        posX = (Canvas.width / 2) - ((Canvas.width / 2) * Canvas.ZOOM_MAX);
-        posY = (Canvas.height / 2) - ((Canvas.height / 2) * Canvas.ZOOM_MAX);
+        posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
     solutionNumber = $(target).attr("id");
-    console.log(solutionNumber)
+    console.log(solutionNumber);
     isZooming = true;
-    Canvas.zoomIn(posX, posY, zoomInComplete);
-    Canvas.hideSolutions();
+    BubbleGraph.zoomIn(posX, posY, zoomInComplete);
+    BubbleGraph.hideSolutions();
 }
 // GTG
 
 // GTG
 function zoomOut() {
-    problemText.animate({transform: "s1"}, 400);
-    Canvas.zoomOut(0, 0, zoomOutComplete);
-    Canvas.showSolutions();
+    problemSet.animate({transform: "s1"}, 400);
+    BubbleGraph.zoomOut(0, 0, zoomOutComplete);
+    BubbleGraph.showSolutions();
     isZooming = true;
 }
 // GTG
@@ -182,11 +182,20 @@ $(document).ready(function () {
         upvote();
         downvote();
         addEventListeners();
-        Canvas.init();
+        BubbleGraph.init();
     }
 });
 
 $(document).on("ajax:success", "#solution-form", function(){
     $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
+});
+
+$(window).resize(function () {
+    if ($("#canvas_container").length) {
+        BubbleGraph.init();
+    }
+    if ($("#bubble-container").length) {
+        BubbleMenu.init(BubbleMenu.data);
+    }
 });
