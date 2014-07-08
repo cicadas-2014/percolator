@@ -20,7 +20,7 @@ Solution.prototype.createText = function () {
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
         textSprite.attr("text", tempText + " " + words[i]);
-        if (textSprite.getBBox().width > 100) {
+        if (textSprite.getBBox().width > 50) {
             tempText += "\n" + words[i];
         } else {
             tempText += " " + words[i];
@@ -28,7 +28,7 @@ Solution.prototype.createText = function () {
     }
 
     textSprite.attr("text", tempText);
-    textSprite.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
+    textSprite.attr({ "font-size": 14, "font-family": "Opificio", "fill": "#FFFFFF"});
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
