@@ -1,16 +1,21 @@
 class SolutionsController < ApplicationController
   protect_from_forgery
   def create
-    p "=" * 50
     @problem = Problem.find params[:problem_id]
     @solution = Solution.new(solution_params)
-    respond_to do |format|
-      if @solution.save
-        format.json { render json: @solution, status: :created}
-      else
-        # format.html {}
-        format.json { render json: @solution.errors, status: :unprocessable_entity }
-      end
+    @solution.user_id = current_user.id
+    @solution.problem_id = params[:problem_id]
+    if @solution.save
+      render json: {  id: @solution.id,
+                      title: @solution.title,
+                      description: @solution.description,
+                      save_status: true
+                    }
+    else
+      render json: { title: @solution.title,
+                      description: @solution.description,
+                      save_status: false
+                    }
     end
   end
 
