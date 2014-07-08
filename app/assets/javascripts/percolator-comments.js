@@ -34,44 +34,34 @@ Comments = {
     },
 
     appendCommentBox: function(type, typeId){
-        console.log("made it in the appendcommentbox")
         $(".comment-form").append(this.formHTML(type, typeId))
-        // MARIO ADD IT AFTER THIS LINE
-        // MARIO ADD IT AFTER THIS LINE
-        // MARIO ADD IT AFTER THIS LINE
-        // MARIO ADD IT AFTER THIS LINE
         this.queryCommentDatabase(type, typeId)
-
-        console.log("made it to the end of appendcommentbox")
     },
 
     queryCommentDatabase: function(commentCategory, typeId){
-        console.log(commentCategory)
         var comments = [];
-        console.log("I'm inside the queryCommentDatabase")
-        console.log(this)
-        console.log("I'm inside the queryCommentDatabase")
-        console.log("I'm before this.$el is defined")
-        this.$el = $(this)
-        console.log(this.$el)
-        console.log("I'm aftter this.$el is defined")
         $.ajax({
             type: "GET",
             url: "/" + commentCategory + "/comments/" + typeId
         }).done(function(response){
-            console.log("ajax was successful")
-            console.log(response[commentCategory].problems)
-            for(i = 0; i < response[commentCategory].problems.length; i++) {
-                // var user = response[commentCategory][i].user_id
-                var username = response[commentCategory].problems[i].username
-                var type = response[commentCategory].problems[i].description
+            for(i = 0; i < response[commentCategory].length; i++) {
+                var username = response[commentCategory][i].username
+                var type = response[commentCategory][i].description
                 comments.push(Comments.commentHTML(commentCategory, type, username))
             }
         $(".comment-form").append(comments)
         })
     },
 
-    init: function(){
+    grabComment: function(){
+
+    },
+
+    ajaxAddComment: function(){
+
+    },
+
+    showCommentMessage: function(){
 
     }
 
