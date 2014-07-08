@@ -230,3 +230,11 @@ body {
 .Posit {
     font-size: 24px;
 }
+
+#sign_up_form {
+    text-align: center;
+}
+
+#sign_in_form {
+    text-align: center;
+}
