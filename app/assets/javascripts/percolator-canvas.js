@@ -100,7 +100,6 @@ Canvas = {
         $('#problem').bind({
             // console.log("adding event listeners")
             click: function () {
-                console.log("click event");
                 if (!isZooming) {
                     zoomIn();
                     Canvas.hideSolutions();
@@ -114,7 +113,6 @@ Canvas = {
                 }
             },
             mouseenter: function () {
-                console.log("mouseenter");
                 if (!isZooming) {
                 problemText.animate({transform: "s1.3"}, 400);
                 text.animate({opacity: 1}, 300).toFront();
@@ -122,7 +120,6 @@ Canvas = {
                 }
             },
             mouseleave: function () {
-                console.log("mouseleave");
                 if (!isZooming) {
                 problemText.animate({transform: "s1"}, 400);
                 text.animate({opacity: 0}, 300);
@@ -132,7 +129,6 @@ Canvas = {
         for (var i = 0; i < this.solutions.length; i++) {
             $('#' + i).bind({
                 click: function () {
-                    console.log("click inside loop");
                     if (!isZooming) {
                         zoomIn(this);
                         if ($("#used_and_abused")) {
@@ -144,7 +140,6 @@ Canvas = {
                     }
                 },
                 mouseenter: function () {
-                     console.log("mouseenter");
                     if (!isZooming) {
                         Canvas.solutions[this.id].forEach(function(element){
                             element.animate({transform: "s1.5"}, 250);
@@ -155,7 +150,6 @@ Canvas = {
                     }
                 },
                 mouseleave: function () {
-                     console.log("mouseleave");
                     if (!isZooming) {
                         Canvas.solutions[this.id].forEach(function(element){
                             element.animate({transform: "s1"}, 250);
