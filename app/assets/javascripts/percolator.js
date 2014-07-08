@@ -41,14 +41,6 @@ function addEventListeners() {
 
 function showPopup() {
     $('#chart-popup').hide().slideDown(500);
-
-    //$('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
-
-    // SAVE COMMENT
-    // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
-    // these queries can access the correct solution number without making another query
-    //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
-    sendIdAjax();
     BubbleMenu.init($.parseJSON(window.data).solutions);
 }
 

@@ -37,6 +37,8 @@ BubbleMenu = {
     },
 
     animate: function () {
+        if (this.nodes) {
+        }
         for (var i = 0; i < this.nodes.length; i++) {
             this.nodes[i].animate();
         }
