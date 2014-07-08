@@ -46,6 +46,7 @@ Solution.prototype.addEventListeners = function () {
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
+                Percolator.solutionNumber = this.id;
                 Percolator.zoomIn(this);
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("solutions", solutionNumber)

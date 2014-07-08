@@ -3,6 +3,7 @@ var solutionNumber;
 Percolator = {
 
     isZooming: false,
+    solutionNumber: undefined,
 
     zoomIn: function (target) {
 
@@ -21,8 +22,6 @@ Percolator = {
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
         }
-        solutionNumber = $(target).attr("id");
-        $('#improvement-form').show();
         Percolator.isZooming.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
         BubbleGraph.hideSolutions();
@@ -64,7 +63,7 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
-     $('#improvement-form').unbind('click').click(function () {
+     $('#improvement-button').on('click',function () {
         console.log("getting there");
         improvements(solutionNumber);
     });
@@ -110,7 +109,6 @@ function zoomIn(target) {
 }
 // GTG
 function improvements(solutionNumber) {
-        console.log("oobama1")
         $('#improvement-form').show();
 
         id = $.parseJSON(window.data).solutions[solutionNumber].id;
@@ -124,25 +122,11 @@ function improvements(solutionNumber) {
                 url: "/solutions/"+id+"/improvements/create",
                 data: args
             });
+            $('#improvement-form').hide();
 
         });
 
 
-}
-
-function comments() {
-    id = $.parseJSON(window.data).solutions[solutionNumber].id;
-    $('#submit_comment').on("click",function(e){
-        e.preventDefault();
-        var comments = {};
-        args.description = $("#improvement_description").val();
-        $.ajax({
-            type: "post",
-            url: "/solutions/"+id+"/improvements/create",
-            data: args
-        });
-
-    });
 }
 
 
