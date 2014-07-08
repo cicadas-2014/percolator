@@ -17,6 +17,7 @@ html {
 }
 
 body {
+    background-color: #222222;
     height:100%;
 }
 
@@ -59,9 +60,29 @@ body {
     min-height: 74px;
     font-family: Opificio;
     color: #6DA2FF;
+    background-color: #FFFFFF;
     font-size: 36px;
     width: 100%;
     vertical-align:middle;
+}
+
+.header_button{
+    float:left;
+    padding:30px;
+    font-size: 18px;
+}
+
+.header input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #FFFFFF;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
 }
 
 .header image {
@@ -248,6 +269,7 @@ body {
     font-family: Opificio;
     font-size: 24px;
     max-width: 640px;
+    min-height: 400px;
     padding-left:40px;
     padding-right:40px;
     padding-bottom:40px;
@@ -255,37 +277,33 @@ body {
     border: 1px solid #000000;
 }
 
-.popup_form {
-    margin-top: 40px;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    color: #666666;
-    font-family: Opificio;
-    font-size: 24px;
-    max-width: 640px;
-    padding-left:40px;
-    padding-right:40px;
-    padding-bottom:40px;
-    background-image: url('../images/congruent_outline.png');
-    border: 1px solid #000000;
-}
-
-.popup_form input {
+.frame input {
     width: 560px;
     border-radius: 10px;
     border: 3px solid #6DA2FF;
 }
 
-.popup_form textarea {
+.frame textarea {
     width: 560px;
     height: 200px;
     border: 3px solid #6DA2FF;
     border-radius: 10px;
 }
 
-.popup_form input[type=submit] {
+.frame input[type=submit] {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.frame input[type=submit] {
     margin-top: 20px;
     margin-right: auto;
     margin-left: auto;

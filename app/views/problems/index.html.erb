@@ -1,20 +1,22 @@
 <div class="container">
-    <div class="centered">
-        <h2>popular discussions</h2>
-    </div>
-    <div id="problem-menu">
+    <div class="frame">
+        <div class="centered">
+            <h2>popular discussions</h2>
+        </div>
+        <div id="problem-menu">
         <% @problems.each do |problem| %>
             <div class="problem-container" onclick="location.href='<%=problem_path(problem)%>';" style="cursor: pointer;">
                 <div class="problem"><%= problem.title %></div>
                 <div class="bubble-button">go</div>
             </div>
         <% end %>
-    </div>
-<% if current_user %>
-    <%= link_to new_problem_path do %>
-        <div id="percolator_button">
-            <p>start a discussion</p>
         </div>
-    <% end %>
-<% end %>
+        <% if current_user %>
+            <%= link_to new_problem_path do %>
+                <div id="percolator_button">
+                    <p>start a discussion</p>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
 </div>
