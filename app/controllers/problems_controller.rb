@@ -51,5 +51,4 @@ class ProblemsController < ApplicationController
     params.require(:problem).permit(:title, :description)
   end
 
-
 end
