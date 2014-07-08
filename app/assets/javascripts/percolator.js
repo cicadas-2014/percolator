@@ -1,7 +1,5 @@
 var isZooming = false;
 var solutionNumber;
-var isLoaded = false;
-// GTG
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -21,6 +19,7 @@ $(document).on("ajax:success", "#solution-form", function(){
 });
 
 function addEventListeners() {
+
     $('#chart-popup button#back').unbind('click').click(function () {
         zoomOut();
         hideChartPopupElements();
@@ -42,21 +41,15 @@ function addEventListeners() {
 
 function showPopup() {
     $('#chart-popup').hide().slideDown(500);
+
     //$('#page-title')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].title
+
     // SAVE COMMENT
     // ADD $.parseJSON(window.data) as a this.problemData element when OOJSing so
     // these queries can access the correct solution number without making another query
     //$('#synopsis')[0].innerHTML = $.parseJSON(window.data).solutions[solutionNumber].description
     sendIdAjax();
     BubbleMenu.init($.parseJSON(window.data).solutions);
-}
-
-function sendIdAjax() {
-    $.ajax({
-        type: "POST",
-        url: '/improvements',
-        data: solutionNumber
-    });
 }
 
 function hideChartPopupElements() {
@@ -87,12 +80,45 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote");
     }
     solutionNumber = $(target).attr("id");
-    console.log(solutionNumber);
+    $('#improvement-form').show();
     isZooming = true;
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
 // GTG
+ function improvements(solutionNumber) {
+    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    $('.Improve').on("click",function(e){
+        e.preventDefault();
+        var args = {};
+        args.title = $("#improvement_title").val();
+        args.description = $("#improvement_description").val();
+    $.ajax({
+        type: "post",
+        url: "/solutions/"+id+"/improvements/create",
+        data: args
+    });
+
+ });
+
+}
+
+
+function comments() {
+    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    $('#submit_comment').on("click",function(e){
+        e.preventDefault();
+        var comments = {};
+        args.description = $("#improvement_description").val();
+        $.ajax({
+            type: "post",
+            url: "/solutions/"+id+"/improvements/create",
+            data: args
+        });
+
+    });
+}
+
 
 // GTG
 function zoomOut() {
@@ -101,7 +127,6 @@ function zoomOut() {
     BubbleGraph.showSolutions();
     isZooming = true;
 }
-// GTG
 
 function zoomInComplete()
 {
@@ -113,14 +138,9 @@ function zoomOutComplete()
 {
     isZooming = false;
 }
-// function improvement() {
-//     $()
-// }
 
-
-// GTG
 function upvote() {
-    $("#upvote").on("click",function(){
+    $("#upvote").on("click",function(e){
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
             url: "/solution_upvote",
@@ -151,31 +171,14 @@ function downvote() {
         });
     });
 }
-// GTG
 
-// function ajaxUpvote() {
-//     $.ajax({
-//         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-//         url: "/solution_upvote",
-//         type: "POST"
-//     }).done(function(r){
-//         var response = $.parseJSON(r);
-//         count = response[0] - response[1];
-//         $("#count").html(""+count+"");
-//     });
-// }
-
-// function ajaxDownvote() {
-
-// }
-
-// GTG
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data);
         $('#problem-container').removeClass('hidden');
         $('#bubble-container').removeClass('hidden');
         $('#solution-form').hide();
+        $("#improvement-form").hide();
         $('#chart-popup').hide();
         $('#page-title')[0].innerHTML = problem.title;
         $('#synopsis')[0].innerHTML = problem.description;
@@ -187,8 +190,10 @@ $(document).ready(function () {
 });
 
 $(document).on("ajax:success", "#solution-form", function(){
+
     $("#solution-form").find("input[type=text], textarea").val("");
     $("#solution-form").hide();
+
 });
 
 $(window).resize(function () {
