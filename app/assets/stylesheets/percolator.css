@@ -146,38 +146,27 @@ body {
     position: absolute;
 }
 
-
-
-#sign_up_form {
-    font-size: 10px;
-}
-
-#sign_in_form {
-    font-size: 10px;
-}
-#sign_up_button {
--ms-transform: scale(.5,.5); /* IE 9 */
--webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-transform: scale(.5,.5);
-}
-
-
-#sign_up {
-    min-width: 199px;
-    min-height: 193px;
+#user_login {
     float: right;
 }
-#sign_in_button {
--ms-transform: scale(.5,.5); /* IE 9 */
--webkit-transform: scale(.5,.5); /* Chrome, Safari, Opera */
-transform: scale(.5,.5);
+
+#user_login a {
+    text-decoration: none;
+    color: inherit;
 }
 
-
-#sign_in {
-    min-width: 199px;
-    min-height: 165px;
+#user_logout {
     float: right;
+}
+
+#posit_button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
 }
 
 .brand a {
@@ -206,4 +195,12 @@ transform: scale(.5,.5);
     display: inline-block;
     clear: both;
     float: left;
+}
+
+#new_problem {
+    text-align: center;
+}
+
+.Posit {
+    font-size: 24px;
 }
