@@ -1,20 +1,21 @@
-function Problem(posX, posY, raphael) {
-    this.raphael = raphael;
+function Solution(posX, posY, id, raphael) {
     this.posX = posX;
     this.posY = posY;
-    this.sprite = raphael.circle(posX, posY, 125).attr({fill: '#37517F', stroke: "none"});
-    this.sprite.node.id = 'problem';
+    this.id = id;
+    this.data = $.parseJSON(window.data).solutions[id];
+    this.raphael = raphael;
+    this.sprite = raphael.circle(posX, posY, 40).attr({fill: '#6DA2FF', stroke: "none"});
+    this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();
-
 }
 
-Problem.prototype.createText = function () {
+Solution.prototype.createText = function () {
 
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
     var textSprite = this.textSprite;
 
-    var text = $.parseJSON(window.data).title;
+    var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     var words = text.split(" ");
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
@@ -31,7 +32,7 @@ Problem.prototype.createText = function () {
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
-Problem.prototype.animate = function (direction) {
+Solution.prototype.animate = function (direction) {
     var scale = direction == "in" ? "s1.3" : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);

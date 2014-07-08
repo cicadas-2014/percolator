@@ -17,5 +17,6 @@
 //= require BubbleGraph.js
 //= require BubbleMenu
 //= require Problem
+//= require Solution
 //= require percolator
 //= require_tree .
