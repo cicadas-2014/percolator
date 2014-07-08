@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require raphael
 //= require raphael-animated-viewbox
-//= require percolator-canvas.js
+//= require BubbleGraph.js
+//= require BubbleMenu
+//= require Problem
 //= require percolator
 //= require_tree .
