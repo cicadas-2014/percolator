@@ -21,27 +21,22 @@ $(document).on("ajax:success", "#solution-form", function(){
 });
 
 function addEventListeners() {
-        $('#chart-popup button#back').unbind('click').click(function () {
-            zoomOut();
-            hideChartPopupElements();
-            console.log("Firing back")
-        });
-        $('#chart-popup button#render-solution-form').unbind('click').click(function () {
-            renderSolutionForm();
-            console.log("Firing form")
-        });
+    $('#chart-popup button#back').unbind('click').click(function () {
+        zoomOut();
+        hideChartPopupElements();
+        console.log("Firing back")
+    });
+    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
+        renderSolutionForm();
+        console.log("Firing form")
+    });
 
-        $('#new_solution').on("submit", function (e) {
-            e.preventDefault();
-            $(this.solution_title).val("");
-            $(this.solution_description).val("");
-            $(this).hide();
-        });
-
-        // $('#new_improvement').on("submit", function(e) {
-        //     e.preventDefault();
-
-        // })
+    $('#new_solution').on("submit", function (e) {
+        e.preventDefault();
+        $(this.solution_title).val("");
+        $(this.solution_description).val("");
+        $(this).hide();
+    });
 }
 // GTG
 
@@ -91,6 +86,8 @@ function zoomIn(target) {
         $("span.upvote").attr("id", "problem_upvote");
         $("span.downvote").attr("id", "problem_downvote");
     }
+    solutionNumber = $(target).attr("id");
+    console.log(solutionNumber)
     isZooming = true;
     Canvas.zoomIn(posX, posY, zoomInComplete);
     Canvas.hideSolutions();

@@ -44,13 +44,13 @@ Canvas = {
         problemText.push(text);
     },
 
-    createProblem: function () {  
+    createProblem: function () {
         var problem = this.RAPHAEL.circle(this.WIDTH / 2, this.HEIGHT / 2, this.PROBLEM_RADIUS).attr({fill: this.PROBLEM_COLOR, stroke: "none"});
         problem.node.id = 'problem';
-        return problem; 
+        return problem;
     },
 
-    createText: function () {    
+    createText: function () {
         text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2).attr({opacity: 0});
         var content = $.parseJSON(window.data).title;
         var tempText = this.wrapText(content);
@@ -101,8 +101,14 @@ Canvas = {
             click: function () {
                 if (!isZooming) {
                     zoomIn();
-                    Canvas.hideSolutions()
+                    Canvas.hideSolutions();
                     text.animate({opacity: 0}, 1300);
+                    // If zooming in on problem, append comment div
+                    if ($("#used_and_abused")) {
+                        Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                    } else {
+                        Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
+                    }
                 }
             },
             mouseenter: function () {
@@ -110,7 +116,7 @@ Canvas = {
                 problemText.animate({transform: "s1.3"}, 400);
                 text.animate({opacity: 1}, 300).toFront();
                 text.node.setAttribute("pointer-events", "none");
-                }   
+                }
             },
             mouseleave: function () {
                 if (!isZooming) {
@@ -124,6 +130,12 @@ Canvas = {
                 click: function () {
                     if (!isZooming) {
                         zoomIn(this);
+                        if ($("#used_and_abused")) {
+                            Comments.appendDiv("solutions", solutionNumber)
+                        } else {
+                            Comments.appendDiv("solutions", solutionNumber)
+                        }
+                        // replace comment form div elements with new for-looped comment HTML
                     }
                 },
                 mouseenter: function () {
@@ -214,15 +226,31 @@ Menu = {
     },
 
     createSolutions: function () {
-        var node = this.RAPHAEL.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
-        this.NODES.push(node)
+        for (var i = 0; i < 15; i++) {
+            var node = new MenuNode(this.RAPHAEL);
+            node.sprite.attr({'cx': (100 * i).toString()});
+            this.NODES.push(node)
+        }
     },
 
     animate: function () {
         for (var i = 0; i < this.NODES.length; i++) {
-            this.NODES[i].animate({cx: Math.random() * this.WIDTH, cy: Math.random() * this.HEIGHT}, 1000);
+            this.NODES[i].animate();
         }
         setTimeout(this.animate, 1000);
     }
+};
+
+MenuNode = function (raphael) {
+    this.raphael = raphael;
+    this.sprite = raphael.circle(0, 0, 20).attr({fill: Canvas.SOLUTION_COLOR, stroke: "none"});
+    this.direction = Math.round(Math.random()) == 0 ? -1 : 1;
+    this.centerPos = Menu.HEIGHT / 2;
+};
+
+MenuNode.prototype.animate = function () {
+    var targetY = this.centerPos + (Math.random() * 100 * this.direction);
+    this.sprite.animate({cy: targetY}, 5000);
+    this.direction *= -1;
 };
 
