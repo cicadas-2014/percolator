@@ -22,9 +22,11 @@ Percolator = {
             // Solution number is only needed once: to assign problem title to synopsis--
             // other state changes are handled by ajax requests/adaptive parsing
             solutionNumber = $(target).attr("id");
-            console.log(solutionNumber)
-            if (!BubbleMenu.zoomCount)
-            if (solutionNumber) // missing left { but still works
+
+
+            // if (!BubbleMenu.zoomCount)
+            // if (solutionNumber)
+
                 $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
         }
         else {
