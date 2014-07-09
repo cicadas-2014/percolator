@@ -4,6 +4,7 @@ Percolator = {
 
     isZooming: false,
     solutionNumber: undefined,
+    stage2SolutionNumber: undefined,
     currentState: undefined,
 
 
@@ -22,10 +23,8 @@ Percolator = {
             if (!BubbleMenu.zoomCount) {
                 solutionNumber = $(target).attr("id");
             }
-
-            $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
-        }
-        else {
+                $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
+        }   else {
             posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
             posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
             $("span.upvote").attr("id", "problem_upvote");
