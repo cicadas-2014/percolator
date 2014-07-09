@@ -3,7 +3,9 @@ var solutionNumber;
 Percolator = {
 
     isZooming: false,
+    solutionNumber: undefined,
     currentState: undefined,
+
 
     zoomIn: function (target) {
 
@@ -22,8 +24,6 @@ Percolator = {
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
         }
-        solutionNumber = $(target).attr("id");
-        $('#improvement-form').show();
         Percolator.isZooming.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
         BubbleGraph.hideSolutions();
@@ -51,7 +51,7 @@ function addEventListeners() {
         $(this).hide();
     });
 
-    $('#improvement-form').unbind('click').click(function () {
+    $('#improvement-button').on('click',function () {
         console.log("getting there");
         improvements(solutionNumber);
     });
@@ -92,7 +92,7 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote");
     }
     isZooming = true;
-    
+
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
@@ -112,29 +112,15 @@ function improvements(solutionNumber) {
             url: "/solutions/"+id+"/improvements/create",
             data: args
         });
+        $('#improvement-form').hide();
 
     });
 
-
-}
-
-function comments() {
-    id = $.parseJSON(window.data).solutions[solutionNumber].id;
-    $('#submit_comment').on("click",function(e){
-        e.preventDefault();
-        var comments = {};
-        args.description = $("#improvement_description").val();
-        $.ajax({
-            type: "post",
-            url: "/solutions/"+id+"/improvements/create",
-            data: args
-        });
-
-    });
 }
 
 
-function zoomOut() {
+
+function zoomOut(){
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
     Percolator.isZooming = true;
@@ -211,9 +197,12 @@ $(document).on("ajax:complete", function(event, xhr){
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
+        console.log(parsedText)
         if (parsedText.saved === true) {
+            console.log("12345678")
             Comments.showCommentMessage(true)
-            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.commentable_id,
+
+            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {
             Comments.showCommentMessage(false)
