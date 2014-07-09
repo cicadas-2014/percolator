@@ -2,6 +2,7 @@
 
 * {
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 @font-face {
@@ -181,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 #user_logout {
+  font-size: 14px;
   float: right;
 }
 
