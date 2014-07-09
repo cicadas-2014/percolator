@@ -42,6 +42,7 @@ Canvas = {
         problemText = this.RAPHAEL.set();
         problemText.push(problem);
         problemText.push(text);
+
     },
 
     createProblem: function () {
@@ -50,6 +51,9 @@ Canvas = {
         return problem;
     },
 
+    createFrame: function() {
+
+    },
     createText: function () {
         text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2);
         var content = $.parseJSON(window.data).title;
@@ -82,12 +86,15 @@ Canvas = {
         solution.node.id = id;
         var solutionText = this.RAPHAEL.text(posX, posY).attr("text", $.parseJSON(window.data).solutions[id].title).attr({opacity: 0, "font-family": "Opificio", "fill": "white"});
         solutionText.node.setAttribute('pointer-events', 'none');
+        // var frame = this.RAPHAEL.circle(posX, posY, (this.SOLUTION_RADIUS + 50)).attr({fill: solution.frameColor, stroke: "none"});
         var solutionWithText = this.RAPHAEL.set();
         solutionWithText.push(solution);
         solutionWithText.push(solutionText);
+        // solutionWithText.push(frame);
         Canvas.solutions.push(solutionWithText);
         return solutionWithText;
     },
+
 
     createLine: function (posX, posY) {
 
@@ -98,7 +105,6 @@ Canvas = {
 
     addEventListeners: function () {
         $('#problem').bind({
-            // console.log("adding event listeners")
             click: function () {
                 if (!isZooming) {
                     zoomIn();

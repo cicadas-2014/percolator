@@ -1,6 +1,8 @@
 class ProblemsController < ApplicationController
   protect_from_forgery
   require 'json'
+  include ProblemDataFormatHelper
+
   # before_action :load_user, only: :create
 
   def index
@@ -8,40 +10,10 @@ class ProblemsController < ApplicationController
   end
 
   def show
+    @solution = Solution.new
     problem = Problem.find params[:id]
     @form_problem = problem
-    @solution = Solution.new
-    solutions = []
-    improvements = []
-    problem.solutions.each do |solution|
-      solution.improvements.each do |improvement|
-        improvements << {id: improvement.id,
-          title: improvement.title,
-          description: improvement.description,
-          username: improvement.user.username,
-          upvotes: improvement.voteables.where(vote_type: true).count,
-          downvotes: improvement.voteables.where(vote_type: false).count
-        }
-        end
-        solutions << {id: solution.id,
-          title: solution.title,
-          description: solution.description,
-          username: solution.user.username,
-          improvements: improvements,
-          upvotes: solution.voteables.where(vote_type: true).count,
-          downvotes: solution.voteables.where(vote_type: false).count
-
-        }
-    end
-
-    @problem = {
-      id: problem.id,
-      title: problem.title,
-      description: problem.description,
-      solutions: solutions
-      }.to_json.html_safe
-
-    p @problem
+    @problem = format_problem_for_client(problem)
   end
 
   def create

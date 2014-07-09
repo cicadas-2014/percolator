@@ -3,6 +3,9 @@ var solutionNumber;
 Percolator = {
 
     isZooming: false,
+    solutionNumber: undefined,
+    currentState: undefined,
+
 
     zoomIn: function (target) {
 
@@ -21,8 +24,6 @@ Percolator = {
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
         }
-        solutionNumber = $(target).attr("id");
-        $('#improvement-form').show();
         Percolator.isZooming.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
         BubbleGraph.hideSolutions();
@@ -38,11 +39,9 @@ function addEventListeners() {
     $('#chart-popup button#back').unbind('click').click(function () {
         zoomOut();
         hideChartPopupElements();
-        console.log("Firing back")
     });
     $('#chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
-        console.log("Firing form")
     });
 
     $('form').on("submit", "#new_solution", function (e) {
@@ -51,7 +50,8 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
-     $('#improvement-form').unbind('click').click(function () {
+
+    $('#improvement-button').on('click',function () {
         console.log("getting there");
         improvements(solutionNumber);
     });
@@ -92,48 +92,35 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote");
     }
     isZooming = true;
+
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
 // GTG
 function improvements(solutionNumber) {
-        console.log("oobama1")
-        $('#improvement-form').show();
 
-        id = $.parseJSON(window.data).solutions[solutionNumber].id;
-        $('.Improve').on("click",function(e){
-            e.preventDefault();
-            var args = {};
-            args.title = $("#improvement_title").val();
-            args.description = $("#improvement_description").val();
-            $.ajax({
-                type: "post",
-                url: "/solutions/"+id+"/improvements/create",
-                data: args
-            });
+    $('#improvement-form').show();
 
-        });
-
-
-}
-
-function comments() {
     id = $.parseJSON(window.data).solutions[solutionNumber].id;
-    $('#submit_comment').on("click",function(e){
+    $('.Improve').on("click",function(e){
         e.preventDefault();
-        var comments = {};
+        var args = {};
+        args.title = $("#improvement_title").val();
         args.description = $("#improvement_description").val();
         $.ajax({
             type: "post",
             url: "/solutions/"+id+"/improvements/create",
             data: args
         });
+        $('#improvement-form').hide();
 
     });
+
 }
 
 
-function zoomOut() {
+
+function zoomOut(){
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
     Percolator.isZooming = true;
@@ -197,38 +184,40 @@ $(document).ready(function () {
     }
     $('.problem_title').keypress(function(){
 
-    if(this.value.length > 87){
-        return false;
-    }
-    if(this.value.length === 87){
-        $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
-    };
-});
+        if(this.value.length > 87){
+            return false;
+        }
+        if(this.value.length === 87){
+            $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
+        };
+    });
 });
 
 $(document).on("ajax:complete", function(event, xhr){
-    console.log("I'm in the ajax complete")
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
+        console.log(parsedText)
         if (parsedText.saved === true) {
+            console.log("12345678")
             Comments.showCommentMessage(true)
-            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.commentable_id,
+
+            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {
             Comments.showCommentMessage(false)
         } else if (parsedText.save_status === true) {
-            console.log("I was saved!")
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
-            BubbleMenu.appendAndReInit(parsedText);
+            window.data = parsedText.problem;
+            var solutions = $.parseJSON(window.data).solutions;
+            BubbleGraph.init(window.data)
+            BubbleMenu.init(solutions);
             $("#improvement-form").find("input[type=text], textarea").val("");
             $("#improvement-form").hide();
         } else {
-            console.log("I didn't get saved!!")
         }
     }
-    console.log("I'm in the ajax complete")
 });
 
 $(window).resize(function () {

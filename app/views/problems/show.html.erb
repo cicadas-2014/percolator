@@ -11,7 +11,7 @@
         <h3>Synopsis</h3>
         <div id="synopsis"></div>
         <button type="button" id="back">BACK</button>
-        <button type="button" id="render-solution-form">PERCOLATE</button>
+        <button type="button" id="render-solution-form">Submit Solution</button>
         <button type="button" id="improvement-button">Improve</button>
         <div>
             <span class="upvote" id="upvote">
@@ -28,11 +28,11 @@
     <div id="disqus_thread"></div>
 </div>
 
-<div id="solution-form">
+<div class="frame" id="solution-form">
     <%= render '/solutions/form' %>
 </div>
 
-<div id="improvement-form">
+<div class="frame" id="improvement-form">
     <%= render '/improvements/form' %>
 </div>
 <!--
