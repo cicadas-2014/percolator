@@ -335,3 +335,15 @@ body {
     color: red;
 }
 
+button {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 30px;
+    text-align: center;
+    font-family: Opificio;
+    background-color: #3A424F;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 0px;
+}

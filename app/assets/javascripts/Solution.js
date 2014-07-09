@@ -11,6 +11,7 @@ function Solution(posX, posY, id, raphael) {
     this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();
+    this.frameColor = this.createVoteFrame();
 }
 
 Solution.prototype.createText = function () {
@@ -55,6 +56,7 @@ Solution.prototype.animate = function (direction) {
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300);//.toFront();
+    // this.sprite.animate({fill: this.frameColor}, 400);
 };
 
 Solution.prototype.addEventListeners = function () {
@@ -83,4 +85,21 @@ Solution.prototype.addEventListeners = function () {
             }
         }
     });
+};
+
+Solution.prototype.createVoteFrame = function() {
+    var upvoteRatio = this.upvotes / (this.upvotes + this.downvotes)
+    var downvoteRatio = this.downvotes / (this.upvotes + this.downvotes)
+    var r = 255*downvoteRatio;
+    var g = 255*upvoteRatio;
+    var b = 0;
+    return rgbToHex(r,g,b);
+    function rgbToHex(r,g,b) {return "#"+toHex(r)+toHex(g)+toHex(b)}
+    function toHex(n) {
+       n = parseInt(n,10);
+       if (isNaN(n)) return "00";
+       n = Math.max(0,Math.min(n,255));
+       return "0123456789ABCDEF".charAt((n-n%16)/16)
+       + "0123456789ABCDEF".charAt(n%16);
+   }
 };
