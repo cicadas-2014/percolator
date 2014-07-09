@@ -7,7 +7,7 @@ function Solution(posX, posY, id, raphael) {
     this.raphael = raphael;
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
-    this.radius = 10 + (this.upvotes + this.downvotes)/2;
+    this.radius = 10 + (this.upvotes + this.downvotes) / 2;
     this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none'});
     this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER"});
     this.sprite.node.id = id;
@@ -42,7 +42,7 @@ Solution.prototype.createText = function () {
 };
 
 Solution.prototype.animate = function (direction) { // only called during the initial wave of creates
-    var targetScale = "s"+(this.targetWidth / (this.radius*2.5)).toString();
+    var targetScale = "s" + (this.targetWidth / (this.radius * 2.5)).toString();
     console.log(targetScale);
     var scale = direction == "in" ? targetScale : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
@@ -99,16 +99,20 @@ Solution.prototype.createVoteFrame = function () {
     var upvoteRatio = this.upvotes / (this.upvotes + this.downvotes)
     var downvoteRatio = this.downvotes / (this.upvotes + this.downvotes)
     if (upvoteRatio > downvoteRatio) {
-        var r = 255*downvoteRatio;
+        var r = 255 * downvoteRatio;
         var g = 255;
         var b = 0;
     } else {
         var r = 255;
-        var g = 255*upvoteRatio;
+        var g = 255 * upvoteRatio;
         var b = 0;
-    };
-    return rgbToHex(r,g,b);
-    function rgbToHex(r,g,b) {return "#"+toHex(r)+toHex(g)+toHex(b)}
+    }
+    ;
+    return rgbToHex(r, g, b);
+    function rgbToHex(r, g, b) {
+        return "#" + toHex(r) + toHex(g) + toHex(b)
+    }
+
     function toHex(n) {
         n = parseInt(n, 10);
         if (isNaN(n)) return "00";
