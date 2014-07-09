@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   def solution_upvote
-    solution = Solution.find params[:solution_number]
+    solution = Solution.find params[:id]
     upvote = solution.voteables.find_by(user_id: current_user.id, vote_type: true)
     downvote = solution.voteables.find_by(user_id: current_user.id, vote_type: false)
     if !upvote
@@ -16,7 +16,7 @@ class VotesController < ApplicationController
   end
 
   def solution_downvote
-    solution = Solution.find params[:solution_number]
+    solution = Solution.find params[:id]
     upvote = solution.voteables.find_by(user_id: current_user.id, vote_type: true)
     downvote = solution.voteables.find_by(user_id: current_user.id, vote_type: false)
     if !downvote
@@ -32,7 +32,7 @@ class VotesController < ApplicationController
   end
 
   def problem_upvote
-    problem = Problem.find params[:problem_number]
+    problem = Problem.find params[:id]
     upvote = problem.voteables.find_by(user_id: current_user.id, vote_type: true)
     downvote = problem.voteables.find_by(user_id: current_user.id, vote_type: false)
     if !upvote
@@ -48,7 +48,7 @@ class VotesController < ApplicationController
   end
 
   def problem_downvote
-    problem = Problem.find params[:problem_number]
+    problem = Problem.find params[:id]
     upvote = problem.voteables.find_by(user_id: current_user.id, vote_type: true)
     downvote = problem.voteables.find_by(user_id: current_user.id, vote_type: false)
     if !downvote

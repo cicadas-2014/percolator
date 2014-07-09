@@ -17,7 +17,6 @@ function Solution(posX, posY, id, raphael) {
 }
 
 Solution.prototype.createText = function () {
-
     this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
 
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
@@ -56,7 +55,7 @@ Solution.prototype.addEventListeners = function () {
     var delegate = this
 
     var target = delegate.original_id ? $("#" + this.original_id) : $('#' + this.id);
-
+    ///
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
