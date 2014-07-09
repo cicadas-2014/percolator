@@ -17,12 +17,12 @@ function Solution(posX, posY, id, raphael) {
 
 Solution.prototype.createText = function () {
 
-    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
+    this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
     var textSprite = this.textSprite;
 
     //TODO
     console.log("LIKELY ERROR HERE")
-    if (Percolator.currentState == "solution"){
+    if (Percolator.currentState == "problem"){
         $('#render-solution-form').show();
         $("#improvement-button").hide();
     } else {
@@ -39,7 +39,7 @@ Solution.prototype.createText = function () {
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
         textSprite.attr("text", tempText + " " + words[i]);
-        if (textSprite.getBBox().width > 60) {
+        if (textSprite.getBBox().width > (1.3*this.radius)) {
             tempText += "\n" + words[i];
         } else {
             tempText += " " + words[i];
@@ -47,7 +47,7 @@ Solution.prototype.createText = function () {
     }
 
     textSprite.attr("text", tempText);
-    textSprite.attr({ "font-size": 10, "font-family": "Opificio", "fill": "#FFFFFF"});
+    textSprite.attr({ "font-size": ((this.radius * .15)+3), "font-family": "Opificio", "fill": "#FFFFFF"});
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
