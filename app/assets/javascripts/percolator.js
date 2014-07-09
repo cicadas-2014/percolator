@@ -6,6 +6,7 @@ Percolator = {
     solutionNumber: undefined,
     stage2SolutionNumber: undefined,
     currentState: undefined,
+    isDetailWindowOpen: false,
 
 
     zoomIn: function (target) {
@@ -20,21 +21,42 @@ Percolator = {
 
             // Solution number is only needed once: to assign problem title to synopsis--
             // other state changes are handled by ajax requests/adaptive parsing
-            if (!BubbleMenu.zoomCount) {
-                solutionNumber = $(target).attr("id");
-            }
-                $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
-        }   else {
+            solutionNumber = $(target).attr("id");
+            if (solutionNumber) {
+                $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
+        }
+        else {
             posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
             posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
             $("#synopsis").html($.parseJSON(window.data).description)
         }
-        Percolator.isZooming.isZooming = true;
+        Percolator.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
         BubbleGraph.hideSolutions();
+    },
+    zoomOutAndZoomInOnSolution: function () {
+        var target = BubbleGraph.solutions[Percolator.solutionNumber];
+        var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+        if (target) {
+            $("span.upvote").attr("id", "upvote");
+            $("span.downvote").attr("id", "downvote");
+            Percolator.isZooming = true;
+            Percolator.currentState = "solution";
+            BubbleGraph.zoomOut(0, 0, zoomInOnSolution);
+            BubbleGraph.showSolutions();
+            hideDetailWindow()
+        }
     }
+};
+
+function zoomInOnSolution() {
+    var target = BubbleGraph.solutions[Percolator.solutionNumber];
+    var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+    var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+    BubbleGraph.zoomIn(posX, posY, showDetailWindow);
 }
 
 jQuery.ajaxSetup({
@@ -45,7 +67,7 @@ function addEventListeners() {
 
     $('#chart-popup button#back').unbind('click').click(function () {
         zoomOut();
-        hideChartPopupElements();
+        hideDetailWindow();
     });
     $('#chart-popup button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
@@ -66,13 +88,23 @@ function addEventListeners() {
 }
 // GTG
 
-function showPopup() {
+function showDetailWindow() {
+    Percolator.isDetailWindowOpen = true;
     $('#chart-popup').hide().slideDown(500);
     BubbleMenu.init($.parseJSON(window.data).solutions);
+    if (Percolator.currentState == "problem") {
+        $('#render-solution-form').show();
+        $("#improvement-button").hide();
+    } else {
+        $('#render-solution-form').hide();
+        $("#improvement-button").show();
+    }
+    ;
 }
 
-function hideChartPopupElements() {
-        $('#chart-popup').show().slideUp(500);
+function hideDetailWindow() {
+    Percolator.isDetailWindowOpen = false;
+    $('#chart-popup').show().slideUp(500);
 }
 
 function renderSolutionForm() {
@@ -111,7 +143,7 @@ function zoomOut(){
 
 function zoomInComplete()
 {
-    showPopup();
+    showDetailWindow();
     Percolator.isZooming = false;
 }
 

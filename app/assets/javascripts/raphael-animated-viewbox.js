@@ -8,7 +8,7 @@ Raphael.fn.animateViewBox = function animateViewBox( x, y, w, h, duration, easin
         dw = w - cw,
         ch = this._viewBox ? this._viewBox[3] : this.height,
         dh = h - ch,
-        self = this;;
+        self = this;
     easing_function = easing_function || "linear";
 
     var interval = 25;

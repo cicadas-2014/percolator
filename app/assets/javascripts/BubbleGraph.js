@@ -56,8 +56,8 @@ BubbleGraph = {
     createKey: function() {
         var frame = this.raphael.rect(5, 30, 275, 180, 10).attr({"fill": "white", "stroke": "none"});
         var gradient = this.raphael.rect(10, 35, 20, 165).attr({"fill": "90-#f00:5-#0f0:95"});
-        var thumb_up = this.raphael.image("/images/thumbs-up.png", 40, 35, 30, 30);
-        var thumb_down = this.raphael.image("/images/thumbs-down.png", 35, 180, 30, 30);
+        var thumb_up = this.raphael.image("/images/thumbs-up.png", 35, 35, 30, 30);
+        var thumb_down = this.raphael.image("/images/thumbs-down.png", 30, 175, 30, 30);
         var text = this.raphael.text(160, 115, "The bubble in the center is the\ncentral problem, and the outer\nbubbles represent possible\nsolutions. The colored borders\nequate to the user feedback, and the\nsize of the solution bubbles represent\nthe total number of votes for that\nsolution. Click on a problem or\nsolution to view details and\nparticipate in the discussion.").attr({ "font-size": 14, "font-family": "Opificio"});
         BubbleGraph.keyContents.push(frame, gradient, thumb_up, thumb_down, text);
     },
@@ -67,7 +67,6 @@ BubbleGraph = {
         var maxRadians = 2 * Math.PI;
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
-        console.log("THE SOLUTION LIST IS THIS LONG" + solutions.length);
         for (var i = 0; i < solutions.length; i++) {
             var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.width / 2 + (Math.cos(radians) * radius);
