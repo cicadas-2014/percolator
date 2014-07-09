@@ -22,9 +22,9 @@ Percolator = {
             // other state changes are handled by ajax requests/adaptive parsing
 
             solutionNumber = $(target).attr("id");
-            console.log(solutionNumber)
-            if (!BubbleMenu.zoomCount)
-            if (solutionNumber)
+
+            // if (!BubbleMenu.zoomCount)
+            // if (solutionNumber)
                 $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
         }
         else {
