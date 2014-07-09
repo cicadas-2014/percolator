@@ -116,9 +116,21 @@ problems = [
 end
 
 problems.each do |problem|
-  Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
+  newProblem = Problem.create(title: problem[:title], description: problem[:description], user_id: problem[:user_id])
+  rand(50).times do
+    Vote.create(voteable_type: "problem", voteable_id: newProblem[:id], user_id: newProblem[:user_id], vote_type: true)
+  end
+  rand(50).times do
+    Vote.create(voteable_type: "problem", voteable_id: newProblem[:id], user_id: newProblem[:user_id], vote_type: false)
+  end
   problem[:solutions].each do |solution|
-    Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])
+    newSolution = Solution.create(title: solution[:title], description: solution[:description], problem_id: solution[:problem_id], user_id: solution[:user_id])
+    rand(50).times do
+      Vote.create(voteable_type: "solution", voteable_id: newSolution[:id], user_id: newSolution[:user_id], vote_type: true)
+    end
+    rand(50).times do
+      Vote.create(voteable_type: "solution", voteable_id: newSolution[:id], user_id: newSolution[:user_id], vote_type: false)
+    end
   end
 end
 
@@ -142,8 +154,6 @@ end
     type = "improvement"
     count = 50
   end
-
-  Vote.create(voteable_type: type, voteable_id: rand(count) + 1, user_id: rand(5) + 1, vote_type: true)
 end
 
 types.delete("user")

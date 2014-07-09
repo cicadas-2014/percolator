@@ -1,7 +1,7 @@
 <div class="frame">
     <div id="sign_in_form">
-        <h2>sign in</h2>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), namespace: 'sign_in') do |f| %>
+      <h2>sign in</h2>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), namespace: 'sign_in') do |f| %>
 	  <div><%= f.label :email %><br />
 	  <%= f.email_field :email %></div>
 	  <div><%= f.label :password %><br />

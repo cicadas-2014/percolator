@@ -4,7 +4,10 @@ function Solution(posX, posY, id, raphael) {
     this.id = id;
     this.data = $.parseJSON(window.data).solutions[id];
     this.raphael = raphael;
-    this.sprite = raphael.circle(posX, posY, 40).attr({fill: '#6DA2FF', stroke: "none"});
+    this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
+    this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
+    this.radius = 10 + (this.upvotes + this.downvotes)
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none"});
     this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();
@@ -15,6 +18,7 @@ Solution.prototype.createText = function () {
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
     var textSprite = this.textSprite;
 
+    //TODO
     console.log("LIKELY ERROR HERE")
     if (Percolator.currentState == "problem") {
         $('#render-solution-form').show();
@@ -23,10 +27,12 @@ Solution.prototype.createText = function () {
         $('#render-solution-form').hide();
         $("#improvement-button").show();
     }
+
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     if (text.length > 55) {
         text = text.substring(0, 45) + "...";
     };
+
     var words = text.split(" ");
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
@@ -48,7 +54,7 @@ Solution.prototype.animate = function (direction) {
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
-    this.textSprite.animate({opacity: opacity}, 300).toFront();
+    this.textSprite.animate({opacity: opacity}, 300);//.toFront();
 };
 
 Solution.prototype.addEventListeners = function () {

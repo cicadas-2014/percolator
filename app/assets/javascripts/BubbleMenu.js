@@ -29,7 +29,7 @@ BubbleMenu = {
         var period = this.width / (this.data.length + 1);
         for (var i = 0; i < this.data.length; i++) {
             var pos = (period * (i + 1));
-            var solution = new Solution(0, 0, this.data[i].id, this.raphael);
+            var solution = new Solution(0, 0, i, this.raphael);
             solution.sprite.attr({'cx': pos.toString()});
             solution.sprite.attr({'cy': this.height.toString()});
             this.solutions.push(solution);
@@ -37,43 +37,12 @@ BubbleMenu = {
     },
 
     animate: function () {
-        if (this.nodes) {
+        if (this.solutions) {
+            for (var i = 0; i < this.solutions.length; i++) {
+                this.solutions[i].animate();
+            }
+            this.animationTimeout = setTimeout(this.animate, 1000);
         }
-        for (var i = 0; i < this.nodes.length; i++) {
-            this.nodes[i].animate();
-        }
-        this.animationTimeout = setTimeout(this.animate, 1000);
-    },
-
-    appendAndReInit: function(newSolution) {
-        console.log("in the appendAndReInit")
-        console.log(newSolution)
-        console.log("in the appendAndReInit")
-        console.log("sandwiching window.data.add")
-        $($.parseJSON(window.data).solutions).add(newSolution);
-        console.log($.parseJSON(window.data).solutions)
-        console.log("sandwiching window.data.add")
-        console.log("--------------------")
-        console.log("sandwiching upvote")
-        upvote();
-        console.log("sandwiching upvote")
-        console.log("--------------------")
-        console.log("sandwiching downvote")
-        downvote();
-        console.log("sandwiching downvote")
-        console.log("--------------------")
-        console.log("sandwiching addEventListeners")
-        addEventListeners();
-        console.log("sandwiching addEventListeners")
-        console.log("--------------------")
-        console.log("sandwiching bubble init")
-        BubbleGraph.init();
-        console.log("sandwiching bubble init")
-        this.zoomToNewSolution();
-    },
-
-    zoomToNewSolution: function(solutionNumber) {
-
     }
 };
 

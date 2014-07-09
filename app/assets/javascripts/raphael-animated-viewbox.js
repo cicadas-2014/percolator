@@ -27,7 +27,6 @@ Raphael.fn.animateViewBox = function animateViewBox( x, y, w, h, duration, easin
         {
             clearInterval( intervalID );
             callback && callback();
-            console.log("MY WORK HERE IS DONE!");
         }
     }, interval );
 }
