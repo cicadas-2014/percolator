@@ -16,7 +16,13 @@ Percolator = {
             posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
             $("span.upvote").attr("id", "upvote");
             $("span.downvote").attr("id", "downvote");
-            solutionNumber = $(target).attr("id");
+
+            // Solution number is only needed once: to assign problem title to synopsis--
+            // other state changes are handled by ajax requests/adaptive parsing
+            if (!BubbleMenu.zoomCount) {
+                solutionNumber = $(target).attr("id");
+            }
+
             $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
         }
         else {
@@ -67,7 +73,7 @@ function showPopup() {
 }
 
 function hideChartPopupElements() {
-    $('#chart-popup').show().slideUp(500);
+        $('#chart-popup').show().slideUp(500);
 }
 
 function renderSolutionForm() {
@@ -77,28 +83,6 @@ function renderSolutionForm() {
     $("#new_solution").show();
 }
 
-function zoomIn(target) {
-    var posX;
-    var posY;
-    if (target) {
-        posX = target.attributes[0].value - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
-        posY = target.attributes[1].value - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
-        $("span.upvote").attr("id", "upvote");
-        $("span.downvote").attr("id", "downvote");
-        solutionNumber = $(target).attr("id");
-    }
-    else {
-        posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
-        posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
-        $("span.upvote").attr("id", "problem_upvote");
-        $("span.downvote").attr("id", "problem_downvote");
-    }
-    isZooming = true;
-
-    BubbleGraph.zoomIn(posX, posY, zoomInComplete);
-    BubbleGraph.hideSolutions();
-}
-// GTG
 function improvements(solutionNumber) {
 
     $('#improvement-form').show();
@@ -115,9 +99,7 @@ function improvements(solutionNumber) {
             data: args
         });
         $('#improvement-form').hide();
-
     });
-
 }
 
 
@@ -203,9 +185,7 @@ $(document).on("ajax:complete", function(event, xhr){
         var parsedText = $.parseJSON(xhr.responseText)
         console.log(parsedText)
         if (parsedText.saved === true) {
-            console.log("12345678")
             Comments.showCommentMessage(true)
-
             $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {

@@ -1,14 +1,20 @@
 function Solution(posX, posY, id, raphael) {
+    if (typeof id === "number") {
+        this.id = id;
+    } else {
+        var numId = id.replace(/_/g, '')
+        this.id = numId
+        this.lifeSaver = id
+    }
     this.posX = posX;
     this.posY = posY;
-    this.id = id;
     this.data = $.parseJSON(window.data).solutions[id];
     this.raphael = raphael;
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
     this.radius = 10 + (this.upvotes + this.downvotes)
     this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none'});
-    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none"});
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER"});
     this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();
@@ -20,8 +26,6 @@ Solution.prototype.createText = function () {
     this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
     var textSprite = this.textSprite;
 
-    //TODO
-    console.log("LIKELY ERROR HERE")
     if (Percolator.currentState == "problem"){
         $('#render-solution-form').show();
         $("#improvement-button").hide();
@@ -51,7 +55,7 @@ Solution.prototype.createText = function () {
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
-Solution.prototype.animate = function (direction) {
+Solution.prototype.animate = function (direction) { // only called during the initial wave of creates
     var scale = direction == "in" ? "s1.3" : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
@@ -61,13 +65,25 @@ Solution.prototype.animate = function (direction) {
 };
 
 Solution.prototype.addEventListeners = function () {
-    var target = $('#' + this.id)
+    var saveLifer = this.lifeSaver
+    var delegate = this
+
+    if (saveLifer) {
+        var target = $("#" + this.lifeSaver)
+    } else {
+        var target = $('#' + this.id)
+    }
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
-                Percolator.solutionNumber = this.id;
-                Percolator.zoomIn(this);
+                if (saveLifer) {
+                    Percolator.zoomIn($("#" + saveLifer)[0])
+                } else {
+                    Percolator.zoomIn(this)
+                }
+                // This needs to be made dynamic to allow for parsing of improvements from server side
                 Percolator.currentState = "solution";
+                // This needs to be made dynamic to allow for parsing of improvements from server side
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("solutions", solutionNumber)
                 } else {
@@ -77,12 +93,22 @@ Solution.prototype.addEventListeners = function () {
         },
         mouseenter: function () {
             if (!Percolator.isZooming) {
-                BubbleGraph.solutions[this.id].animate("in")
+                if (!saveLifer) {
+                    BubbleGraph.solutions[this.id].animate("in")
+                } else {
+                    var parsedId = delegate.idParser(delegate.id)
+                    BubbleMenu.solutions[parsedId].animate("in")
+                }
             }
         },
         mouseleave: function () {
             if (!Percolator.isZooming) {
-                BubbleGraph.solutions[this.id].animate("out")
+                if (!saveLifer) {
+                    BubbleGraph.solutions[this.id].animate("out")
+                } else {
+                    var parsedId = delegate.idParser(delegate.id)
+                    BubbleMenu.solutions[parsedId].animate("out")
+                }
             }
         }
     });
@@ -104,3 +130,9 @@ Solution.prototype.createVoteFrame = function() {
        + "0123456789ABCDEF".charAt(n%16);
    }
 };
+
+Solution.prototype.idParser = function(id) {
+    var stringId = id.replace(/_/g, '')
+    var numId = parseInt(stringId, "10")
+    return numId
+}
