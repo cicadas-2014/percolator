@@ -4,6 +4,7 @@ Percolator = {
 
     isZooming: false,
     solutionNumber: undefined,
+    stage2SolutionNumber: undefined,
     currentState: undefined,
     isDetailWindowOpen: false,
 
@@ -20,11 +21,10 @@ Percolator = {
 
             // Solution number is only needed once: to assign problem title to synopsis--
             // other state changes are handled by ajax requests/adaptive parsing
-
             solutionNumber = $(target).attr("id");
             console.log(solutionNumber)
             if (!BubbleMenu.zoomCount)
-            if (solutionNumber)
+            if (solutionNumber) // missing left { but still works
                 $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
         }
         else {

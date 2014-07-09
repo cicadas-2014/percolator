@@ -2,6 +2,7 @@
 
 * {
   box-sizing: border-box;
+  // overflow: hidden;
 }
 
 @font-face {
@@ -310,18 +311,9 @@ h2, h3, h4, h5 {
     text-align: center;
     font-family: Opificio;
     background-color: $frame-input-background;
-    max-width: 300px;
     border-radius: 10px;
     border: 0px;
-    margin-top: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 30px;
-    text-align: center;
-    font-family: Opificio;
-    max-width: 300px;
-    border-radius: 10px;
-    border: 0px;
+    max-width: 17%;
   }
 }
 
@@ -371,18 +363,35 @@ h2, h3, h4, h5 {
 
 .comment-form {
   max-width: 80%;
+  height: 50%;
+  overflow-y: scroll;
   ._comment_{
     width: 70%;
     font-size: 0.5em;
   }
   textarea {
-    width: 1000px
+    width: 72%;
+    height: 10%;
+    font-size: 1em;
   }
   .comment-user {
     font-size: 1.5em;
     color: #6da2ff;
-    // font: ;
   }
+}
+
+#parent {
+  overflow: hidden;
+}
+
+.right {
+  float: right;
+  padding-right: 21%;
+}
+
+.left {
+  overflow: hidden;
+  width: 72%;
 }
 /*
 #footer {
