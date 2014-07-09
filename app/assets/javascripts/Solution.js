@@ -6,7 +6,7 @@ function Solution(posX, posY, id, raphael) {
     this.raphael = raphael;
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
-    this.radius = 10 + (this.upvotes + this.downvotes);
+    this.radius = 10 + (this.upvotes + this.downvotes)/2;
     this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none'});
     this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER"});
     this.sprite.node.id = id;
@@ -41,7 +41,7 @@ Solution.prototype.createText = function () {
 };
 
 Solution.prototype.animate = function (direction) { // only called during the initial wave of creates
-    var scale = direction == "in" ? "s1.3" : "s1.0";
+    var scale = direction == "in" ? "s1.7" : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
