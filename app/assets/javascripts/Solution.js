@@ -17,7 +17,6 @@ function Solution(posX, posY, id, raphael) {
 }
 
 Solution.prototype.createText = function () {
-
     this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
 
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";

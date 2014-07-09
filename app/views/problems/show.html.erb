@@ -9,22 +9,25 @@
     <div id="problem-container" class="hidden">
 
         <h3>Synopsis</h3>
-        <div id="synopsis"></div>
+        <div id="parent">
+            <div class="right">
+                <span class="upvote vote" id="upvote">
+                    <image src="<%= image_path "thumbs-up.png" %>"/>
+                </span>
+                <span id="count"></span>
+                <span class="downvote vote" id="downvote">
+                    <image src="<%= image_path "thumbs-down.png" %>"/><br>
+                </span>
+            </div>
+        <div id="synopsis" class="left">
+        </div>
+        </div>
         <button type="button" id="back">BACK</button>
         <button type="button" id="render-solution-form">Submit Solution</button>
         <button type="button" id="improvement-button">Improve</button>
         <div>
-            <span class="upvote" id="upvote">
-                <image src="<%= image_path "thumbs-up.png" %>"/>
-            </span>
-            <span id="count"></span>
-            <span class="downvote" id="downvote">
-                <image src="<%= image_path "thumbs-down.png" %>"/><br>
-            </span>
         </div>
-
     </div>
-
     <div id="disqus_thread"></div>
 </div>
 
