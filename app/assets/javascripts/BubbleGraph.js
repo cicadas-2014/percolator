@@ -67,7 +67,6 @@ BubbleGraph = {
         var maxRadians = 2 * Math.PI;
         var solutions = $.parseJSON(window.data).solutions
         var step = (2 * Math.PI) / solutions.length;
-        console.log("THE SOLUTION LIST IS THIS LONG" + solutions.length);
         for (var i = 0; i < solutions.length; i++) {
             var radius = this.RADIUS + (50 * (i % 2));
             var posX = this.width / 2 + (Math.cos(radians) * radius);
