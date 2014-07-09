@@ -19,11 +19,7 @@ BubbleMenu = {
 
         if (BubbleMenu.raphael) {
             this.solutions = [];
-            console.log("A raphael object exists")
-            console.log(this.raphael)
             BubbleMenu.raphael.remove();
-            console.log(this.raphael)
-            console.log("A raphael object exists")
             clearTimeout(this.animationTimeout);
         }
         this.data = $.parseJSON(window.data).solutions;
@@ -41,7 +37,6 @@ BubbleMenu = {
         for (var i = 0; i < this.data.length; i++) {
             var pos = (period * (i + 1));
             var uniqueIdGenerator = this.lifeSavingString.repeat(this.zoomCount) + i
-            console.log("ABOUT TO CREATE A NEW SOLUTION")
 
             var solution = new Solution(0, 0, uniqueIdGenerator, this.raphael);
             solution.addEventListeners()
