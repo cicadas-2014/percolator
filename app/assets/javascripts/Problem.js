@@ -36,6 +36,13 @@ Problem.prototype.animate = function (direction) {
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300).toFront();
+    if (Percolator.currentState == "solution"){
+        $('#render-solution-form').show();
+        $("#improvement-button").hide();
+    } else {
+        $('#render-solution-form').hide();
+        $("#improvement-button").show();
+    };
 };
 
 Problem.prototype.addEventListeners = function () {
