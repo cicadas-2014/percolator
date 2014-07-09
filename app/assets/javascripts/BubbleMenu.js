@@ -38,10 +38,8 @@ BubbleMenu = {
             var pos = (period * (i + 1));
             var uniqueIdGenerator = this.lifeSavingString.repeat(this.zoomCount) + i
 
-            var solution = new Solution(0, 0, uniqueIdGenerator, this.raphael);
+            var solution = new Solution(pos, this.height / 2, uniqueIdGenerator, this.raphael);
             solution.addEventListeners()
-            solution.sprite.attr({'cx': pos.toString()});
-            solution.sprite.attr({'cy': (this.height / 2).toString()});
             this.solutions.push(solution);
         }
     },
