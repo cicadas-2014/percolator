@@ -4,7 +4,10 @@ function Solution(posX, posY, id, raphael) {
     this.id = id;
     this.data = $.parseJSON(window.data).solutions[id];
     this.raphael = raphael;
-    this.sprite = raphael.circle(posX, posY, 40).attr({fill: '#6DA2FF', stroke: "none"});
+    this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
+    this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
+    this.radius = 10 + (this.upvotes + this.downvotes)
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none"});
     this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();
@@ -14,8 +17,7 @@ Solution.prototype.createText = function () {
 
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
     var textSprite = this.textSprite;
-
-    var text = $.parseJSON(window.data).solutions[1].title || "Failure";
+    var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     if (text.length > 55) {
         text = text.substring(0, 45) + "...";
     };

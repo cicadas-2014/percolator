@@ -29,7 +29,7 @@ BubbleMenu = {
         var period = this.width / (this.data.length + 1);
         for (var i = 0; i < this.data.length; i++) {
             var pos = (period * (i + 1));
-            var solution = new Solution(0, 0, this.data[i].id, this.raphael);
+            var solution = new Solution(0, 0, i, this.raphael);
             solution.sprite.attr({'cx': pos.toString()});
             solution.sprite.attr({'cy': this.height.toString()});
             this.solutions.push(solution);
