@@ -41,7 +41,8 @@ Solution.prototype.createText = function () {
 };
 
 Solution.prototype.animate = function (direction) { // only called during the initial wave of creates
-    var scale = direction == "in" ? "s1.3" : "s1.0";
+    var targetScale = 200/(this.sprite.attrs.r*2)
+    var scale = direction == "in" ? "s"+targetScale : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);

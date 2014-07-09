@@ -7,7 +7,9 @@
         <% @problems.each do |problem| %>
             <div class="problem-container" onclick="location.href='<%=problem_path(problem)%>';" style="cursor: pointer;">
                 <div class="problem"><%= problem.title %></div>
-                <div class="bubble-button">go</div>
+                <div class="bubble-button-container">
+                    <div class="bubble-button">go</div>
+                </div>
             </div>
         <% end %>
         </div>
