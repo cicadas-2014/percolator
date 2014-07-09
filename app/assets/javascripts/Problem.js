@@ -2,11 +2,13 @@ function Problem(posX, posY, raphael) {
     this.raphael = raphael;
     this.posX = posX;
     this.posY = posY;
-    this.sprite = raphael.circle(posX, posY, 125).attr({fill: '#37517F', stroke: "none"});
+    this.radius = 125;
+    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .05)).attr({fill: this.createVoteFrame(), stroke: 'none'});
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#37517F', stroke: "none"});
     this.sprite.node.id = 'problem';
     this.textSprite = undefined;
     this.createText();
-
+    this.frameColor = this.createVoteFrame();
 }
 
 Problem.prototype.createText = function () {
@@ -36,6 +38,7 @@ Problem.prototype.animate = function (direction) {
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300).toFront();
+    this.frameSprite.animate({transform: scale}, 400);
     if (Percolator.currentState == "problem"){
         $('#render-solution-form').show();
         $("#improvement-button").hide();
@@ -71,7 +74,30 @@ Problem.prototype.addEventListeners = function () {
             }
         }
     });
-}
+};
+
+Problem.prototype.createVoteFrame = function() {
+    var upvoteRatio = this.upvotes / (this.upvotes + this.downvotes)
+    var downvoteRatio = this.downvotes / (this.upvotes + this.downvotes)
+    if (upvoteRatio > downvoteRatio) {
+        var r = 255*downvoteRatio;
+        var g = 255;
+        var b = 0;
+    } else {
+        var r = 255;
+        var g = 255*upvoteRatio;
+        var b = 0;
+    };
+    return rgbToHex(r,g,b);
+    function rgbToHex(r,g,b) {return "#"+toHex(r)+toHex(g)+toHex(b)}
+    function toHex(n) {
+       n = parseInt(n,10);
+       if (isNaN(n)) return "00";
+       n = Math.max(0,Math.min(n,255));
+       return "0123456789ABCDEF".charAt((n-n%16)/16)
+       + "0123456789ABCDEF".charAt(n%16);
+   }
+};
 
 // Problem.prototype.createVoteFrame = function() {
 //     var upvoteRatio = $.parseJSON(window.data).upvotes / ($.parseJSON(window.data).upvotes + $.parseJSON(window.data).downvotes)
