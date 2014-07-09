@@ -267,7 +267,6 @@ h2, h3, h4, h5 {
   font-family: Opificio;
   font-size: 24px;
   max-width: 640px;
-  min-height: 400px;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 40px;
@@ -320,6 +319,10 @@ h2, h3, h4, h5 {
 #too_many_chars {
   text-align: center;
   color: red;
+}
+
+.comment_form {
+  float: right;
 }
 /*
 #footer {
