@@ -117,9 +117,15 @@ Solution.prototype.addEventListeners = function () {
 Solution.prototype.createVoteFrame = function() {
     var upvoteRatio = this.upvotes / (this.upvotes + this.downvotes)
     var downvoteRatio = this.downvotes / (this.upvotes + this.downvotes)
-    var r = 255*downvoteRatio;
-    var g = 255*upvoteRatio;
-    var b = 0;
+    if (upvoteRatio > downvoteRatio) {
+        var r = 255*downvoteRatio;
+        var g = 255;
+        var b = 0;
+    } else {
+        var r = 255;
+        var g = 255*upvoteRatio;
+        var b = 0;
+    };
     return rgbToHex(r,g,b);
     function rgbToHex(r,g,b) {return "#"+toHex(r)+toHex(g)+toHex(b)}
     function toHex(n) {

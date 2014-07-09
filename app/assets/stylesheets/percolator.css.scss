@@ -2,7 +2,6 @@
 
 * {
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 @font-face {
@@ -181,8 +180,16 @@ h2, h3, h4, h5 {
   }
 }
 
+#welcome_message {
+  padding-top: 30px;
+  text-align:right;
+  font-size: 14px;
+  float: right;
+}
+
 #user_logout {
   font-size: 14px;
+  text-align: right;
   float: right;
 }
 
