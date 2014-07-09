@@ -7,6 +7,7 @@ function Solution(posX, posY, id, raphael) {
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
     this.radius = 10 + (this.upvotes + this.downvotes)
+    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none'});
     this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none"});
     this.sprite.node.id = id;
     this.textSprite = undefined;
@@ -16,18 +17,18 @@ function Solution(posX, posY, id, raphael) {
 
 Solution.prototype.createText = function () {
 
-    this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 0});
+    this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
     var textSprite = this.textSprite;
 
     //TODO
     console.log("LIKELY ERROR HERE")
-    if (Percolator.currentState == "problem") {
+    if (Percolator.currentState == "problem"){
         $('#render-solution-form').show();
         $("#improvement-button").hide();
-    } else if (Percolator.currentState == "solution") {
+    } else {
         $('#render-solution-form').hide();
         $("#improvement-button").show();
-    }
+    };
 
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
     if (text.length > 55) {
@@ -38,7 +39,7 @@ Solution.prototype.createText = function () {
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
         textSprite.attr("text", tempText + " " + words[i]);
-        if (textSprite.getBBox().width > 60) {
+        if (textSprite.getBBox().width > (1.3*this.radius)) {
             tempText += "\n" + words[i];
         } else {
             tempText += " " + words[i];
@@ -46,7 +47,7 @@ Solution.prototype.createText = function () {
     }
 
     textSprite.attr("text", tempText);
-    textSprite.attr({ "font-size": 10, "font-family": "Opificio", "fill": "#FFFFFF"});
+    textSprite.attr({ "font-size": ((this.radius * .15)+3), "font-family": "Opificio", "fill": "#FFFFFF"});
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
@@ -56,7 +57,7 @@ Solution.prototype.animate = function (direction) {
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
     this.textSprite.animate({opacity: opacity}, 300);//.toFront();
-    // this.sprite.animate({fill: this.frameColor}, 400);
+    this.frameSprite.animate({transform: scale}, 400);
 };
 
 Solution.prototype.addEventListeners = function () {

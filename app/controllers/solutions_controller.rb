@@ -16,7 +16,7 @@ class SolutionsController < ApplicationController
                     }
     else
       render json: { title: @solution.title,
-                      description: @solution.description,
+                       description: @solution.description,
                       save_status: false
                     }
     end

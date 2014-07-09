@@ -7,7 +7,7 @@ Comments = {
     },
 
     formHTML: function(type, typeId){
-        var form = '<form accept-charset="UTF-8" class="comment_form" action="/' + type + '/comments/' + typeId +
+        var form = '<form accept-charset="UTF-8" class="frame comment_form" action="/' + type + '/comments/' + typeId +
         '/create" data-remote="true" id="new_comment_' + type + '" method="post">' +
         '<div style="display:none"><input name="utf8" type="hidden" value="✓"></div>' +
         '<label for="comment_description">Comment: </label><br> <textarea id="comment_description"' +
