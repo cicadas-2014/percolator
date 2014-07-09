@@ -1,4 +1,3 @@
-
 BubbleGraph = {
 
     ZOOM_MAX: 0.1,
@@ -9,6 +8,8 @@ BubbleGraph = {
     CONNECTION_COLOR: '#666',
     solutions: [],
     lines: [],
+    keyContents: [],
+    toggle: true,
 
     init: function () {
         if(this.raphael)
@@ -24,6 +25,7 @@ BubbleGraph = {
 
         this.createSolutions();
         this.createProblem();
+        this.createKeyIcon();
     },
 
     createProblem: function () {
@@ -31,6 +33,34 @@ BubbleGraph = {
         this.problem.addEventListeners();
     },
 
+    createKeyIcon: function() {
+        var icon = this.raphael.image("/images/question-mark.png", 5, 0, 30, 30);
+        icon.click(function(){
+            console.log(BubbleGraph.toggle);
+            BubbleGraph.toggleKey();
+        })
+    },
+
+    toggleKey: function () {
+        if (!BubbleGraph.toggle){
+            BubbleGraph.toggle = true;
+            for (var i=0; i < BubbleGraph.keyContents.length; i++){
+                BubbleGraph.keyContents[i].remove();
+            }
+        } else {
+            BubbleGraph.toggle = false;
+            BubbleGraph.createKey();
+        }
+    },
+
+    createKey: function() {
+        var frame = this.raphael.rect(5, 30, 275, 180, 10).attr({"fill": "white", "stroke": "none"});
+        var gradient = this.raphael.rect(10, 35, 20, 165).attr({"fill": "90-#f00:5-#0f0:95"});
+        var thumb_up = this.raphael.image("/images/thumbs-up.png", 40, 35, 30, 30);
+        var thumb_down = this.raphael.image("/images/thumbs-down.png", 35, 180, 30, 30);
+        var text = this.raphael.text(160, 115, "The bubble in the center is the\ncentral problem, and the outer\nbubbles represent possible\nsolutions. The colored borders\nequate to the user feedback, and the\nsize of the solution bubbles represent\nthe total number of votes for that\nsolution. Click on a problem or\nsolution to view details and\nparticipate in the discussion.").attr({ "font-size": 14, "font-family": "Opificio"});
+        BubbleGraph.keyContents.push(frame, gradient, thumb_up, thumb_down, text);
+    },
 
     createSolutions: function () {
         var radians = 0;
