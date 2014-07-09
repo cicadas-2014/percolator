@@ -195,9 +195,12 @@ $(document).on("ajax:complete", function(event, xhr){
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
+        console.log(parsedText)
         if (parsedText.saved === true) {
+            console.log("12345678")
             Comments.showCommentMessage(true)
-            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.commentable_id,
+
+            $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {
             Comments.showCommentMessage(false)

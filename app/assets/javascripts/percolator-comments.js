@@ -49,7 +49,7 @@ Comments = {
             for(i = 0; i < response[commentCategory].length; i++) {
                 var username = response[commentCategory][i].username
                 var type = response[commentCategory][i].description
-                comments.push(Comments.commentHTML(type, commentCategory, username))
+                comments.push(Comments.commentHTML(commentCategory, type, username))
             }
         $(".comment-form").append(comments)
         })
