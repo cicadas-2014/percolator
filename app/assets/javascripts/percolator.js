@@ -22,7 +22,9 @@ Percolator = {
             // Solution number is only needed once: to assign problem title to synopsis--
             // other state changes are handled by ajax requests/adaptive parsing
             solutionNumber = $(target).attr("id");
-            if (solutionNumber) {
+            console.log(solutionNumber)
+            if (!BubbleMenu.zoomCount)
+            if (solutionNumber) // missing left { but still works
                 $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
         }
         else {
@@ -153,36 +155,123 @@ function zoomOutComplete()
 }
 
 function upvote() {
-    $("#upvote").on("click",function(e){
-        var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+
+    $("#upvote").on("click",function(){
+
+
+
+        if (Percolator.currentState === 'solution'){
+
+
+
+            var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+
+
+
+            url = "/solution_upvote";
+
+
+
+            dart =  {id: solutionId}
+
+
+
+        } else if(Percolator.currentState === 'problem'){
+
+            url = "/problem_upvote"
+
+            dart = {id: document.URL.substring(document.URL.lastIndexOf('/') + 1)}
+
+
+
+        }
+
         $.ajax({
+
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            url: "/solution_upvote",
+
+            url: url,
+
             type: "POST",
-            data: {solution_number: solutionId}
+
+            data: dart
+
+
+
         }).done(function(r){
-            var response = $.parseJSON(r);
-            count = response[0] - response[1];
-            $("#count").html(""+count+"");
+
+            r = $.parseJSON(r)
+
+            $("#count").html(""+r[0]+"  "+r[1]);
+
+
+
         });
+
     });
+
 }
 
+
+
+
+
 function downvote() {
+
     $("#downvote").on("click",function(){
-        var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+
+        console.log(solutionNumber)
+
+        if (Percolator.currentState === 'solution'){
+
+
+
+            var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+
+
+
+            url = "/solution_downvote";
+
+
+
+            dart =  {id: solutionId}
+
+
+        } else if(Percolator.currentState === 'problem'){
+
+            url = "/problem_downvote"
+
+            dart = {id: document.URL.substring(document.URL.lastIndexOf('/') + 1)}
+
+
+
+        }
+            console.log(dart.id)
+
         $.ajax({
+
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            url: "/solution_downvote",
+
+            url: url,
+
             type: "POST",
-            data: {solution_number: solutionId}
+
+            data: dart
+
+
+
         }).done(function(r){
-            var response1 = $.parseJSON(r);
-            var count = response1[0] - response1[1];
-            $("#count").html(""+count+"");
+
+           r = $.parseJSON(r)
+
+            $("#count").html(""+r[0]+"   "+r[1]);
+
+
 
         });
+
     });
+
 }
 
 $(document).ready(function () {
