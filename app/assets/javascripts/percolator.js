@@ -4,6 +4,8 @@ Percolator = {
 
     isZooming: false,
     solutionNumber: undefined,
+    currentState: undefined,
+
 
     zoomIn: function (target) {
 
@@ -50,7 +52,11 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
+<<<<<<< HEAD
      $('#improvement-button').on('click',function () {
+=======
+    $('#improvement-form').unbind('click').click(function () {
+>>>>>>> 22295e9a2f53e2516e809ff9575807844d514c16
         console.log("getting there");
         improvements(solutionNumber);
     });
@@ -91,11 +97,13 @@ function zoomIn(target) {
         $("span.downvote").attr("id", "problem_downvote");
     }
     isZooming = true;
+
     BubbleGraph.zoomIn(posX, posY, zoomInComplete);
     BubbleGraph.hideSolutions();
 }
 // GTG
 function improvements(solutionNumber) {
+<<<<<<< HEAD
         $('#improvement-form').show();
 
         id = $.parseJSON(window.data).solutions[solutionNumber].id;
@@ -110,8 +118,24 @@ function improvements(solutionNumber) {
                 data: args
             });
             $('#improvement-form').hide();
+=======
+    console.log("oobama1")
+    $('#improvement-form').show();
+>>>>>>> 22295e9a2f53e2516e809ff9575807844d514c16
 
+    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    $('.Improve').on("click",function(e){
+        e.preventDefault();
+        var args = {};
+        args.title = $("#improvement_title").val();
+        args.description = $("#improvement_description").val();
+        $.ajax({
+            type: "post",
+            url: "/solutions/"+id+"/improvements/create",
+            data: args
         });
+
+    });
 
 
 }
@@ -181,13 +205,13 @@ $(document).ready(function () {
     }
     $('.problem_title').keypress(function(){
 
-    if(this.value.length > 87){
-        return false;
-    }
-    if(this.value.length === 87){
-        $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
-    };
-});
+        if(this.value.length > 87){
+            return false;
+        }
+        if(this.value.length === 87){
+            $("#too_many_chars").html("Max characters for title: 88").css({"margin-left": "auto", "margin-right": "auto", "color": "red"});
+        };
+    });
 });
 
 $(document).on("ajax:complete", function(event, xhr){

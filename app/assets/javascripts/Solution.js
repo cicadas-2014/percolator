@@ -16,12 +16,22 @@ Solution.prototype.createText = function () {
     var textSprite = this.textSprite;
 
     console.log("LIKELY ERROR HERE")
+    if (Percolator.currentState == "problem") {
+        $('#render-solution-form').show();
+        $("#improvement-button").hide();
+    } else if (Percolator.currentState == "solution") {
+        $('#render-solution-form').hide();
+        $("#improvement-button").show();
+    }
     var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
+    if (text.length > 55) {
+        text = text.substring(0, 45) + "...";
+    };
     var words = text.split(" ");
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
         textSprite.attr("text", tempText + " " + words[i]);
-        if (textSprite.getBBox().width > 50) {
+        if (textSprite.getBBox().width > 60) {
             tempText += "\n" + words[i];
         } else {
             tempText += " " + words[i];
@@ -29,7 +39,7 @@ Solution.prototype.createText = function () {
     }
 
     textSprite.attr("text", tempText);
-    textSprite.attr({ "font-size": 14, "font-family": "Opificio", "fill": "#FFFFFF"});
+    textSprite.attr({ "font-size": 10, "font-family": "Opificio", "fill": "#FFFFFF"});
     textSprite.node.setAttribute("pointer-events", "none");
 };
 
@@ -48,6 +58,7 @@ Solution.prototype.addEventListeners = function () {
             if (!Percolator.isZooming) {
                 Percolator.solutionNumber = this.id;
                 Percolator.zoomIn(this);
+                Percolator.currentState = "solution";
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("solutions", solutionNumber)
                 } else {
