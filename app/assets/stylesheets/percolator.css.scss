@@ -330,8 +330,49 @@ h2, h3, h4, h5 {
   color: red;
 }
 
-.comment_form {
-  float: right;
+// .comment_form {
+//   float: right;
+// }
+
+._comment {
+  border-top:10px solid transparent;
+  border-bottom:10px solid transparent;
+  border-right: 12px solid #FFF;
+  position:absolute;
+  left:-10px;
+  top:12px;
+}
+
+.bubble {
+  margin-top: 20px;
+}
+
+.bubble-content {
+  position:relative;
+  float:left;
+  margin-left:12px;
+  margin-top: 12px;
+  width: 75%;
+  padding:0px 20px;
+  border-radius:10px;
+  background-color:#FFFFFF;
+  box-shadow:1px 1px 5px rgba(0,0,0,.2);
+}
+
+.comment-form {
+  max-width: 80%;
+  ._comment_{
+    width: 70%;
+    font-size: 0.5em;
+  }
+  textarea {
+    width: 1000px
+  }
+  .comment-user {
+    font-size: 1.5em;
+    color: #6da2ff;
+    // font: ;
+  }
 }
 /*
 #footer {

@@ -41,7 +41,7 @@ BubbleMenu = {
             var solution = new Solution(0, 0, uniqueIdGenerator, this.raphael);
             solution.addEventListeners()
             solution.sprite.attr({'cx': pos.toString()});
-            solution.sprite.attr({'cy': this.height.toString()});
+            solution.sprite.attr({'cy': (this.height / 2).toString()});
             this.solutions.push(solution);
         }
     },
