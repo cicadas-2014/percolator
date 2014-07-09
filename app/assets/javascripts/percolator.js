@@ -52,11 +52,8 @@ function addEventListeners() {
         $(this.solution_description).val("");
         $(this).hide();
     });
-<<<<<<< HEAD
-     $('#improvement-button').on('click',function () {
-=======
-    $('#improvement-form').unbind('click').click(function () {
->>>>>>> 22295e9a2f53e2516e809ff9575807844d514c16
+    $('#improvement-button').on('click',function () {
+
         console.log("getting there");
         improvements(solutionNumber);
     });
@@ -103,25 +100,8 @@ function zoomIn(target) {
 }
 // GTG
 function improvements(solutionNumber) {
-<<<<<<< HEAD
-        $('#improvement-form').show();
 
-        id = $.parseJSON(window.data).solutions[solutionNumber].id;
-        $('.Improve').on("click",function(e){
-            e.preventDefault();
-            var args = {};
-            args.title = $("#improvement_title").val();
-            args.description = $("#improvement_description").val();
-            $.ajax({
-                type: "post",
-                url: "/solutions/"+id+"/improvements/create",
-                data: args
-            });
-            $('#improvement-form').hide();
-=======
-    console.log("oobama1")
     $('#improvement-form').show();
->>>>>>> 22295e9a2f53e2516e809ff9575807844d514c16
 
     id = $.parseJSON(window.data).solutions[solutionNumber].id;
     $('.Improve').on("click",function(e){
@@ -134,14 +114,15 @@ function improvements(solutionNumber) {
             url: "/solutions/"+id+"/improvements/create",
             data: args
         });
+        $('#improvement-form').hide();
 
     });
-
 
 }
 
 
-function zoomOut() {
+
+function zoomOut(){
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
     BubbleGraph.showSolutions();
     Percolator.isZooming = true;
