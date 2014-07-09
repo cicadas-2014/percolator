@@ -17,12 +17,14 @@ Percolator = {
             $("span.upvote").attr("id", "upvote");
             $("span.downvote").attr("id", "downvote");
             solutionNumber = $(target).attr("id");
+            $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
         }
         else {
             posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
             posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
+            $("#synopsis").html($.parseJSON(window.data).description)
         }
         Percolator.isZooming.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
@@ -139,11 +141,12 @@ function zoomOutComplete()
 
 function upvote() {
     $("#upvote").on("click",function(e){
+        var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
             url: "/solution_upvote",
             type: "POST",
-            data: {solution_number: solutionNumber.toString()}
+            data: {solution_number: solutionId}
         }).done(function(r){
             var response = $.parseJSON(r);
             count = response[0] - response[1];
@@ -154,11 +157,12 @@ function upvote() {
 
 function downvote() {
     $("#downvote").on("click",function(){
+        var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
         $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
             url: "/solution_downvote",
             type: "POST",
-            data: {solution_number: solutionNumber.toString()}
+            data: {solution_number: solutionId}
         }).done(function(r){
             var response1 = $.parseJSON(r);
             var count = response1[0] - response1[1];
