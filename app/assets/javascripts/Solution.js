@@ -1,5 +1,6 @@
 function Solution(posX, posY, id, raphael) {
     this.parseID(id);
+    this.targetWidth = 200;
     this.posX = posX;
     this.posY = posY;
     this.data = $.parseJSON(window.data).solutions[id];
@@ -41,7 +42,9 @@ Solution.prototype.createText = function () {
 };
 
 Solution.prototype.animate = function (direction) { // only called during the initial wave of creates
-    var scale = direction == "in" ? "s1.7" : "s1.0";
+    var targetScale = "s"+(this.targetWidth / (this.radius*2.5)).toString();
+    console.log(targetScale);
+    var scale = direction == "in" ? targetScale : "s1.0";
     var opacity = direction == "in" ? 1 : 0;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
