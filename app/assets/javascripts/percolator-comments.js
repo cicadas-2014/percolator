@@ -2,12 +2,12 @@ Comments = {
     comments: [],
 
     divHTML: function(){
-        var div = '<div class="comment-form" id="used_and_abused"></div>'
+        var div = '<div class="comment-form bubble frame" id="used_and_abused"></div>'
         return div
     },
 
     formHTML: function(type, typeId){
-        var form = '<form accept-charset="UTF-8" class="frame comment_form" action="/' + type + '/comments/' + typeId +
+        var form = '<form accept-charset="UTF-8" class="comment_form" action="/' + type + '/comments/' + typeId +
         '/create" data-remote="true" id="new_comment_' + type + '" method="post">' +
         '<div style="display:none"><input name="utf8" type="hidden" value="✓"></div>' +
         '<label for="comment_description">Comment: </label><br> <textarea id="comment_description"' +
@@ -18,7 +18,8 @@ Comments = {
 
     commentHTML: function(type, description, user){
         // took out commentId---wasn't sure if it was necessary
-        var comment = '<div class="' + type + '-comment _comment_">' +
+        var comment =   '<div class="point"></div>' +
+                        '<div class="' + type + '-comment _comment_ bubble-content">' +
                         '<div class="comment-description">' + description + '</div>' +
                         '<div class="comment-user">' + user + '</div>'
         return comment
@@ -63,26 +64,3 @@ Comments = {
         }
     }
 }
-
-$(document).ready(function(){
-    // $('#footer').on("click", function() {
-    //     console.log(this)
-    //   if ($(this).height() > 40) {
-
-    //     $(this).animate({
-    //       height: "40px"
-    //     }, 600, 'swing', function() {
-    //       $(this).html("Click me!");
-    //     });
-
-    //   } else {
-
-    //     $(this).animate({
-    //       height: "450px"
-    //     }, 600, 'swing', function() {
-    //       $(this).html("Click me again!");
-    //     });
-
-    //   }
-    // });
-})
