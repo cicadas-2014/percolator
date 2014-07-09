@@ -23,6 +23,9 @@ Percolator = {
                 solutionNumber = $(target).attr("id");
             }
 
+            if (solutionNumber) {
+                console.log("hello")
+            }
             $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description)
         }
         else {
