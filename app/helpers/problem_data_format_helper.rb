@@ -27,7 +27,9 @@ module ProblemDataFormatHelper
         id: problem.id,
         title: problem.title,
         description: problem.description,
-        solutions: solutions
+        solutions: solutions,
+        upvotes: problem.voteables.where(vote_type: true).count,
+        downvotes: problem.voteables.where(vote_type: false).count
     }.to_json.html_safe
     @problem
   end
