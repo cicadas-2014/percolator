@@ -7,7 +7,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( normalize.css )
-Rails.application.config.assets.precompile += %w( percolator.css.scss comments.css.scss style_guide.css.scss header.css.scss )
+Rails.application.config.assets.precompile += %w( percolator.css.scss comments.css.scss style_guide.css.scss header.css.scss fonts.css.scss )
 Rails.application.config.assets.precompile += %w( raphael.js raphael-animated-viewbox.js )
 Rails.application.config.assets.precompile += %w( BubbleMenu.js BubbleGraph.js Problem.js)
 Rails.application.config.assets.precompile += %w( percolator.js )
