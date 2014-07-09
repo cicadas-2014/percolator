@@ -66,6 +66,7 @@ Solution.prototype.animate = function (direction) { // only called during the in
 
 Solution.prototype.addEventListeners = function () {
     var saveLifer = this.lifeSaver
+    var delegate = this
 
     if (saveLifer) {
         var target = $("#" + this.lifeSaver)
@@ -94,6 +95,9 @@ Solution.prototype.addEventListeners = function () {
             if (!Percolator.isZooming) {
                 if (!saveLifer) {
                     BubbleGraph.solutions[this.id].animate("in")
+                } else {
+                    var parsedId = delegate.idParser(delegate.id)
+                    BubbleMenu.solutions[parsedId].animate("in")
                 }
             }
         },
@@ -101,6 +105,9 @@ Solution.prototype.addEventListeners = function () {
             if (!Percolator.isZooming) {
                 if (!saveLifer) {
                     BubbleGraph.solutions[this.id].animate("out")
+                } else {
+                    var parsedId = delegate.idParser(delegate.id)
+                    BubbleMenu.solutions[parsedId].animate("out")
                 }
             }
         }
@@ -123,3 +130,9 @@ Solution.prototype.createVoteFrame = function() {
        + "0123456789ABCDEF".charAt(n%16);
    }
 };
+
+Solution.prototype.idParser = function(id) {
+    var stringId = id.replace(/_/g, '')
+    var numId = parseInt(stringId, "10")
+    return numId
+}
