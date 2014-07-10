@@ -4,7 +4,7 @@ function Problem(posX, posY, raphael) {
     this.posY = posY;
     this.radius = 125;
     this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .05)).attr({fill: this.createVoteFrame(), stroke: 'none'});
-    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#37517F', stroke: "none"});
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#FFFFFF', stroke: "none"});
     this.sprite.node.id = 'problem';
     this.textSprite = undefined;
     this.createText();
@@ -28,7 +28,7 @@ Problem.prototype.createText = function () {
     }
 
     this.textSprite.attr("text", tempText);
-    this.textSprite.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
+    this.textSprite.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#000000"});
     this.textSprite.node.setAttribute("pointer-events", "none");
 };
 

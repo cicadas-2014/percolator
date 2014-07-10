@@ -14,11 +14,11 @@
         <% end %>
         </div>
         <% if current_user %>
-            <%= link_to new_problem_path class: "percolator_button" do %>
-                <div id="percolator_button">
-                    <p>start a discussion</p>
+            <div class="problem-container" onclick="location.href='<%=new_problem_path%>';" style="cursor: pointer;">
+                <div class="percolator_button">
+                    <input type="submit" value="start a discussion">
                 </div>
-            <% end %>
+           </div>
         <% end %>
     </div>
 </div>
