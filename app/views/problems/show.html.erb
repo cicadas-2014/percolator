@@ -3,42 +3,36 @@
 <% end %>
 
 <div id="canvas_container"></div>
-<div id="chart-popup">
-    <div id="bubble-container">
-    </div>
-    <div id="problem-container" class="hidden">
+<div id="detail-window">
+    <div id="bubble-container"></div>
 
-        <h2 class="synopsis">Synopsis</h2>
-        <div id="parent">
-            <div class="right">
-                <span class="upvote vote" id="upvote">
+    <div id="detail-window-problem-container">
+        <div class="detail-page-label" id="detail-page-title-header">Problem</div>
+        <div class="detail-page-text" id="detail-page-title"></div>
+        <div class="detail-page-label" id="detail-page-description-header">Description</div>
+        <div class="detail-page-text" id="detail-page-description"></div>
+        <div>
+            <button type="button" id="back">Back</button>
+            <button type="button" id="render-solution-form">Submit Solution</button>
+            <button type="button" id="improvement-button">Improve</button>
+        </div>
+        <div class="frame" id="improvement-form">
+            <%= render '/improvements/form' %>
+        </div>
+        <div class="frame" id="solution-form">
+            <%= render '/solutions/form' %>
+        </div>
+    </div>
+
+    <div class="vote-container">
+        <div class="detail-page-label">Vote:</div>
+                <span class="vote" id="upvote">
                     <image src="<%= image_path "thumbs-up.png" %>"/>
                 </span>
-                <span id="count"></span>
-                <span class="downvote vote" id="downvote">
+        <span id="count"></span>
+                <span class="vote" id="downvote">
                     <image src="<%= image_path "thumbs-down.png" %>"/><br>
                 </span>
-            </div>
-        <div id="synopsis" class="left">
-        </div>
-        </div>
-        <button type="button" id="back">BACK</button>
-        <button type="button" id="render-solution-form">Submit Solution</button>
-        <button type="button" id="improvement-button">Improve</button>
-        <div>
-<div class="frame" id="improvement-form">
-    <%= render '/improvements/form' %>
-</div>
-<div class="frame" id="solution-form">
-    <%= render '/solutions/form' %>
-</div>
-        </div>
     </div>
-    <div id="disqus_thread"></div>
 </div>
 
-
-<!--
-<div id="footer">
-     Click Me!
-</div> -->

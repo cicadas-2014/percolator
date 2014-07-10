@@ -18,18 +18,18 @@
                     <div class="header_button" onclick="location.href='/users/sign_up';" style="cursor: pointer;">Sign up</div>
                 </div>
             <% else %>
-            <div id="user_logout"><%= button_to('Logout', destroy_user_session_path, method: :delete) %></div>
-            <div id='welcome_message'>Welcome, <%= current_user.email %> | </div> 
-            <!-- <a href = '/users/sign_out'><button type="button" id="o_button">Logout</button></a> -->
+                <div id="user_login">
+                    <div id='welcome_message'><%= current_user.email %> | </div>
+                    <div id="user_logout"><%= button_to('Logout', destroy_user_session_path, method: :delete, id: "logout_button") %></div>
+                </div>
             <% end %>
             <br>
         </div>
         <div class="title-bar" id="page-title">
         </div>
-
         <%= render 'shared/notice_div' %>
 
         <%= yield %>
 
     </body>
-    </html>
+</html>

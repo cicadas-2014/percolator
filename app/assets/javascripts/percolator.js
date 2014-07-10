@@ -49,19 +49,19 @@ Percolator = {
             $("span.downvote").attr("id", "downvote");
             Percolator.isZooming = true;
             Percolator.currentState = "solution";
-            BubbleGraph.zoomOut(0, 0, zoomInOnSolution);
+            BubbleGraph.zoomOut(0, 0, Percolator.zoomInOnSolution);
             BubbleGraph.showSolutions();
             hideDetailWindow()
         }
+    },
+
+    zoomInOnSolution: function () {
+        var target = BubbleGraph.solutions[Percolator.solutionNumber];
+        var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+        BubbleGraph.zoomIn(posX, posY, showDetailWindow);
     }
 };
-
-function zoomInOnSolution() {
-    var target = BubbleGraph.solutions[Percolator.solutionNumber];
-    var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
-    var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
-    BubbleGraph.zoomIn(posX, posY, showDetailWindow);
-}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -69,11 +69,11 @@ jQuery.ajaxSetup({
 
 function addEventListeners() {
 
-    $('#chart-popup button#back').unbind('click').click(function () {
+    $('#detail-window-problem-container button#back').unbind('click').click(function () {
         zoomOut();
         hideDetailWindow();
     });
-    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
+    $('#detail-window-problem-container button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     });
 
@@ -94,7 +94,7 @@ function addEventListeners() {
 
 function showDetailWindow() {
     Percolator.isDetailWindowOpen = true;
-    $('#chart-popup').hide().slideDown(500);
+    $('#detail-window').hide().slideDown(500);
     BubbleMenu.init($.parseJSON(window.data).solutions);
     if (Percolator.currentState == "problem") {
         $('#render-solution-form').show();
@@ -108,7 +108,7 @@ function showDetailWindow() {
 
 function hideDetailWindow() {
     Percolator.isDetailWindowOpen = false;
-    $('#chart-popup').show().slideUp(500);
+    $('#detail-window').show().slideUp(500);
     $('#improvement-form').hide();
 }
 
@@ -136,8 +136,6 @@ function improvements(solutionNumber) {
         $('#improvement-form').hide();
     });
 }
-
-
 
 function zoomOut(){
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);
@@ -225,13 +223,7 @@ function downvote() {
         console.log(solutionNumber)
 
         if (Percolator.currentState === 'solution'){
-
-
-
             var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
-
-
-
             url = "/solution_downvote";
 
 
@@ -279,12 +271,11 @@ function downvote() {
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data);
-        $('#problem-container').removeClass('hidden');
-        $('#bubble-container').removeClass('hidden');
         $('#solution-form').hide();
         $("#improvement-form").hide();
-        $('#chart-popup').hide();
-        $('#synopsis')[0].innerHTML = problem.description;
+        $('#detail-window').hide();
+        $('#detail-page-title')[0].innerHTML = problem.title;
+        $('#detail-page-description')[0].innerHTML = problem.description;
         upvote();
         downvote();
         addEventListeners();

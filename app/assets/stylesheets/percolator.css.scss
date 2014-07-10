@@ -26,6 +26,11 @@ body {
   height: 100%;
 }
 
+h2, h3, h4, h5 {
+  font-family: Opificio;
+  color: $h2-5;
+}
+
 .container {
   width: 100%;
   height: 100%;
@@ -101,6 +106,17 @@ body {
   font-size: 18px;
 }
 
+#detail-window button {
+  margin-top: 20px;
+  font-size: 30px;
+  text-align: center;
+  font-family: Opificio;
+  background-color: #3A424F;
+  max-width: 300px;
+  border-radius: 10px;
+  border: 0px;
+}
+
 .header {
   input[type=submit] {
     margin-top: 20px;
@@ -110,6 +126,7 @@ body {
     text-align: center;
     font-family: Opificio;
     background-color: $header-submit-button;
+    max-width: 300px;
     max-width: 300px;
     border-radius: 10px;
     border: 0px;
@@ -143,39 +160,22 @@ body {
   z-index: 0;
 }
 
-#chart-popup {
+#detail-window {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  h1 {
-    font-family: Opificio;
-    color: $chart-popup-h1;
-  }
-}
-
-h2, h3, h4, h5 {
-  font-family: Opificio;
-  color: $h2-5;
+  background-color:$problem-container-background;
 }
 
 
-#chart-popup #problem-container {
-  position: relative;
+#detail-window-problem-container {
+
+  float: left;
   padding: 20px;
   height: 100%;
+  width: 70%;
   color: $problem-container-font;
-  background-color: $problem-container-background;
-  border-bottom: 1px solid $problem-container-btm-border;
-  z-index: 1;
-}
-
-#problem-container {
-  p {
-    color: $problem-container-font;
-  }
-  button {
-    color: $problem-container-button;
-    background-color: $problem-container-background;
-  }
 }
 
 #bubble-container {
@@ -210,16 +210,17 @@ h2, h3, h4, h5 {
 }
 
 #welcome_message {
-  padding-top: 30px;
+  padding-top: 28px;
   text-align:right;
-  font-size: 14px;
-  float: right;
+  font-size: 18px;
+  float: left;
 }
 
 #user_logout {
-  font-size: 14px;
-  text-align: right;
-  float: right;
+  float: left;
+}
+#logout_button {
+  font-size: 18px;
 }
 
 #posit_link a {
@@ -232,20 +233,12 @@ h2, h3, h4, h5 {
   color: inherit;
 }
 
-.upvote, .downvote {
-  padding-top: 10px;
-  position: relative;
-  float: left;
+.vote {
+  padding-left: 10px;
 }
 
 .hidden {
   display: none;
-}
-
-.comment-form {
-  display: inline-block;
-  clear: both;
-  float: left;
 }
 
 .centered {
@@ -359,6 +352,9 @@ h2, h3, h4, h5 {
 }
 
 .comment-form {
+  display: inline-block;
+  clear: both;
+  float: left;
   max-width: 65%;
   min-width: 65%;
   height: 50%;
@@ -385,32 +381,30 @@ h2, h3, h4, h5 {
   }
 }
 
-#parent {
-  overflow: hidden;
+.vote-container {
+  text-align: center;
+  float: left;
 }
 
-.right {
-  float: right;
-  padding-right: 21%;
+.detail-page-label {
+  font-size: 24px;
+  color: $problem-container-synopsis-title;
+  font-family: Opificio;
 }
 
-.left {
-  overflow: hidden;
-  width: 72%;
-}
-
-.synopsis{
-  font-size: 2em;
+#detail-page-text {
+  font-size: 18px;
   color: $problem-container-synopsis-title;
   font: Opificio;
 }
 
-#synopsis{
-  font-family: Opificio;
-  font-size: 1.25em;
-}
+.header input[type=submit] {
+  padding-top:8px;
+  vertical-align: middle;
+  font-size: 18px;
+  color: #6DA2FF;
 
-.frame {
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
+  font-family: Opificio;
+  background-color: #ffffff;
 }

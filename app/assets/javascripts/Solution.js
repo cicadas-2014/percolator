@@ -8,7 +8,7 @@ function Solution(posX, posY, id, raphael) {
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
     this.radius = 10 + (this.upvotes + this.downvotes) / 2;
-    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none', opacity: .5});
+    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none', opacity: 1});
     this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER", opacity: .5});
     this.sprite.node.id = id;
     this.textSprite = undefined;
@@ -28,7 +28,7 @@ Solution.prototype.createText = function () {
     var tempText = "";
     for (var i = 0; i < words.length; i++) {
         this.textSprite.attr("text", tempText + " " + words[i]);
-        if (this.textSprite.getBBox().width > (1.3 * this.radius)) {
+        if (this.textSprite.getBBox().width > (3.2 * this.radius)) {
             tempText += "\n" + words[i];
         } else {
             tempText += " " + words[i];
@@ -36,7 +36,7 @@ Solution.prototype.createText = function () {
     }
 
     this.textSprite.attr("text", tempText);
-    this.textSprite.attr({ "font-size": ((this.radius * .15) + 3), "font-family": "Opificio", "fill": "#FFFFFF"});
+    this.textSprite.attr({ "font-size": ((this.radius * .15) + 2), "font-family": "Opificio", "fill": "#555555"});
     this.textSprite.node.setAttribute("pointer-events", "none");
 };
 
@@ -53,9 +53,7 @@ Solution.prototype.animate = function (direction) { // only called during the in
 
 Solution.prototype.addEventListeners = function () {
     var delegate = this
-
     var target = delegate.original_id ? $("#" + this.original_id) : $('#' + this.id);
-    ///
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
