@@ -37,7 +37,6 @@ Problem.prototype.animate = function (direction) {
     var opacity = 1;
     this.sprite.animate({transform: scale}, 400);
     this.textSprite.animate({transform: scale}, 400);
-    this.textSprite.animate({opacity: opacity}, 300).toFront();
     this.frameSprite.animate({transform: scale}, 400);
     if (Percolator.currentState == "problem"){
         $('#render-solution-form').show();
@@ -50,12 +49,14 @@ Problem.prototype.animate = function (direction) {
 
 Problem.prototype.addEventListeners = function () {
     var target = $('#problem')
+    console.log(this);
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
                 Percolator.zoomIn();
                 Percolator.currentState = "problem";
                 BubbleGraph.hideSolutions();
+                BubbleGraph.problem.textSprite.animate({opacity: 0}, 1500);
                 if ($("#used_and_abused")) {
                     Comments.appendDiv("problems", document.URL.substring(document.URL.lastIndexOf('/') + 1));
                 } else {

@@ -115,5 +115,6 @@ BubbleGraph = {
 
     zoomOut: function (x, y, callback) {
         this.raphael.animateViewBox(x, y, this.width, this.height, 2000, '<>', callback);
+        BubbleGraph.problem.textSprite.animate({opacity: 1}, 1500);
     }
 };

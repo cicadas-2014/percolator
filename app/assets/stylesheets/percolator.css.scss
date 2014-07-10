@@ -218,9 +218,19 @@ h2, h3, h4, h5 {
 }
 
 #user_logout {
+<<<<<<< HEAD
   font-size: 14px;
   text-align: left;
   float: left;
+=======
+  padding-top: 10px;
+  text-align: right;
+  float: right;
+>>>>>>> a04ed7507201c5ba5fedfe4f6d7c36e51371a2c3
+}
+
+#user_logout #logout_button {
+  font-size: 14px;
 }
 
 #posit_link a {
@@ -411,4 +421,3 @@ h2, h3, h4, h5 {
   font-family: Opificio;
   background-color: #ffffff;
 }
-
