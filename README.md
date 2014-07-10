@@ -7,6 +7,9 @@ Team
 ==========
 
 [Indigo Nai](https://github.com/kurokoda)
+
 [Mario Marroquin](https://github.com/mario10king)
+
 [Simon Zhang](https://github.com/gitnasty)
+
 [Tim McClung](https://github.com/mcclungt)
