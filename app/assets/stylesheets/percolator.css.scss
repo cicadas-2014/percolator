@@ -309,7 +309,6 @@ h2, h3, h4, h5 {
     background-color: $frame-input-background;
     border-radius: 10px;
     border: 0px;
-    max-width: 17%;
   }
 }
 
@@ -409,4 +408,9 @@ h2, h3, h4, h5 {
 #synopsis{
   font-family: Opificio;
   font-size: 1.25em;
+}
+
+.frame {
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -136,7 +136,9 @@ Canvas = {
                         zoomIn(this);
                         if ($("#used_and_abused")) {
                             Comments.appendDiv("solutions", solutionNumber)
+                            console.log(solutionNumber)
                         } else {
+                            console.log(solutionNumber)
                             Comments.appendDiv("solutions", solutionNumber)
                         }
                         // replace comment form div elements with new for-looped comment HTML
