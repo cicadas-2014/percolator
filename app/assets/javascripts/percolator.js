@@ -302,16 +302,17 @@ $(document).ready(function () {
 });
 
 $(document).on("ajax:complete", function(event, xhr){
+    $("#comment_description").val(" ")
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
         console.log(parsedText)
         if (parsedText.saved === true) {
-            Comments.showCommentMessage(true)
+            // Comments.showCommentMessage(true)
             $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {
-            Comments.showCommentMessage(false)
+            // Comments.showCommentMessage(false)
         } else if (parsedText.save_status === true) {
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
