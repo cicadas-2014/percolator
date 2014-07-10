@@ -8,7 +8,7 @@
     </div>
     <div id="problem-container" class="hidden">
 
-        <h3>Synopsis</h3>
+        <h2 class="synopsis">Synopsis</h2>
         <div id="parent">
             <div class="right">
                 <span class="upvote vote" id="upvote">
@@ -26,18 +26,18 @@
         <button type="button" id="render-solution-form">Submit Solution</button>
         <button type="button" id="improvement-button">Improve</button>
         <div>
+<div class="frame" id="improvement-form">
+    <%= render '/improvements/form' %>
+</div>
         </div>
     </div>
     <div id="disqus_thread"></div>
 </div>
 
-<div class="frame" id="solution-form">
-    <%= render '/solutions/form' %>
-</div>
 
-<div class="frame" id="improvement-form">
-    <%= render '/improvements/form' %>
-</div>
+<!-- <div id="solution-form">
+    <%= render '/solutions/form' %>
+</div> -->
 <!--
 <div id="footer">
      Click Me!
