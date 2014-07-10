@@ -22,7 +22,7 @@ BubbleMenu = {
             BubbleMenu.raphael.remove();
             clearTimeout(this.animationTimeout);
         }
-        this.data = $.parseJSON(window.data).solutions;
+        this.data = Percolator.solutions;
         this.element = $("#bubble-container");
         this.width = this.element.width();
         this.height = this.element.height();

@@ -56,7 +56,7 @@ Canvas = {
     },
     createText: function () {
         text = this.RAPHAEL.text(this.WIDTH / 2, this.HEIGHT / 2);
-        var content = $.parseJSON(window.data).title;
+        var content = Percolator.problem.title;
         var tempText = this.wrapText(content);
         text.attr("text", tempText.substring(1));
         text.attr({ "font-size": 20, "font-family": "Opificio", "fill": "#BAD3FF"});
@@ -65,7 +65,7 @@ Canvas = {
     createSolutions: function () {
         var radians = 0;
         var maxRadians = 2 * Math.PI;
-        var solutions = $.parseJSON(window.data).solutions
+        var solutions = Percolator.problem.solutions
         var step = (2 * Math.PI) / solutions.length;
         for (var i = 0; i < solutions.length; i++) {
             var radius = this.RADIUS + (50 * (i % 2));
@@ -84,7 +84,7 @@ Canvas = {
         var solution = this.RAPHAEL.circle(posX, posY, this.SOLUTION_RADIUS).attr({fill: this.SOLUTION_COLOR, stroke: "none"});
         solution.id = id;
         solution.node.id = id;
-        var solutionText = this.RAPHAEL.text(posX, posY).attr("text", $.parseJSON(window.data).solutions[id].title).attr({opacity: 0, "font-family": "Opificio", "fill": "white"});
+        var solutionText = this.RAPHAEL.text(posX, posY).attr("text", Percolator.problem.solutions[id].title).attr({opacity: 0, "font-family": "Opificio", "fill": "white"});
         solutionText.node.setAttribute('pointer-events', 'none');
         // var frame = this.RAPHAEL.circle(posX, posY, (this.SOLUTION_RADIUS + 50)).attr({fill: solution.frameColor, stroke: "none"});
         var solutionWithText = this.RAPHAEL.set();

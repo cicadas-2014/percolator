@@ -15,7 +15,7 @@ Problem.prototype.createText = function () {
 
     this.textSprite = this.raphael.text(this.posX, this.posY).attr({opacity: 1});
 
-    var text = $.parseJSON(window.data).title;
+    var text = Percolator.problem.title;
     var words = text.split(" ");
     var tempText = "";
     for (var i = 0; i < words.length; i++) {

@@ -3,10 +3,10 @@ function Solution(posX, posY, id, raphael) {
     this.targetWidth = 200;
     this.posX = posX;
     this.posY = posY;
-    this.data = $.parseJSON(window.data).solutions[id];
+    this.data = Percolator.problem.solutions[id];
     this.raphael = raphael;
-    this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
-    this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
+    this.upvotes = Percolator.solutions[this.id].upvotes;
+    this.downvotes = Percolator.solutions[this.id].downvotes;
     this.radius = 10 + (this.upvotes + this.downvotes) / 2;
     this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none', opacity: 1});
     this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER", opacity: .5});
@@ -19,7 +19,7 @@ function Solution(posX, posY, id, raphael) {
 Solution.prototype.createText = function () {
     this.textSprite = this.raphael.text(this.posX, (this.posY - 5)).attr({opacity: 0});
 
-    var text = $.parseJSON(window.data).solutions[this.id].title || "Failure";
+    var text = Percolator.solutions[this.id].title || "Failure";
     if (text.length > 55) {
         text = text.substring(0, 45) + "...";
     };
@@ -57,14 +57,15 @@ Solution.prototype.addEventListeners = function () {
     target.bind({
         click: function () {
             if (!Percolator.isZooming) {
+                Percolator.solutionNumber = delegate.id;
                 if (Percolator.isDetailWindowOpen == false) {
                     delegate.original_id ? Percolator.zoomIn($("#" + delegate.original_id)[0]) : Percolator.zoomIn(this);
                     Percolator.currentState = "solution";
-                    Comments.appendDiv("solutions", solutionNumber)
+                    Comments.appendDiv("solutions", solutionNumber);
+
                 }
                 else
                 {
-                    Percolator.solutionNumber = delegate.id;
                     Percolator.zoomOutAndZoomInOnSolution()
                 }
             }

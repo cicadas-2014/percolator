@@ -7,6 +7,7 @@ Percolator = {
     stage2SolutionNumber: undefined,
     currentState: undefined,
     isDetailWindowOpen: false,
+    problem: undefined,
 
 
     zoomIn: function (target) {
@@ -27,14 +28,14 @@ Percolator = {
             // if (!BubbleMenu.zoomCount)
             // if (solutionNumber)
 
-                $("#synopsis").html($.parseJSON(window.data).solutions[solutionNumber].description);
+                $("#synopsis").html(Percolator.solutions[solutionNumber].description);
         }
         else {
             posX = (BubbleGraph.width / 2) - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
             posY = (BubbleGraph.height / 2) - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
             $("span.upvote").attr("id", "problem_upvote");
             $("span.downvote").attr("id", "problem_downvote");
-            $("#synopsis").html($.parseJSON(window.data).description)
+            $("#synopsis").html(Percolator.problem.description)
         }
         Percolator.isZooming = true;
         BubbleGraph.zoomIn(posX, posY, zoomInComplete);
@@ -42,8 +43,6 @@ Percolator = {
     },
     zoomOutAndZoomInOnSolution: function () {
         var target = BubbleGraph.solutions[Percolator.solutionNumber];
-        var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
-        var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
         if (target) {
             $("span.upvote").attr("id", "upvote");
             $("span.downvote").attr("id", "downvote");
@@ -93,15 +92,25 @@ function addEventListeners() {
 // GTG
 
 function showDetailWindow() {
+    Percolator.isZooming = false;
     Percolator.isDetailWindowOpen = true;
     $('#detail-window').hide().slideDown(500);
-    BubbleMenu.init($.parseJSON(window.data).solutions);
+    BubbleMenu.init(Percolator.solutions);
     if (Percolator.currentState == "problem") {
         $('#render-solution-form').show();
         $("#improvement-button").hide();
+        $("#detail-page-title-header").text("problem");
+        $("#detail-page-title").text(Percolator.problem.title);
+        $("#detail-page-description-header").text( "description");
+        $("#detail-page-description").text( Percolator.problem.description);
+
     } else {
         $('#render-solution-form').hide();
         $("#improvement-button").show();
+        $("#detail-page-title-header").text("solution");
+        $("#detail-page-title").text(Percolator.solutions[Percolator.solutionNumber].title);
+        $("#detail-page-description-header").text("description");
+        $("#detail-page-description").text(Percolator.problem.solutions[Percolator.solutionNumber].description);
     }
     ;
 }
@@ -122,7 +131,7 @@ function improvements(solutionNumber) {
 
     $('#improvement-form').show();
 
-    id = $.parseJSON(window.data).solutions[solutionNumber].id;
+    id = Percolator.solutions[solutionNumber].id;
     $('.Improve').on("click",function(e){
         e.preventDefault();
         var args = {};
@@ -164,7 +173,7 @@ function upvote() {
 
 
 
-            var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+            var solutionId =Percolator.solutions[solutionNumber].id
 
 
 
@@ -223,7 +232,7 @@ function downvote() {
         console.log(solutionNumber)
 
         if (Percolator.currentState === 'solution'){
-            var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
+            var solutionId = Percolator.solutions[solutionNumber].id
             url = "/solution_downvote";
 
 
@@ -270,12 +279,11 @@ function downvote() {
 
 $(document).ready(function () {
     if ($("#canvas_container").length) {
-        var problem = $.parseJSON(window.data);
+        Percolator.problem = $.parseJSON(window.data);
+        Percolator.solutions = $.parseJSON(window.data).solutions;
         $('#solution-form').hide();
         $("#improvement-form").hide();
         $('#detail-window').hide();
-        $('#detail-page-title')[0].innerHTML = problem.title;
-        $('#detail-page-description')[0].innerHTML = problem.description;
         upvote();
         downvote();
         addEventListeners();
@@ -307,10 +315,10 @@ $(document).on("ajax:complete", function(event, xhr){
         } else if (parsedText.save_status === true) {
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
-            window.data = parsedText.problem;
-            var solutions = $.parseJSON(window.data).solutions;
-            BubbleGraph.init(window.data)
-            BubbleMenu.init(solutions);
+            Percolator.problem = $.parseJSON(parsedText.problem);
+            Percolator.solutions = $.parseJSON(parsedText.problem).solutions;
+            BubbleGraph.init(Percolator.problem)
+            BubbleMenu.init(Percolator.solutions);
             $("#improvement-form").find("input[type=text], textarea").val("");
             $("#improvement-form").hide();
         } else {
