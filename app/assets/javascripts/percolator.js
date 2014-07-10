@@ -225,13 +225,7 @@ function downvote() {
         console.log(solutionNumber)
 
         if (Percolator.currentState === 'solution'){
-
-
-
             var solutionId = $.parseJSON(window.data).solutions[solutionNumber].id
-
-
-
             url = "/solution_downvote";
 
 
@@ -279,12 +273,11 @@ function downvote() {
 $(document).ready(function () {
     if ($("#canvas_container").length) {
         var problem = $.parseJSON(window.data);
-        $('#problem-container').removeClass('hidden');
-        $('#bubble-container').removeClass('hidden');
         $('#solution-form').hide();
         $("#improvement-form").hide();
         $('#chart-popup').hide();
-        $('#synopsis')[0].innerHTML = problem.description;
+        $('#detail-page-title')[0].innerHTML = problem.title;
+        $('#detail-page-description')[0].innerHTML = problem.description;
         upvote();
         downvote();
         addEventListeners();
