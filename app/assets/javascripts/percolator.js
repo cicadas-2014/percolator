@@ -113,7 +113,7 @@ function hideDetailWindow() {
 }
 
 function renderSolutionForm() {
-    $(solutionForm).before("#problem-container");
+    // $(solutionForm).before("#problem-container");
     $("#solution-form").show();
     $("#new_solution").show();
 }
