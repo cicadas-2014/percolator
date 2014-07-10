@@ -109,11 +109,11 @@ function showDetailWindow() {
 function hideDetailWindow() {
     Percolator.isDetailWindowOpen = false;
     $('#chart-popup').show().slideUp(500);
+    $('#improvement-form').hide();
 }
 
 function renderSolutionForm() {
-    var solutionForm = $('#solution-form').detach();
-    $(solutionForm).appendTo("#problem-container");
+    $(solutionForm).before("#problem-container");
     $("#solution-form").show();
     $("#new_solution").show();
 }
@@ -302,16 +302,17 @@ $(document).ready(function () {
 });
 
 $(document).on("ajax:complete", function(event, xhr){
+    $("#comment_description").val(" ")
     if (xhr.readyState === 4 && xhr.status === 200) {
         $("target").innerHTML = xhr.responseText
         var parsedText = $.parseJSON(xhr.responseText)
         console.log(parsedText)
         if (parsedText.saved === true) {
-            Comments.showCommentMessage(true)
+            // Comments.showCommentMessage(true)
             $(".comment-form").append(Comments.commentHTML(parsedText.commentable_type, parsedText.description,
                 parsedText.username))
         } else if (parsedText.saved === false) {
-            Comments.showCommentMessage(false)
+            // Comments.showCommentMessage(false)
         } else if (parsedText.save_status === true) {
             $("#solution-form").find("input[type=text], textarea").val("");
             $("#solution-form").hide();
@@ -326,11 +327,11 @@ $(document).on("ajax:complete", function(event, xhr){
     }
 });
 
-$(window).resize(function () {
-    if ($("#canvas_container").length) {
-        BubbleGraph.init();
-    }
-    if ($("#bubble-container").length) {
-        BubbleMenu.init(BubbleMenu.data);
-    }
-});
+// $(window).resize(function () {
+//     if ($("#canvas_container").length) {
+//         BubbleGraph.init();
+//     }
+//     if ($("#bubble-container").length) {
+//         BubbleMenu.init(BubbleMenu.data);
+//     }
+// });

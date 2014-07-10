@@ -39,6 +39,8 @@ BubbleMenu = {
             var uniqueIdGenerator = this.lifeSavingString.repeat(this.zoomCount) + i
 
             var solution = new Solution(pos, this.height / 2, uniqueIdGenerator, this.raphael);
+            // var imageRadius = (solution.radius + (solution.radius * .1)) * 2
+            // this.raphael.image("../assets/bubble.png", pos - 35, this.height / 2, imageRadius, imageRadius)
             solution.addEventListeners()
             this.solutions.push(solution);
         }

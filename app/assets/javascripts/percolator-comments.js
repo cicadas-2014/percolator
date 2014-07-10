@@ -53,14 +53,15 @@ Comments = {
                 comments.push(Comments.commentHTML(commentCategory, type, username))
             }
         $(".comment-form").append(comments)
+
         })
     },
 
-    showCommentMessage: function(validity){
-        if (validity === true) {
-            $(".comment-form").before('<div class="comment-save-pass">Comment Saved!!</div>')
-        } else {
-            $(".comment-form").before('<div class="comment-save-fail">Comment failed to save... ):</div>')
-        }
-    }
+    // showCommentMessage: function(validity){
+    //     if (validity === true) {
+    //         $(".comment-form").before('<div class="comment-save-pass">Comment Saved!!</div>')
+    //     } else {
+    //         $(".comment-form").before('<div class="comment-save-fail">Comment failed to save... ):</div>')
+    //     }
+    // }
 }
