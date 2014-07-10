@@ -26,6 +26,11 @@ body {
   height: 100%;
 }
 
+h2, h3, h4, h5 {
+  font-family: Opificio;
+  color: $h2-5;
+}
+
 .container {
   width: 100%;
   height: 100%;
@@ -156,30 +161,22 @@ body {
 }
 
 #detail-window {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  h1 {
-    font-family: Opificio;
-    color: $chart-popup-h1;
-  }
-}
-
-h2, h3, h4, h5 {
-  font-family: Opificio;
-  color: $h2-5;
+  background-color:$problem-container-background;
 }
 
 
 #detail-window-problem-container {
-  position: relative;
+
   float: left;
   padding: 20px;
   height: 100%;
   width: 70%;
   color: $problem-container-font;
-  background-color: $problem-container-background;
   border-bottom: 1px solid $problem-container-btm-border;
-  z-index: 1;
 }
 
 #bubble-container {
@@ -214,9 +211,9 @@ h2, h3, h4, h5 {
 }
 
 #welcome_message {
-  padding-top: 32px;
+  padding-top: 28px;
   text-align:right;
-  font-size: 14px;
+  font-size: 18px;
   float: left;
 }
 
@@ -402,5 +399,16 @@ h2, h3, h4, h5 {
   font-size: 18px;
   color: $problem-container-synopsis-title;
   font: Opificio;
+}
+
+.header input[type=submit] {
+  padding-top:8px;
+  vertical-align: middle;
+  font-size: 18px;
+  color: #6DA2FF;
+
+  text-align: center;
+  font-family: Opificio;
+  background-color: #ffffff;
 }
 

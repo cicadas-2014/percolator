@@ -69,11 +69,11 @@ jQuery.ajaxSetup({
 
 function addEventListeners() {
 
-    $('#chart-popup button#back').unbind('click').click(function () {
+    $('#detail-window-problem-container button#back').unbind('click').click(function () {
         zoomOut();
         hideDetailWindow();
     });
-    $('#chart-popup button#render-solution-form').unbind('click').click(function () {
+    $('#detail-window-problem-container button#render-solution-form').unbind('click').click(function () {
         renderSolutionForm();
     });
 
@@ -94,7 +94,7 @@ function addEventListeners() {
 
 function showDetailWindow() {
     Percolator.isDetailWindowOpen = true;
-    $('#chart-popup').hide().slideDown(500);
+    $('#detail-window').hide().slideDown(500);
     BubbleMenu.init($.parseJSON(window.data).solutions);
     if (Percolator.currentState == "problem") {
         $('#render-solution-form').show();
@@ -108,7 +108,7 @@ function showDetailWindow() {
 
 function hideDetailWindow() {
     Percolator.isDetailWindowOpen = false;
-    $('#chart-popup').show().slideUp(500);
+    $('#detail-window').show().slideUp(500);
     $('#improvement-form').hide();
 }
 
@@ -275,7 +275,7 @@ $(document).ready(function () {
         var problem = $.parseJSON(window.data);
         $('#solution-form').hide();
         $("#improvement-form").hide();
-        $('#chart-popup').hide();
+        $('#detail-window').hide();
         $('#detail-page-title')[0].innerHTML = problem.title;
         $('#detail-page-description')[0].innerHTML = problem.description;
         upvote();
