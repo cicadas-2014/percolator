@@ -157,6 +157,7 @@ h2, h3, h4, h5 {
   color: $h2-5;
 }
 
+
 #chart-popup #problem-container {
   position: relative;
   padding: 20px;
@@ -335,13 +336,15 @@ h2, h3, h4, h5 {
   border-top:10px solid transparent;
   border-bottom:10px solid transparent;
   border-right: 12px solid #FFF;
-  position:absolute;
+  // position:absolute;
   left:-10px;
   top:12px;
 }
 
 .bubble {
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bubble-content {
@@ -357,21 +360,29 @@ h2, h3, h4, h5 {
 }
 
 .comment-form {
-  max-width: 80%;
+  max-width: 65%;
+  min-width: 65%;
   height: 50%;
   overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
   ._comment_{
-    width: 70%;
+    width: 96%;
     font-size: 0.5em;
   }
   textarea {
-    width: 72%;
+    width: 90%;
     height: 10%;
+    min-height: 5%;
     font-size: 1em;
   }
   .comment-user {
     font-size: 1.5em;
     color: #6da2ff;
+  }
+  input[type=submit] {
+    margin-right: 10%;
+    float: right;
   }
 }
 
@@ -388,23 +399,14 @@ h2, h3, h4, h5 {
   overflow: hidden;
   width: 72%;
 }
-/*
-#footer {
-    height: 40px;
-    position: fixed;
-    left: 50px;
-    right: 50px;
-    bottom: 0px;
-    color: #fff;
-    text-align: center;
-    background-color: #FE6960;
-    border-top: 1px solid #000;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    border-radius: 5px 5px 0 0;
-    z-index: 999;
-    font-family: arial;
-    text-transform: uppercase;
-    padding-top: 10px;
-    z-index: 1;
-}*/
+
+.synopsis{
+  font-size: 2em;
+  color: $problem-container-synopsis-title;
+  font: Opificio;
+}
+
+#synopsis{
+  font-family: Opificio;
+  font-size: 1.25em;
+}

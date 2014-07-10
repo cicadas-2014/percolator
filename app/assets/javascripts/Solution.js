@@ -8,8 +8,8 @@ function Solution(posX, posY, id, raphael) {
     this.upvotes = $.parseJSON(window.data).solutions[this.id].upvotes;
     this.downvotes = $.parseJSON(window.data).solutions[this.id].downvotes;
     this.radius = 10 + (this.upvotes + this.downvotes) / 2;
-    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none'});
-    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER"});
+    this.frameSprite = raphael.circle(posX, posY, this.radius + (this.radius * .1)).attr({fill: this.createVoteFrame(), stroke: 'none', opacity: .5});
+    this.sprite = raphael.circle(posX, posY, this.radius).attr({fill: '#6DA2FF', stroke: "none", XXX: "SIGNIFIER", opacity: .5});
     this.sprite.node.id = id;
     this.textSprite = undefined;
     this.createText();

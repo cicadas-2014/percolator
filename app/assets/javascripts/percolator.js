@@ -109,11 +109,11 @@ function showDetailWindow() {
 function hideDetailWindow() {
     Percolator.isDetailWindowOpen = false;
     $('#chart-popup').show().slideUp(500);
+    $('#improvement-form').hide();
 }
 
 function renderSolutionForm() {
-    var solutionForm = $('#solution-form').detach();
-    $(solutionForm).appendTo("#problem-container");
+    $(solutionForm).before("#problem-container");
     $("#solution-form").show();
     $("#new_solution").show();
 }
@@ -327,11 +327,11 @@ $(document).on("ajax:complete", function(event, xhr){
     }
 });
 
-$(window).resize(function () {
-    if ($("#canvas_container").length) {
-        BubbleGraph.init();
-    }
-    if ($("#bubble-container").length) {
-        BubbleMenu.init(BubbleMenu.data);
-    }
-});
+// $(window).resize(function () {
+//     if ($("#canvas_container").length) {
+//         BubbleGraph.init();
+//     }
+//     if ($("#bubble-container").length) {
+//         BubbleMenu.init(BubbleMenu.data);
+//     }
+// });
