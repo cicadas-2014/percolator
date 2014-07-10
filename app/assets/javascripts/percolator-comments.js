@@ -30,7 +30,7 @@ Comments = {
             $(".comment-form").empty();
             this.appendCommentBox(type, typeId);
         } else {
-            $("#problem-container").append(this.divHTML())
+            $("#detail-window-problem-container").append(this.divHTML())
             this.appendCommentBox(type, typeId);
         }
     },
@@ -38,7 +38,6 @@ Comments = {
     appendCommentBox: function(type, typeId){
         $(".comment-form").append(this.formHTML(type, typeId))
         this.queryCommentDatabase(type, typeId)
-        // this.addFormListener(type, typeId);
     },
 
     queryCommentDatabase: function(commentCategory, typeId){
