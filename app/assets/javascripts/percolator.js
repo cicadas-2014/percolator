@@ -49,19 +49,19 @@ Percolator = {
             $("span.downvote").attr("id", "downvote");
             Percolator.isZooming = true;
             Percolator.currentState = "solution";
-            BubbleGraph.zoomOut(0, 0, zoomInOnSolution);
+            BubbleGraph.zoomOut(0, 0, Percolator.zoomInOnSolution);
             BubbleGraph.showSolutions();
             hideDetailWindow()
         }
+    },
+
+    zoomInOnSolution: function () {
+        var target = BubbleGraph.solutions[Percolator.solutionNumber];
+        var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
+        var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
+        BubbleGraph.zoomIn(posX, posY, showDetailWindow);
     }
 };
-
-function zoomInOnSolution() {
-    var target = BubbleGraph.solutions[Percolator.solutionNumber];
-    var posX = target.sprite.attrs.cx - ((BubbleGraph.width / 2) * BubbleGraph.ZOOM_MAX);
-    var posY = target.sprite.attrs.cy - ((BubbleGraph.height / 2) * BubbleGraph.ZOOM_MAX);
-    BubbleGraph.zoomIn(posX, posY, showDetailWindow);
-}
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -136,8 +136,6 @@ function improvements(solutionNumber) {
         $('#improvement-form').hide();
     });
 }
-
-
 
 function zoomOut(){
     BubbleGraph.zoomOut(0, 0, zoomOutComplete);

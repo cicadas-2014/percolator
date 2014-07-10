@@ -176,7 +176,6 @@ h2, h3, h4, h5 {
   height: 100%;
   width: 70%;
   color: $problem-container-font;
-  border-bottom: 1px solid $problem-container-btm-border;
 }
 
 #bubble-container {
@@ -218,13 +217,10 @@ h2, h3, h4, h5 {
 }
 
 #user_logout {
-  font-size: 14px;
-  text-align: left;
   float: left;
 }
-
-#user_logout #logout_button {
-  font-size: 14px;
+#logout_button {
+  font-size: 18px;
 }
 
 #posit_link a {
@@ -243,12 +239,6 @@ h2, h3, h4, h5 {
 
 .hidden {
   display: none;
-}
-
-.comment-form {
-  display: inline-block;
-  clear: both;
-  float: left;
 }
 
 .centered {
@@ -362,6 +352,9 @@ h2, h3, h4, h5 {
 }
 
 .comment-form {
+  display: inline-block;
+  clear: both;
+  float: left;
   max-width: 65%;
   min-width: 65%;
   height: 50%;
