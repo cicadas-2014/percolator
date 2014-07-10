@@ -252,16 +252,9 @@ h2, h3, h4, h5 {
   text-align: center;
 }
 
-#percolator_button {
+.percolator_button {
   margin-right: auto;
   margin-left: auto;
-  font-size: 30px;
-  text-align: center;
-  font-family: Opificio;
-  background-color: $percolator-button-background;
-  color: $percolator-font-color;
-  max-width: 300px;
-  border-radius: 10px;
 }
 
 .problem {
@@ -305,6 +298,8 @@ h2, h3, h4, h5 {
     border-radius: 10px;
   }
   input[type=submit] {
+    vertical-align: middle;
+    color: $frame-button-font-color;
     margin-top: 20px;
     margin-right: auto;
     margin-left: auto;

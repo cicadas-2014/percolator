@@ -1,13 +1,25 @@
----------
- buglist
----------
+-dummy data
+-animation only works once
+-css votes -----------s
+-bubble menu buttons placement
+-problem title
+-sign up forms edit text
+-add title to problems and solutions
+-flash on sign in -------t
+-handle blank solution filed when no solution present
+-making sass into css --------t
 
-- back button fails sometimes
 
-- sometimes solution nodes disappear after zooming out
+-solution can appear outside chart boundaries
+-shrink upvote buttons
+-cant vote when signed out
+-no solutions window without solutions
+-remove improvemetn form button
+-remove comments box when no logged in
+-turn question mark to hover
+-fix error meassages for start of a discusssion
+-window resizing
+-refactor js
+-refactor css
+-tests
 
-- weird display for problem view
-
-- sometimes it takes a refresh after loading the graphic view
-
-- extra scroll space (on my computer) below nodes
