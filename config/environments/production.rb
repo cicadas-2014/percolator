@@ -60,7 +60,7 @@ Rails.application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += %w( search.js )
   config.assets.precompile += %w( normalize.css )
-  config.assets.precompile += %w( percolator.css.scss comments.css.scss style_guide.css.scss header.css.scss fonts.css.scss)
+  config.assets.precompile += %w( percolator.css comments.css.scss style_guide.css.scss header.css.scss fonts.css.scss)
   config.assets.precompile += %w( raphael.js raphael-animated-viewbox.js )
   config.assets.precompile += %w( BubbleMenu.js BubbleGraph.js Problem.js)
   config.assets.precompile += %w( percolator.js )
