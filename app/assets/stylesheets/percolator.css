@@ -1,34 +1,27 @@
-@import "style_guide";
-
 * {
   box-sizing: border-box;
-  // overflow: hidden;
 }
 
 @font-face {
   font-family: Opificio;
   src: '../fonts/Opificio.ttf';
 }
-
-
 @font-face {
   font-family: OpificioBold;
   src: asset-url("Opificio_Bold.ttf");
 }
-
-
 html {
   height: 100%;
 }
 
 body {
-  background-color: $body-background;
+  background-color: #6D91C0;
   height: 100%;
 }
 
 h2, h3, h4, h5 {
   font-family: Opificio;
-  color: $h2-5;
+  color: #6D92FF;
 }
 
 .container {
@@ -43,33 +36,27 @@ h2, h3, h4, h5 {
 #problem-menu {
   margin-left: auto;
   margin-right: auto;
-  //max-width: 600px;
-  //min-width: 600px;
-  .problem-container {
-    padding: 5px;
-    width: 100%;
-    //background-color: #FF0000;
-  }
-  .problem {
-    float: left;
-    height: 100%;
-    padding: 5px;
-    max-width: 500px;
-    text-align: left;
-    //background-color: #FFFFAA;
-  }
-  .problem a {
-    color: $problem-link;
-    text-decoration: none;
-  }
+}
+#problem-menu .problem-container {
+  padding: 5px;
+  width: 100%;
+}
+#problem-menu .problem {
+  float: left;
+  height: 100%;
+  padding: 5px;
+  max-width: 500px;
+  text-align: left;
+}
+#problem-menu .problem a {
+  color: #666666;
+  text-decoration: none;
 }
 
 .bubble-button-container {
-  //float: right;
   padding-top: 10px;
   height: 80px;
   vertical-align: center;
-  //background-color: #FF00FF;
 }
 
 .bubble-button {
@@ -80,8 +67,8 @@ h2, h3, h4, h5 {
   user-select: none;
   font-family: Opificio;
   padding-top: 4px;
-  color: $bubble-button-font;
-  background-color: $bubble-button-background;
+  color: #FFF;
+  background-color: #6DA2FF;
   font-size: 14px;
   border-radius: 50px;
   max-width: 30px;
@@ -93,8 +80,8 @@ h2, h3, h4, h5 {
 .header {
   min-height: 74px;
   font-family: Opificio;
-  color: $header-color;
-  background-color: $header-background;
+  color: #6DA2FF;
+  background-color: #FFFFFF;
   font-size: 36px;
   width: 100%;
   vertical-align: middle;
@@ -123,38 +110,36 @@ h2, h3, h4, h5 {
   margin-left: 20px;
 }
 
-.header {
-  input[type=submit] {
-    margin-top: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 30px;
-    text-align: center;
-    font-family: Opificio;
-    background-color: $header-submit-button;
-    max-width: 300px;
-    max-width: 300px;
-    border-radius: 10px;
-    border: 0px;
-  }
-  image {
-    float: left;
-  }
-  .brand {
-    float: left;
-    padding-top: 11px;
-    padding-left: 20px;
-  }
+.header input[type=submit] {
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 30px;
+  text-align: center;
+  font-family: Opificio;
+  background-color: #FFFFFF;
+  max-width: 300px;
+  max-width: 300px;
+  border-radius: 10px;
+  border: 0px;
+}
+.header image {
+  float: left;
+}
+.header .brand {
+  float: left;
+  padding-top: 11px;
+  padding-left: 20px;
 }
 
 .title-bar {
   width: 100%;
-  background-color: $title-bar-background-color;
-  border-top: 2px solid $title-bar-top-border;
-  border-bottom: 2px solid $title-bar-bottom-border;
+  background-color: #BAD3FF;
+  border-top: 2px solid #6DA2FF;
+  border-bottom: 2px solid #6DA2FF;
   font-family: Opificio;
   min-height: 5px;
-  color: $title-bar-font-color;
+  color: #3A424F;
   font-size: 14pt;
   text-align: center;
 }
@@ -171,22 +156,20 @@ h2, h3, h4, h5 {
   z-index: 1;
   width: 100%;
   height: 100%;
-  background-color:$problem-container-background;
+  background-color: #6D91C0;
 }
 
-
 #detail-window-problem-container {
-
   float: left;
   padding: 20px;
   height: 100%;
   width: 70%;
-  color: $problem-container-font;
+  color: #FFFFFF;
 }
 
 #bubble-container {
   position: relative;
-  background-color: $bubble-container-background;
+  background-color: #3A424F;
   width: 100%;
   min-height: 250px;
   z-index: 2;
@@ -194,9 +177,9 @@ h2, h3, h4, h5 {
 
 .solution {
   width: 100%;
-  background-color: $solution-background;
+  background-color: #FFF;
   font-family: arial;
-  color: $solution-font-color;
+  color: #37517F;
   font-size: 12pt;
   text-align: center;
   padding: 5px;
@@ -209,15 +192,15 @@ h2, h3, h4, h5 {
 
 #user_login {
   float: right;
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+}
+#user_login a {
+  text-decoration: none;
+  color: inherit;
 }
 
 #welcome_message {
   padding-top: 28px;
-  text-align:right;
+  text-align: right;
   font-size: 18px;
   float: left;
 }
@@ -225,12 +208,13 @@ h2, h3, h4, h5 {
 #user_logout {
   float: left;
 }
+
 #logout_button {
   font-size: 18px;
 }
 
 #posit_link a {
-  color: $posit-link;
+  color: #ffffff;
 }
 
 .brand a {
@@ -256,10 +240,8 @@ h2, h3, h4, h5 {
   margin-left: auto;
 }
 
-.problem {
-  &:link, &:visited, &:hover, &:active {
-    text-decoration: none;
-  }
+.problem:link, .problem:visited, .problem:hover, .problem:active {
+  text-decoration: none;
 }
 
 #new_problem {
@@ -275,39 +257,39 @@ h2, h3, h4, h5 {
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  color: $frame-font-color;
+  color: #bbbbbb;
   font-family: Opificio;
   font-size: 24px;
   max-width: 640px;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 40px;
-  background-image: url('../images/congruent_outline.png');
-  border: 1px solid $frame-border;
-  input {
-    width: 560px;
-    border-radius: 10px;
-    border: 3px solid $frame-input-border;
-  }
-  textarea {
-    width: 560px;
-    height: 200px;
-    border: 3px solid $frame-textarea-border;
-    border-radius: 10px;
-  }
-  input[type=submit] {
-    vertical-align: middle;
-    color: $frame-button-font-color;
-    margin-top: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 30px;
-    text-align: center;
-    font-family: Opificio;
-    background-color: $frame-input-background;
-    border-radius: 10px;
-    border: 0px;
-  }
+  background-image: url("../images/congruent_outline.png");
+  border: 1px solid #000000;
+}
+.frame input {
+  width: 560px;
+  border-radius: 10px;
+  border: 3px solid #6DA2FF;
+}
+.frame textarea {
+  width: 560px;
+  height: 200px;
+  border: 3px solid #6DA2FF;
+  border-radius: 10px;
+}
+.frame input[type=submit] {
+  vertical-align: middle;
+  color: #FFFFFF;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 30px;
+  text-align: center;
+  font-family: Opificio;
+  background-color: #3A424F;
+  border-radius: 10px;
+  border: 0px;
 }
 
 .popup_form label {
@@ -325,10 +307,6 @@ h2, h3, h4, h5 {
   color: red;
 }
 
-// .comment_form {
-//   float: right;
-// }
-
 ._comment {
   padding: 10px;
 }
@@ -340,20 +318,18 @@ h2, h3, h4, h5 {
 }
 
 .bubble-content {
-  position:relative;
-  float:left;
-  margin-left:12px;
+  position: relative;
+  float: left;
+  margin-left: 12px;
   margin-top: 12px;
   width: 75%;
-  padding:0px 20px;
-  border-radius:10px;
-  background-color:#FFFFFF;
-  box-shadow:1px 1px 5px rgba(0,0,0,.2);
+  padding: 0px 20px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .comment-form {
-  //  display: inline-block;
-  //  clear: both;
   background-color: #ff00ff;
   float: left;
   max-width: 65%;
@@ -361,25 +337,25 @@ h2, h3, h4, h5 {
   overflow-y: scroll;
   margin-left: auto;
   margin-right: auto;
-  ._comment_{
-    width: 96%;
-    font-size: 36px;
-  }
-  textarea {
-    width: 90%;
-    height: 10%;
-    min-height: 5%;
-    font-size: 36px;
-  }
-  .comment-user {
-    margin-top:10px;
-    font-size: 28px;
-    color: #6da2ff;
-  }
-  input[type=submit] {
-    margin-right: 10%;
-    float: right;
-  }
+}
+.comment-form ._comment_ {
+  width: 96%;
+  font-size: 36px;
+}
+.comment-form textarea {
+  width: 90%;
+  height: 10%;
+  min-height: 5%;
+  font-size: 36px;
+}
+.comment-form .comment-user {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #6da2ff;
+}
+.comment-form input[type=submit] {
+  margin-right: 10%;
+  float: right;
 }
 
 .vote-container {
@@ -391,7 +367,7 @@ h2, h3, h4, h5 {
 .detail-page-label {
   border-bottom: 1px solid black;
   font-size: 36px;
-  color: $problem-container-synopsis-title;
+  color: #3A424F;
   font-family: Opificio;
 }
 
@@ -403,11 +379,10 @@ h2, h3, h4, h5 {
 }
 
 .header input[type=submit] {
-  padding-top:8px;
+  padding-top: 8px;
   vertical-align: middle;
   font-size: 18px;
   color: #6DA2FF;
-
   text-align: center;
   font-family: Opificio;
   background-color: #ffffff;
@@ -419,6 +394,6 @@ h2, h3, h4, h5 {
 }
 
 .comment-description {
-  font-size: 24px;
-  margin:10px;
+  font-size: 18px;
+  margin: 10px;
 }
