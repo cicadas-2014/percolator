@@ -3,6 +3,9 @@ percolator
 
 Crowdsourcing problem solving, coffeeshop style. Ideation platform that allows users to pose problems and discuss possible solutions, complete with colorful visual displays.
 
+Website
+==========
+http://percolator.herokuapp.com
 Team
 ==========
 
