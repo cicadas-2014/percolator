@@ -275,7 +275,6 @@ h2, h3, h4, h5 {
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
   color: $frame-font-color;
   font-family: Opificio;
   font-size: 24px;
@@ -331,12 +330,7 @@ h2, h3, h4, h5 {
 // }
 
 ._comment {
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;
-  border-right: 12px solid #FFF;
-  // position:absolute;
-  left:-10px;
-  top:12px;
+  padding: 10px;
 }
 
 .bubble {
@@ -358,27 +352,28 @@ h2, h3, h4, h5 {
 }
 
 .comment-form {
-  display: inline-block;
-  clear: both;
+  //  display: inline-block;
+  //  clear: both;
+  background-color: #ff00ff;
   float: left;
   max-width: 65%;
-  min-width: 65%;
-  height: 50%;
+  height: 350px;
   overflow-y: scroll;
   margin-left: auto;
   margin-right: auto;
   ._comment_{
     width: 96%;
-    font-size: 0.5em;
+    font-size: 36px;
   }
   textarea {
     width: 90%;
     height: 10%;
     min-height: 5%;
-    font-size: 1em;
+    font-size: 36px;
   }
   .comment-user {
-    font-size: 1.5em;
+    margin-top:10px;
+    font-size: 28px;
     color: #6da2ff;
   }
   input[type=submit] {
@@ -416,4 +411,14 @@ h2, h3, h4, h5 {
   text-align: center;
   font-family: Opificio;
   background-color: #ffffff;
+}
+
+#improvement-form {
+  background-color: #ff00ff;
+  float: left;
+}
+
+.comment-description {
+  font-size: 24px;
+  margin:10px;
 }

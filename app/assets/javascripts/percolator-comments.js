@@ -20,8 +20,9 @@ Comments = {
         // took out commentId---wasn't sure if it was necessary
         var comment =   '<div class="point"></div>' +
                         '<div class="' + type + '-comment _comment_ bubble-content">' +
-                        '<div class="comment-description">' + description + '</div>' +
-                        '<div class="comment-user">' + user + '</div>'
+                        '<div class="comment-user">' + user + '</div>' +
+                        '<div class="comment-description">' + description + '</div>'
+
         return comment
     },
 
